@@ -84,7 +84,7 @@ export default {
             clearTimeout(this.playTimer);
             this.playTimer = setTimeout(() => {
                 this.nextPage();
-            }, 1000);
+            }, 2000);
         }
     }
 }
@@ -99,6 +99,7 @@ export default {
         overflow: hidden;
         white-space: nowrap;
         .content {
+            height: 150px;
             list-style-type: none;
             li {
                 height: 150px;

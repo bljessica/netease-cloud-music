@@ -1,0 +1,14 @@
+/* 改变Element-ui el-tabs的字体颜色 */
+.el-tabs__item.is-active, .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    color: red;
+}
+.el-tabs--border-card>.el-tabs__header .el-tabs__item:not(.is-disabled):hover{
+    color: red;
+}
+
+/* 改变Element-ui el-button的颜色 */
+.el-button--default:active, .el-button--default:focus, .el-button--default:hover {
+    color: red;
+    border-color: rgba(255, 0, 0, 0.555);
+    background-color: rgba(255, 0, 0, 0.096);
+}

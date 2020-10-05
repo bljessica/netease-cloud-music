@@ -70,6 +70,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+    padding-bottom: 15px;
+}
     .title-bar {
         // width: 100%;
         padding: 0 10px;

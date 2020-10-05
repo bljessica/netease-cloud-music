@@ -1,4 +1,5 @@
 const phone = state => state.phone;
+const email = state => state.email;
 const username = state => state.username
 const userID = state => state.userID
 const isLogin = state => state.isLogin
@@ -11,8 +12,9 @@ const gender = state => state.gender
 const nickname = state => state.nickname
 const province = state => state.province
 const token = state => state.token
+const playListCount = state => state.playListCount
 
-export {
+export default {
     phone,
     username,
     userID,
@@ -25,5 +27,6 @@ export {
     gender,
     nickname,
     province,
-    token
+    token,
+    playListCount
 }

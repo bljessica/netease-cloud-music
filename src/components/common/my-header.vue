@@ -1,16 +1,28 @@
 <template>
     <div class="container">
+        <!-- 菜单 -->
         <span class="menu li">
             <i class="iconfont icon-caidan"></i>
             <span class="msgNum">9</span>
         </span>
-        <span class="mine li" :class="{active: selected == 'mine'}">我的</span>
-        <span class="find li" :class="{active: selected == 'find'}">发现</span>
+        <!-- 我的 -->
+        <span class="mine li" :class="{active: selected == 'mine'}">
+            <router-link :to="'/mine'">我的</router-link>
+        </span>
+        <!-- 发现 -->
+        <span class="find li" :class="{active: selected == 'find'}">
+            <router-link :to="'/find'">发现</router-link>
+        </span>
+        <!-- 云村 -->
         <span class="cloud li" :class="{active: selected == 'cloud'}">
-            云村
+            <router-link :to="'/'">云村</router-link>
             <i class="new li"></i>
         </span>
-        <span class="video li" :class="{active: selected == 'video'}">视频</span>
+        <!-- 视频 -->
+        <span class="video li" :class="{active: selected == 'video'}">
+            <router-link :to="'/'">视频</router-link>
+        </span>
+        <!-- 搜索 -->
         <i class="iconfont icon-sousuo search li"></i>
     </div>
 </template>
@@ -33,6 +45,10 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        a {
+            text-decoration: none;
+            color: black;
+        }
         .li {
             flex: 1 1 100px;
             &.active {

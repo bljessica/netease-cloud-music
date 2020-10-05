@@ -1,5 +1,6 @@
 const state = {
     phone: '',
+    email: '',
     username: '',
     userID: '',
     isLogin: false,
@@ -11,7 +12,8 @@ const state = {
     gender: 0,
     nickname: '',
     province: '',
-    token: ''
+    token: '',
+    playListCount: 0
 };
 
 export default state;

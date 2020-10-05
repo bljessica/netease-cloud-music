@@ -101,6 +101,7 @@ export default {
             text-align: left;
             li {
                 width: 105px;
+                height: 150px;
                 display: inline-block;
                 margin-right: 10px;
                 .img {
@@ -125,6 +126,7 @@ export default {
                     width: 105px;
                     font-size: 14px;
                     line-height: 20px;
+                    height: 40px;
                     //文本超出两行显示省略号
                     text-overflow: -o-ellipsis-lastline;
                     overflow: hidden;

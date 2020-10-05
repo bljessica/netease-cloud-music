@@ -28,17 +28,24 @@ const mutations = {
     [types.SET_PHONE](state, phone) {
         state.phone = phone;
     },
+    [types.SET_EMAIL](state, email) {
+        state.email = email;
+    },
     [types.SET_PROVINCE](state, province) {
         state.province = province;
     },
     [types.SET_TOKEN](state, token) {
         state.token = token;
+        localStorage.setItem('X-Token', token);
     },
     [types.SET_USERNAME](state, username) {
         state.username = username;
     },
     [types.SET_USER_ID](state, userID) {
         state.userID = userID;
+    },
+    [types.SET_PLAY_LIST_COUNT](state, playListCount) {
+        state.playListCount = playListCount;
     }
 }
 

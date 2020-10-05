@@ -36,7 +36,7 @@ const mutations = {
     },
     [types.SET_TOKEN](state, token) {
         state.token = token;
-        localStorage.setItem('X-Token', token);
+        // localStorage.setItem('X-Token', token);
     },
     [types.SET_USERNAME](state, username) {
         state.username = username;

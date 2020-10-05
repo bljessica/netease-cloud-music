@@ -14,12 +14,12 @@
             <router-link :to="'/find'">发现</router-link>
         </span>
         <!-- 云村 -->
-        <span class="cloud li" :class="{active: selected == 'cloud'}">
+        <span class="cloud li" :class="{active: selected == 'cloud'}" >
             <router-link :to="'/'">云村</router-link>
             <i class="new li"></i>
         </span>
         <!-- 视频 -->
-        <span class="video li" :class="{active: selected == 'video'}">
+        <span class="video li" :class="{active: selected == 'video'}" >
             <router-link :to="'/'">视频</router-link>
         </span>
         <!-- 搜索 -->

@@ -20,9 +20,10 @@ service.interceptors.request.use(
         //则更新vuex中的token状态。然后，在每次请求接口的时候，都会在请求的header中携带token，
         //服务器就可以根据你携带的token来判断你的登录是否过期，如果没有携带，则说明没有登录过。
         //如果有token,就给头部带上token
-        if(localStorage.getItem('X-Token')) {
-            config.headers['X-Token'] = localStorage.getItem('X-Token');
-        }
+        //网易云api自动加上了cookies验证信息
+        // if(localStorage.getItem('X-Token')) {
+        //     config.headers['X-Token'] = localStorage.getItem('X-Token');
+        // }
         return config;
     },
     error => {

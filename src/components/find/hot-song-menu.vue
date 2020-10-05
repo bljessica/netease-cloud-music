@@ -39,7 +39,10 @@ export default {
     },
     methods: {
         getPlayNum(item) {
-            if(item.playCount >= 10000) {
+            if(item.playCount >= 100000000) {
+                return (item.playCount / 100000000).toFixed(1) + '亿';
+            }
+            else if(item.playCount >= 10000) {
                 return Math.round(item.playCount / 10000) + '万';
             }
             else {

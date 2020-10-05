@@ -1,6 +1,6 @@
 # netease-cloud-music
 
-> 仿制网易云音乐app
+> 此项目为网易云音乐app前端界面，后端使用网易云音乐NodeJS版API
 
 ## 运行
 

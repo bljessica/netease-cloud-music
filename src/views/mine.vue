@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import myHeader from '../components/my-header';
+import myHeader from '../components/common/my-header';
 
 export default {
     components: {

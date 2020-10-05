@@ -1,20 +1,29 @@
 <template>
     <div class="container">
         <my-header></my-header>
+        <!-- 轮播图 -->
         <banner :bannersData="bannerImgs" class="banner"></banner>
+        <!-- 导航按钮栏 -->
+        <nav-btns></nav-btns>
+        <!-- 人气歌单推荐 -->
+        <hot-song-menu></hot-song-menu>
     </div>
 </template>
 
 <script>
-import myHeader from '../components/my-header';
-import banner from '../components/banner';
+import myHeader from '../components/common/my-header';
+import banner from '../components/common/banner';
+import navBtns from '../components/find/nav-btns';
+import hotSongMenu from '../components/find/hot-song-menu';
 import { Message } from 'element-ui';
 import { getBanner } from '../api/find';
 
 export default {
     components: {
         myHeader,
-        banner
+        banner,
+        navBtns,
+        hotSongMenu
     },
     data() {
         return {
@@ -35,7 +44,7 @@ export default {
                 Message({
                     message: err,
                     type: 'warning',
-                    showClose: true
+                    duration: 2000
                 })
             })
         }
@@ -44,12 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .container {
-        position: relative;
-        .banner {
-            // position: relative;
-            // top: 90px;
-        }
-    }
     
 </style>

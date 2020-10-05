@@ -8,6 +8,15 @@ function getBanner() {
     })
 }
 
+//发现页：人气歌单推荐
+function getSuggestHotMenu() {
+    return request({
+        url: '/personalized',
+        method: 'get'
+    })
+}
+
 export {
-    getBanner
+    getBanner,
+    getSuggestHotMenu
 }

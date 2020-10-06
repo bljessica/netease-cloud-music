@@ -1,4 +1,3 @@
-import { Message } from 'element-ui';
 
 function verifyPhone(value) {
     if(!value) {

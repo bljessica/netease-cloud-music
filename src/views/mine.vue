@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <!-- 头部导航栏 -->
-        <my-header :selected="'mine'"></my-header>
+        <my-header :selected="'mine'" class="header"></my-header>
         <!-- 用户信息 -->
         <div class="userinfo">
             <img :src="avatarUrl" alt="头像" class="avatar">
@@ -18,6 +18,8 @@
         <mine-nav-btns></mine-nav-btns>
         <!-- 我喜欢的音乐 -->
         <love-songs></love-songs>
+        <!-- 歌单导航栏 -->
+        <menu-tabs></menu-tabs>
     </div>
 </template>
 
@@ -25,14 +27,15 @@
 import myHeader from '../components/common/my-header';
 import mineNavBtns from '../components/mine/mine-nav-btns';
 import loveSongs from '../components/mine/love-songs';
+import menuTabs from '../components/mine/menu-tabs';
 import { getUserInfo } from '../api/mine';
-import { Message } from 'element-ui';
 
 export default {
     components: {
         myHeader,
         mineNavBtns,
-        loveSongs
+        loveSongs,
+        menuTabs
     },
     data() {
         return {
@@ -50,12 +53,12 @@ export default {
             getUserInfo({
                 uid: that.$store.getters.userID
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 that.level = res.data.level;
                 that.nickname = res.data.profile.nickname;
                 that.avatarUrl = res.data.profile.avatarUrl;
             }).catch(err => {
-                Message({
+                that.Message({
                     message: err,
                     type: 'warning',
                     duration: 1000
@@ -92,7 +95,7 @@ export default {
             width: 70px;
             height: 20px;
             position: absolute;
-            bottom: 20px;
+            bottom: 24px;
             left: 78px;
             background: #bebdbd;
             border-radius: 10px;
@@ -123,7 +126,7 @@ export default {
             height: 20px;
             line-height: 20px;
             position: absolute;
-            bottom: 20px;
+            bottom: 24px;
             left: 160px;
             background: white;
             border-radius: 10px;

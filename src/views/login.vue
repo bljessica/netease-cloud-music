@@ -34,7 +34,6 @@
 
 <script>
 import '../styles/common.css';
-import { Message } from 'element-ui';
 import { mapMutations } from 'vuex';
 import { phoneLogin, emailLogin } from '../api/login';
 import { verifyEmail, verifyLoginPassword, verifyPhone} from '../utils/verifyInput';
@@ -58,7 +57,7 @@ export default {
             let veriPhone = verifyPhone(this.phone);
             let veriPwd = verifyLoginPassword(this.password);
             if(veriPhone.error) {
-                Message({
+                that.Message({
                     message: veriPhone.msg,
                     type: 'warning',
                     duration: 1000
@@ -66,7 +65,7 @@ export default {
                 return;
             }
             if(veriPwd.error) {
-                Message({
+                that.Message({
                     message: veriPwd.msg,
                     type: 'warning',
                     duration: 1000
@@ -80,7 +79,7 @@ export default {
             }).then(res => {
                 console.log(res.data)
                 if(res.data.code !== 200) {
-                    Message({
+                    that.Message({
                         message: res.data.msg,
                         type: 'warning',
                         duration: 1000
@@ -92,7 +91,7 @@ export default {
                 that.password = '';
                 that.$router.push('/find');
             }).catch(err => {
-                Message({
+                that.Message({
                     message: err,
                     type: 'warning',
                     duration: 2000
@@ -103,7 +102,7 @@ export default {
             let veriEmail = verifyEmail(this.email);
             let veriPwd = verifyLoginPassword(this.password);
             if(veriEmail.error) {
-                Message({
+                that.Message({
                     message: veriEmail.msg,
                     type: 'warning',
                     duration: 1000
@@ -111,7 +110,7 @@ export default {
                 return;
             }
             if(veriPwd.error) {
-                Message({
+                that.Message({
                     message: veriPwd.msg,
                     type: 'warning',
                     duration: 1000
@@ -125,7 +124,7 @@ export default {
             }).then(res => {
                 console.log(res.data)
                 if(res.data.code !== 200) {
-                    Message({
+                    that.Message({
                         message: res.data.msg,
                         type: 'warning',
                         duration: 1000
@@ -137,7 +136,7 @@ export default {
                 that.password = '';
                 that.$router.push('/find');
             }).catch(err => {
-                Message({
+                that.Message({
                     message: err,
                     type: 'warning',
                     duration: 2000

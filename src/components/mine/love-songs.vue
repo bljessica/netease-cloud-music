@@ -21,11 +21,33 @@
 </template>
 
 <script>
+import { getLikeList } from '../../api/mine';
+
 export default {
     data() {
         return {
             total: 0,
             downLoadNum: 0
+        }
+    },
+    mounted() {
+        this.getLikeList();
+    },
+    methods: {
+        getLikeList() {
+            let that = this;
+            getLikeList({
+                uid: that.$store.getters.userID
+            }).then(res => {
+                // console.log(res.data);
+                that.total = res.data.ids.length;
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                })
+            })
         }
     }
 }
@@ -56,8 +78,7 @@ export default {
                 }
             }
             .songs {
-                position: relative;
-                right: 20px;
+                text-align: left;
                 .num {
                     font-size: 12px;
                     color: #b8b6b6;

@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { Message } from 'element-ui';
 import { getSuggestHotMenu } from '../../api/find';
 import BScroll from '@better-scroll/core';
 
@@ -55,7 +54,7 @@ export default {
                 console.log(res.data.result);
                 that.menu = res.data.result;
             }).catch(err => {
-                Message({
+                that.Message({
                     message: err,
                     type: 'warning',
                     duration: 2000

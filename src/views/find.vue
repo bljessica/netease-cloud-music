@@ -15,7 +15,6 @@ import myHeader from '../components/common/my-header';
 import banner from '../components/common/banner';
 import navBtns from '../components/find/nav-btns';
 import hotSongMenu from '../components/find/hot-song-menu';
-import { Message } from 'element-ui';
 import { getBanner } from '../api/find';
 
 export default {
@@ -41,7 +40,7 @@ export default {
                 console.log(res.data);
                 that.bannerImgs = res.data.banners;
             }).catch(err => {
-                Message({
+                that.Message({
                     message: err,
                     type: 'warning',
                     duration: 2000

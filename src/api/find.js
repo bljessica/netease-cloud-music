@@ -1,6 +1,6 @@
 import request from '../utils/request';
 
-//发现页：轮播图
+//发现：轮播图
 function getBanner() {
     return request({
         url: '/banner',
@@ -8,7 +8,7 @@ function getBanner() {
     })
 }
 
-//发现页：人气歌单推荐
+//发现：人气歌单推荐
 function getSuggestHotMenu() {
     return request({
         url: '/personalized',

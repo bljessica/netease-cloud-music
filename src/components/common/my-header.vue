@@ -1,29 +1,31 @@
 <template>
-    <div class="container">
-        <!-- 菜单 -->
-        <span class="menu li">
-            <i class="iconfont icon-caidan"></i>
-            <span class="msgNum">9</span>
-        </span>
-        <!-- 我的 -->
-        <span class="mine li" :class="{active: selected == 'mine'}">
-            <router-link :to="'/mine'">我的</router-link>
-        </span>
-        <!-- 发现 -->
-        <span class="find li" :class="{active: selected == 'find'}">
-            <router-link :to="'/find'">发现</router-link>
-        </span>
-        <!-- 云村 -->
-        <span class="cloud li" :class="{active: selected == 'cloud'}" >
-            <router-link :to="'/'">云村</router-link>
-            <i class="new li"></i>
-        </span>
-        <!-- 视频 -->
-        <span class="video li" :class="{active: selected == 'video'}" >
-            <router-link :to="'/'">视频</router-link>
-        </span>
-        <!-- 搜索 -->
-        <i class="iconfont icon-sousuo search li"></i>
+    <div class="wrapper">
+        <div class="container">
+            <!-- 菜单 -->
+            <span class="menu li">
+                <i class="iconfont icon-caidan"></i>
+                <span class="msgNum">9</span>
+            </span>
+            <!-- 我的 -->
+            <span class="mine li" :class="{active: selected == 'mine'}">
+                <router-link :to="'/mine'">我的</router-link>
+            </span>
+            <!-- 发现 -->
+            <span class="find li" :class="{active: selected == 'find'}">
+                <router-link :to="'/find'">发现</router-link>
+            </span>
+            <!-- 云村 -->
+            <span class="cloud li" :class="{active: selected == 'cloud'}" >
+                <router-link :to="'/'">云村</router-link>
+                <i class="new li"></i>
+            </span>
+            <!-- 视频 -->
+            <span class="video li" :class="{active: selected == 'video'}" >
+                <router-link :to="'/'">视频</router-link>
+            </span>
+            <!-- 搜索 -->
+            <i class="iconfont icon-sousuo search li"></i>
+        </div>
     </div>
 </template>
 
@@ -39,12 +41,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+    height: 70px;
     .container {
         width: 100%;
         height: 70px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: fixed;
+        z-index: 1000;
+        background: #faf6f6;
         a {
             text-decoration: none;
             color: black;
@@ -92,4 +99,5 @@ export default {
             }
         }
     }
+}
 </style>

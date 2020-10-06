@@ -62,8 +62,9 @@ export default {
             height: 100px;
             background: white;
             border-radius: 10px;
+            padding: 0 15px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             .pic {
                 background: rgba(255, 0, 0, 0.199);
@@ -79,6 +80,8 @@ export default {
             }
             .songs {
                 text-align: left;
+                flex-grow: 1;
+                padding: 0 10px;
                 .num {
                     font-size: 12px;
                     color: #b8b6b6;

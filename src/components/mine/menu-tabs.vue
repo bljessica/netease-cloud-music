@@ -1,17 +1,22 @@
 <template>
     <div class="container">
         <div class="tab-nav">
-            <span class="create" :class="{active: activeTab === 1}" @click="activeTab = 1">创建歌单</span>
-            <span class="collect" :class="{active: activeTab === 2}" @click="activeTab = 2">收藏歌单</span>
+            <a href="#create">
+                <span class="create" :class="{active: activeTab === 1}" @click="activeTab = 1">创建歌单</span>
+            </a>
+            <a href="#collect">
+                <span class="collect" :class="{active: activeTab === 2}" @click="activeTab = 2">收藏歌单</span>
+            </a>
             <span class="helper" :class="{active: activeTab === 3}" @click="activeTab = 3">歌单助手</span>
         </div>
-        <div class="create-menu">
+        <!-- 创建歌单 -->
+        <div class="create-menu" id="create">
             <div class="menu-title">
-                <span class="title">创建歌单({{ menuNum }}个)</span>
+                <span class="title">创建歌单({{ createdMenuNum }}个)</span>
                 <i class="iconfont icon-jia"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
-            <ul class="createdMenus">
+            <ul class="created-menus">
                 <li v-for="(item, index) in createdMenus" :key="index">
                     <img :src="item.coverImgUrl" alt="" class="img">
                     <div class="info">
@@ -31,6 +36,25 @@
                 </li>
             </ul>
         </div>
+        <!-- 收藏歌单 -->
+        <div class="collect-menu" id="collect">
+            <div class="menu-title">
+                <span class="title">收藏歌单({{ collectedMenuNum }}个)</span>
+                <i class="iconfont icon-jia" style="opacity: 0; visibility: hidden;"></i>
+                <i class="iconfont icon-gengduo1"></i>
+            </div>
+            <ul class="collected-menus">
+                <li v-for="(item, index) in collectedMenus" :key="index">
+                    <img :src="item.coverImgUrl" alt="" class="img">
+                    <div class="info">
+                        <div class="name">{{ item.name }}</div>
+                        <div class="num">{{ item.trackCount }}首</div>
+                    </div>
+                    <i class="iconfont icon-gengduo1"></i>
+                </li>
+            </ul>
+        </div>
+        <!-- 歌单助手 -->
     </div>
 </template>
 
@@ -39,9 +63,11 @@ import { getPlayLists } from '../../api/mine';
 export default {
     data() {
         return {
-            menuNum: 0,
+            createdMenuNum: 0,
+            collectedMenuNum: 0,
             createdMenus: [],
-            activeTab: 1
+            activeTab: 1,
+            collectedMenus: []
         }
     },
     mounted() {
@@ -57,7 +83,11 @@ export default {
                 that.createdMenus = res.data.playlist.filter(item => {
                     return item.subscribed === false;
                 }).slice(1);
-                that.menuNum = that.createdMenus.length;
+                that.collectedMenus = res.data.playlist.filter(item => {
+                    return item.subscribed === true;
+                });
+                that.createdMenuNum = that.createdMenus.length;
+                that.collectedMenuNum = that.collectedMenus.length;
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -77,10 +107,14 @@ export default {
             position: sticky;
             top: 70px;
             background: #faf6f6;
-            height: 50px;
+            height: 30px;
             display: flex;
             justify-content: space-around;
-            align-items: center;
+            align-items: flex-end;
+            a {
+                text-decoration: none;
+                color: black;
+            }
             span {
                 display: inline-block;
                 padding-bottom: 3px;
@@ -91,7 +125,8 @@ export default {
                 font-weight: bold;
             }
         }
-        .create-menu {
+        .create-menu, .collect-menu {
+            margin-top: 10px;
             background: white;
             border-radius: 10px;
             padding: 0 15px;
@@ -109,13 +144,17 @@ export default {
                     margin-right: 15px;
                 }
             }
-            .createdMenus {
+            .created-menus, .collected-menus {
+                padding-bottom: 10px;
                 li {
                     height: 50px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     margin-bottom: 10px;
+                    &:last-of-type {
+                        margin-bottom: 0;
+                    }
                     .img {
                         width: 50px;
                         height: 50px;
@@ -131,6 +170,13 @@ export default {
                     .info {
                         width: 200px;
                         text-align: left;
+                        flex-grow: 1;
+                        padding: 0 10px;
+                        .name {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
                         .num {
                             font-size: 12px;
                             color: #b8b6b6;

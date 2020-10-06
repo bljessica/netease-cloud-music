@@ -17,20 +17,22 @@
         <!-- 功能导航按钮 -->
         <mine-nav-btns></mine-nav-btns>
         <!-- 我喜欢的音乐 -->
-        
+        <love-songs></love-songs>
     </div>
 </template>
 
 <script>
 import myHeader from '../components/common/my-header';
 import mineNavBtns from '../components/mine/mine-nav-btns';
+import loveSongs from '../components/mine/love-songs';
 import { getUserInfo } from '../api/mine';
 import { Message } from 'element-ui';
 
 export default {
     components: {
         myHeader,
-        mineNavBtns
+        mineNavBtns,
+        loveSongs
     },
     data() {
         return {
@@ -66,7 +68,7 @@ export default {
 
 <style lang="scss" scoped>
     .userinfo {
-        padding: 20px 0;
+        padding: 20px 10px;
         height: 60px;
         margin-left: 10px;
         text-align: left;

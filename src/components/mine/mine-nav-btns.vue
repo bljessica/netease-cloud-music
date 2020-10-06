@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    padding: 0 10px;
+    padding: 0 15px;
     .nav-btns {
         padding: 10px 0;
         height: 140px;

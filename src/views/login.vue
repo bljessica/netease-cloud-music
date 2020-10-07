@@ -57,7 +57,7 @@ export default {
             let veriPhone = verifyPhone(this.phone);
             let veriPwd = verifyLoginPassword(this.password);
             if(veriPhone.error) {
-                that.Message({
+                this.Message({
                     message: veriPhone.msg,
                     type: 'warning',
                     duration: 1000
@@ -65,7 +65,7 @@ export default {
                 return;
             }
             if(veriPwd.error) {
-                that.Message({
+                this.Message({
                     message: veriPwd.msg,
                     type: 'warning',
                     duration: 1000

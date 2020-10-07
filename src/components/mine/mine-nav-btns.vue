@@ -45,6 +45,11 @@ export default {
             .name {
                 font-size: 12px;
             }
+            &:last-of-type {
+                i {
+                    color: rgb(190, 186, 186);
+                }
+            }
         }
     }
 }

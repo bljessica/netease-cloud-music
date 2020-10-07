@@ -13,6 +13,24 @@ const service = axios.create({
 
 //axios请求拦截器
 service.interceptors.request.use(
+    response => {
+        // console.log(response);
+        //拼装get请求参数
+        if(response.method === 'get') {
+            if(!response.data) {
+                return response;
+            }
+            let data = response.data;
+            let queryStr = '';
+            Object.keys(data).forEach(key => {
+                queryStr += key + '=' + data[key] + '&';
+            });
+            if(queryStr.length != 0) {
+                response.url += '?' + queryStr.substring(0, queryStr.length - 1);
+            }
+        }
+        return response;
+    },
     //在发送请求之前做什么
     config => {
         // 一般是在登录完成之后，将用户的token通过localStorage或者cookie存在本地，

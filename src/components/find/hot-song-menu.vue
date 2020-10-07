@@ -9,7 +9,7 @@
                 <li v-for="item in menu.slice(0, 6)" :key="item.id">
                     <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                         <span class="play-amount">
-                            <i class="iconfont icon-bofang1"></i>
+                            <i class="iconfont icon-bofangsanjiaoxing"></i>
                             <span class="num">{{ getPlayNum(item) }}</span>
                         </span>
                     </div>
@@ -120,6 +120,9 @@ export default {
                         font-size: 14px;
                         i {
                             font-size: 12px;
+                            position: relative;
+                            top: -2px;
+                            left: 2px;
                         }
                     }
                 }

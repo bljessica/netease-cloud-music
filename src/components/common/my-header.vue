@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="container">
+        <div class="container" :style="{background: selected == 'mine'? '#faf6f6': 'white'}">
             <!-- 菜单 -->
             <span class="menu li">
                 <i class="iconfont icon-caidan"></i>
@@ -16,8 +16,8 @@
             </span>
             <!-- 云村 -->
             <span class="cloud li" :class="{active: selected == 'cloud'}" >
-                <router-link :to="'/'">云村</router-link>
-                <i class="new li"></i>
+                <router-link :to="'/cloud'">云村</router-link>
+                <i class="new li" v-if="selected != 'cloud'"></i>
             </span>
             <!-- 视频 -->
             <span class="video li" :class="{active: selected == 'video'}" >

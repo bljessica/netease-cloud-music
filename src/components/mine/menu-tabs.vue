@@ -10,7 +10,9 @@
             <span class="helper" :class="{active: activeTab === 3}" @click="activeTab = 3">歌单助手</span>
         </div>
         <!-- 创建歌单 -->
-        <div class="create-menu" id="create">
+        <!-- 暗锚 -->
+        <a name="create" style="position: relative;top: -90px;"></a>
+        <div class="create-menu">
             <div class="menu-title">
                 <span class="title">创建歌单({{ createdMenuNum }}个)</span>
                 <i class="iconfont icon-jia"></i>
@@ -37,7 +39,9 @@
             </ul>
         </div>
         <!-- 收藏歌单 -->
-        <div class="collect-menu" id="collect">
+        <!-- 暗锚 -->
+        <a name="collect" style="position: relative;top: -90px;"></a>
+        <div class="collect-menu">
             <div class="menu-title">
                 <span class="title">收藏歌单({{ collectedMenuNum }}个)</span>
                 <i class="iconfont icon-jia" style="opacity: 0; visibility: hidden;"></i>

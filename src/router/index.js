@@ -30,13 +30,22 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register.vue')
+    },
+    {
+      path: '/cloud',
+      name: 'cloud',
+      component: () => import('@/views/cloud.vue')
+    },
+    {
+      path: '/hotCommentsWall',
+      name: 'hotCommentsWall',
+      component: () => import('@/views/hotCommentsWall.vue')
     }
   ]
 });
 
 //路由守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
-  console.log(to.name, from.name, store.getters.token)
   if(to.path === '/login' || to.path === '/register' || to.path === '/') {
       next();
   }

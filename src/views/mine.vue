@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container" @click="menuShow = false" ref="container">
         <!-- 头部导航栏 -->
-        <my-header :selected="'mine'" class="header"></my-header>
+        <my-header :selected="'mine'" class="header" @menuShow="menuShowAction"></my-header>
         <!-- 用户信息 -->
         <div class="userinfo">
             <img :src="avatarUrl" alt="头像" class="avatar">
@@ -20,6 +20,7 @@
         <love-songs></love-songs>
         <!-- 歌单导航栏 -->
         <menu-tabs></menu-tabs>
+        <my-menu v-if="menuShow"></my-menu>
     </div>
 </template>
 
@@ -27,6 +28,7 @@
 import myHeader from '../components/common/my-header';
 import mineNavBtns from '../components/mine/mine-nav-btns';
 import loveSongs from '../components/mine/love-songs';
+import myMenu from '../components/common/my-menu';
 import menuTabs from '../components/mine/menu-tabs';
 import { getUserInfo } from '../api/mine';
 
@@ -35,19 +37,24 @@ export default {
         myHeader,
         mineNavBtns,
         loveSongs,
-        menuTabs
+        menuTabs,
+        myMenu
     },
     data() {
         return {
             nickname: '',
             level: 0,
-            avatarUrl: ''
+            avatarUrl: '',
+            menuShow: false
         }
     },
     mounted() {
         this.getUserInfo();
     },
     methods: {
+        menuShowAction() {
+            this.menuShow = true;
+        },
         getUserInfo() {
             let that = this;
             getUserInfo({

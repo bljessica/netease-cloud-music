@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="container" :style="{background: selected == 'mine'? '#faf6f6': 'white'}">
             <!-- 菜单 -->
-            <span class="menu li">
+            <span class="menu li" @click.stop="menuShow">
                 <i class="iconfont icon-caidan"></i>
                 <span class="msgNum">9</span>
             </span>
@@ -30,11 +30,23 @@
 </template>
 
 <script>
+
 export default {
+    components: {
+    },
+    data() {
+        return {
+        }
+    },
     props: {
         selected: {
             type: String,
             default: 'find'
+        }
+    },
+    methods: {
+        menuShow() {
+            this.$emit('menuShow');
         }
     }
 }

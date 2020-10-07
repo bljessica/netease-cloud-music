@@ -4,7 +4,8 @@
             <span class="ground" :class="{active: activeTab === 1}" @click="activeTab = 1">广场</span>
             <span class="follow" :class="{active: activeTab === 2}" @click="activeTab = 2">关注</span>
         </div>
-        <div class="wrapper">
+        <div class="ground-wrapper" v-if="activeTab === 1">
+            <!-- 云村热评墙 -->
             <div class="hot-comment-wall" @click="$router.push('/hotCommentsWall')">
                 <div class="nav">
                     <div class="navToWall">
@@ -18,28 +19,27 @@
                     <div class="day">{{ getDay }}</div>
                 </div>
             </div>
-            <div class="videos">
-                <div class="col-1 col">
-                    <li v-for="(item, index) in videos.slice(0, Math.floor(videos.length / 2))" :key="index">
-
-                    </li>
-                </div>
-                <div class="col-2 col">
-                    <li v-for="(item, index) in videos.slice(Math.floor(videos.length / 2))" :key="index">
-
-                    </li>
-                </div>
-            </div>
+            <!-- 广场视频 -->
+            <ground></ground>
+        </div>
+        <div class="follow-wrapper" v-if="activeTab === 2">
+            <follow-bar></follow-bar>
         </div>
     </div>
 </template>
 
 <script>
+import ground from './ground';
+import followBar from './follow-bar';
+
 export default {
+    components: {
+        ground,
+        followBar
+    },
     data() {
         return {
-            activeTab: 1,
-            videos: []
+            activeTab: 1
         }
     },
     computed: {
@@ -77,7 +77,7 @@ export default {
             }
         }
     }
-    .wrapper {
+    .ground-wrapper {
         padding: 0 20px;
         margin-top: 10px;
         .hot-comment-wall {

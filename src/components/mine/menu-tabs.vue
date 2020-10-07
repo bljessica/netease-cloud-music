@@ -29,7 +29,7 @@
                 </li>
                 <li>
                     <div class="img">
-                        <i class="iconfont icon-gedan"></i>
+                        <i class="iconfont icon-daoru"></i>
                     </div>
                     <div class="info">
                         <div class="name">导入外部歌单</div>

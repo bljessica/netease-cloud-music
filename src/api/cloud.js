@@ -17,7 +17,17 @@ function likeComment(data) {
     })
 }
 
+//云村：获取关注的人
+function getFollows(data) {
+    return request({
+        url: '/user/follows',
+        method: 'post',
+        data: data
+    })
+}
+
 export {
     getHotWall,
-    likeComment
+    likeComment,
+    getFollows
 }

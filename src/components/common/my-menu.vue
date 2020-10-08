@@ -18,7 +18,7 @@
                 <div class="wrapper">
                     <i class="iconfont icon-yunpan"></i>
                 </div>
-                <div>
+                <div class="content">
                     <span>云贝中心</span>
                     <div class="sign">签到<i class="iconfont icon-you"></i></div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="wrapper">
                     <i class="iconfont icon-yunpan"></i>
                 </div>
-                <div>
+                <div class="content">
                     <span>消息中心<span class="num">9</span></span>
                     <div class="sign">有人私信了你</div>
                 </div>
@@ -137,6 +137,24 @@ export default {
                     height: 35px;
                     background: rgba(220, 220, 220, 0.637);
                     border-radius: 50%;
+                    i {
+                        font-size: 20px;
+                        line-height: 35px;
+                    }
+                }
+                .content {
+                    span {
+                        font-weight: bold;
+                        .num {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .sign {
+
+                    }
                 }
             }
             .yunbei {

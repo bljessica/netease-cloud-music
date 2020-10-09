@@ -21,7 +21,36 @@ const MINE_PAGE_NAV_BTNS = [
     {id: 8, icon: 'icon-jia1', name: '音乐应用'},
 ];
 
+const SERVICE_ITEMS = [
+    {icon: 'icon-luyin', name: '听歌识曲', other: '可识别其他app歌曲'},
+    {icon: 'icon-fapiao', name: '云村有票', other: ''},
+    {icon: 'icon-gouwuche', name: '商城', other: '智能tws降100'},
+    {icon: 'icon-xinbaniconshangchuan-', name: '游戏专区', other: ''},
+    {icon: 'icon-cailing', name: '口袋彩铃', other: '家国同庆必备祝歌'}
+];
+
+const OTHER_ITEMS = [
+    {icon: 'icon-yifu', name: '个性装扮', other: ''},
+    {icon: 'icon-timer', name: '定时关闭', other: ''},
+    {icon: 'icon-saoyisao', name: '扫一扫', other: ''},
+    {icon: 'icon-icon-test1', name: '边听边存', other: '未开启'},
+    {icon: 'icon-icon', name: '在线听歌免流量', other: ''},
+    {icon: 'icon-bukuozhan', name: '音乐黑名单', other: ''},
+    {icon: 'icon-baohu', name: '青少年模式', other: '未开启'},
+    {icon: 'icon-naozhong', name: '音乐闹钟', other: ''}
+];
+
+const MINE_SETTING_ITEMS = [
+    {icon: 'icon-dingdan_huaban', name: '我的订单', other: ''},
+    {icon: 'icon-youhuiquan', name: '优惠券', other: ''},
+    {icon: 'icon-iconfontlipinduihuanbangzhu', name: '帮助与反馈', other: ''},
+    {icon: 'icon-about', name: '关于', other: ''}
+];
+
 export {
     FIND_PAGE_NAV_BTNS,
-    MINE_PAGE_NAV_BTNS
+    MINE_PAGE_NAV_BTNS,
+    SERVICE_ITEMS,
+    OTHER_ITEMS,
+    MINE_SETTING_ITEMS
 }

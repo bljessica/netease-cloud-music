@@ -270,7 +270,6 @@ export default {
             bottom: 0;
             left: 0;
             right: 30px;
-            // width: 100%;
             height: 50px;
             background: white;
             font-size: 14px;
@@ -278,6 +277,8 @@ export default {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            border-right: 1px solid #E0E0E0;
+            border-top: 1px solid #E0E0E0;
             span{
                 &:nth-of-type(2) i{
                     font-size: 18px;

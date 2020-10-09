@@ -24,7 +24,7 @@
                 <router-link :to="'/'">视频</router-link>
             </span>
             <!-- 搜索 -->
-            <i class="iconfont icon-sousuo search li"></i>
+            <i class="iconfont icon-sousuo search li" @click="$router.push('/search')"></i>
         </div>
     </div>
 </template>

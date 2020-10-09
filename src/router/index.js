@@ -40,6 +40,11 @@ const router = new Router({
       path: '/hotCommentsWall',
       name: 'hotCommentsWall',
       component: () => import('@/views/hotCommentsWall.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('@/views/search.vue')
     }
   ]
 });

@@ -17,7 +17,17 @@ function search(data) {
     })
 }
 
+//搜索：热搜列表(详细)
+function detailHotRank() {
+    return request({
+        url: '/search/hot/detail',
+        method: 'get',
+    })
+}
+
+
 export {
     getDefault,
-    search
+    search,
+    detailHotRank
 }

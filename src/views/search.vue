@@ -1,76 +1,64 @@
 <template>
     <div class="container">
         <!-- 搜索框 -->
-        <div class="search-box">
-            <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
-            <input type="text" :placeholder="suggestWord" v-model="searchWord" @change="showResults">
-            <i class="iconfont reset icon-jia" @click="searchWord = ''"></i>
-        </div>
-        <!-- 搜索结果 -->
-        <ul class="results" v-if="searchWord.length > 0">
-            <div class="title">搜索“{{ searchWord }}”</div>
-            <li v-for="(item, index) in resSongs" :key="index">
-                <i class="iconfont icon-sousuo"></i>
-                <span class="name">{{ item }}</span>
-            </li>
-        </ul>
+        <search-bar class="search-bar"></search-bar>
         <!-- 广告 -->
+
         <!-- 搜索历史 -->
 
         <!-- 热搜榜 -->
-
+        <div class="rank">
+            <div class="title">
+                <span>热搜榜</span>
+                <span>
+                    <i class="iconfont icon-bofang1"></i>
+                    播放全部
+                </span>
+            </div>
+            <ul class="wrapper">
+                <li v-for="(item, index) in hotRankShow" :key="index" :class="{top: index < 3? true: false}"  @click="$router.push({name: 'searchTo', params: {word: item.searchWord}})">
+                    <span class="num">{{ index + 1 }}</span>
+                    <span class="name">{{ item.searchWord }}</span>
+                    <span class="hot">HOT</span>
+                </li>
+                <div class="more" v-if="hotRankShow.length <= 10" @click="detailHotRank">展开更多热搜<i class="iconfont icon-xia"></i></div>
+            </ul>
+        </div>
         <!-- 分类 -->
+        <!-- <ul class="sections">
+            <li v-for="(item, index) in sections" :key="index">
 
+            </li>
+        </ul> -->
     </div>
 </template>
 
 <script>
-import { getDefault, search } from '../api/search';
+import searchBar from '../components/search/search-bar';
+import { detailHotRank } from '../api/search';
 export default {
     data() {
         return {
-            suggestWord: '',
-            searchWord: '',
-            resSongs: []
+            hotRank: [],
+            hotRankShow: [],
         }
     },
+    components: {
+        searchBar
+    },
     mounted() {
-        this.getDefault();
+        this.hotSearchRank();
     },
     methods: {
-        showResults() {
-            if(this.searchWord.length == 0) {
-                return;
-            }
-            let that = this;
-            search({
-                keywords: that.searchWord
-            }).then(res => {
-                console.log(res.data);
-                that.resSongs = new Set();
-                res.data.result.songs.forEach(item => {
-                    that.resSongs.add(item.name);
-                })
-                if(that.resSongs.size > 10) {
-                    that.resSongs = Array.from(that.resSongs).slice(0, 10);
-                }
-                else {
-                    that.resSongs = Array.from(that.resSongs);
-                }
-                // that.resSongs = res.data.result.songs;
-            }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
-            })
+        detailHotRank() {
+            this.hotRankShow = this.hotRank;
         },
-        getDefault() {
+        hotSearchRank() {
             let that = this;
-            getDefault().then(res => {
+            detailHotRank().then(res => {
                 console.log(res.data);
-                that.suggestWord = res.data.data.showKeyword;
+                that.hotRank = res.data.data;
+                that.hotRankShow = that.hotRank.slice(0, 10);
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -85,75 +73,76 @@ export default {
 
 <style lang="scss" scoped>
     .container {
-        // background: white;
-        padding: 0 15px;
-        .search-box {
-            height: 50px;
-            line-height: 50px;
-            display: flex;
-            align-items: center;
+        background: white;
+        padding: 0 20px;
+        .search-bar {
+            z-index: 1000;
             position: relative;
-            i {
-                display: inline-block;
-                padding-right: 15px;
-                font-size: 24px;
-            }
-            input {
-                flex-grow: 1;
-                height: 46px;
-                font-size: 16px;
-                border: none;
-                border-bottom: 1px solid black;
-                outline: none;
-                text-indent: 5px;
-            }
-            .reset {
-                position: absolute;
-                right: 0;
-                padding-right: 5px;
-            }
         }
-        .results {
-            width: 87%;
-            position: relative;
-            left: 20px;
-            top: 10px;
-            background: white;
-            box-shadow: 5px 0 10px gainsboro, -5px 0 10px gainsboro;
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            // justify-content: flex-start;
-            align-items: center;
-            li {
+        .rank {
+            position: absolute;
+            top: 50px;
+            // z-index: -1;
+            .title {
                 height: 40px;
-                width: 100%;
-                line-height: 40px;
-                border-top: 1px solid gainsboro;
                 display: flex;
-                // justify-content: flex-start;
+                justify-content: space-between;
                 align-items: center;
-                i {
-                    padding: 0 10px 0 15px;
+                border-bottom: 1px solid gainsboro;
+                span:first-of-type {
+                    font-weight: bold;
                 }
-                span {
-                    display: inline-block;
-                    flex-grow: 1;
-                    text-align: left;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
+                span:last-of-type {
+                    border-radius: 15px;
+                    border: 1px solid gainsboro;
+                    font-size: 14px;
+                    padding: 3px 10px;
+                    i {
+                        font-size: 12px;
+                    }
                 }
             }
-            .title {
-                border: none;
-                height: 40px;
-                width: 100%;
-                line-height: 40px;
-                text-align: left;
-                text-indent: 15px;
-                color: rgba(16, 16, 212, 0.76);
-            }  
+            .wrapper {
+                margin-top: 10px;
+                list-style-type: none;
+                li {
+                    height: 40px;
+                    width: 50%;
+                    float: left;
+                    text-align: left;
+                    font-size: 14px;
+                    display: flex;
+                    // justify-content: space-around;
+                    align-items: center;
+                    &.top {
+                        font-weight: bold;
+                        .num {
+                            color: red;
+                        }
+                    }
+                    .num {
+                        font-size: 16px;
+                        padding-right: 10px;
+                    }
+                    .name {
+                        // flex-grow: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .hot {
+                        font-weight: bold;
+                        color: red;
+                        font-style: italic;
+                        padding-right: 10px;
+                        padding-left: 10px;
+                    }
+                }
+                .more {
+                    font-size: 14px;
+                    color: rgb(148, 146, 146);
+                }
+            }
         }
     }
 </style>

@@ -1,23 +1,19 @@
 <template>
     <div class="container">
         <search-bar :word="$route.params.word"></search-bar>
+        <!-- 搜索结果分类 -->
+        <kind-bar></kind-bar>
     </div>
 </template>
 
 <script>
 import searchBar from '../components/search/search-bar';
+import kindBar from '../components/search/kind-bar';
 
 export default {
     components: {
-        searchBar
-    },
-    mounted() {
-        // console.log(this.$route.params.word)
-    },
-    data() {
-        return {
-
-        }
+        searchBar,
+        kindBar
     }
 }
 </script>
@@ -25,6 +21,6 @@ export default {
 <style lang="scss" scoped>
     .container {
         background: white;
-        // padding: 0 20px;
+        padding: 0 20px;
     }
 </style>

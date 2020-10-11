@@ -8,7 +8,7 @@
             <i class="iconfont reset icon-jia" @click="searchWord = ''"></i>
         </div>
         <!-- 搜索结果 -->
-        <ul class="results" v-if="searchWord.length > 0">
+        <ul class="results" v-if="listShow">
             <div class="title">搜索“{{ searchWord }}”</div>
             <li v-for="(item, index) in resSongs" :key="index">
                 <i class="iconfont icon-sousuo"></i>
@@ -22,7 +22,7 @@
 import { getDefault, search } from '../../api/search';
 
 export default {
-    props: {
+    props: { 
         word: {
             type: String,
             default: ''
@@ -32,11 +32,11 @@ export default {
         return {
             suggestWord: '',
             searchWord: '',
+            listShow: false,
             resSongs: [],
         }
     },
     mounted() {
-        console.log(this.word.length)
         if(this.word.length == 0) {
             this.getDefault();
         }
@@ -60,8 +60,10 @@ export default {
         },
         showResults() {
             if(this.searchWord.length == 0) {
+                this.listShow = false;
                 return;
             }
+            this.listShow = true;
             let that = this;
             search({
                 keywords: that.searchWord

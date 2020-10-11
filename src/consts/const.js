@@ -47,10 +47,13 @@ const MINE_SETTING_ITEMS = [
     {icon: 'icon-about', name: '关于', other: ''}
 ];
 
+const SEARCH_KINDS = ['综合', '单曲', '云村', '视频', '歌手', '云圈', '专辑', '歌单', '主播电台', '用户'];
+
 export {
     FIND_PAGE_NAV_BTNS,
     MINE_PAGE_NAV_BTNS,
     SERVICE_ITEMS,
     OTHER_ITEMS,
-    MINE_SETTING_ITEMS
+    MINE_SETTING_ITEMS,
+    SEARCH_KINDS
 }

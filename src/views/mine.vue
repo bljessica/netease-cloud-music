@@ -3,7 +3,7 @@
         <!-- 头部导航栏 -->
         <my-header :selected="'mine'" class="header" @menuShow="menuShowAction"></my-header>
         <!-- 用户信息 -->
-        <div class="userinfo">
+        <div class="userinfo" @click="$router.push('/myInfo')">
             <img :src="avatarUrl" alt="头像" class="avatar">
             <span class="nickname">{{ nickname }}</span>
             <div class="buyVIP">

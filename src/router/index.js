@@ -50,6 +50,11 @@ const router = new Router({
       path: '/searchTo',
       name: 'searchTo',
       component: () => import('@/views/searchTo.vue')
+    },
+    {
+      path: '/myInfo',
+      name: 'myInfo',
+      component: () => import('@/views/myInfo.vue')
     }
   ]
 });

@@ -17,6 +17,15 @@ function search(data) {
     })
 }
 
+//搜索：搜索建议
+// function searchSuggest(data) {
+//     return request({
+//         url: '/search/suggest',
+//         method: 'get',
+//         data: data
+//     })
+// }
+
 //搜索：热搜列表(详细)
 function detailHotRank() {
     return request({
@@ -29,5 +38,6 @@ function detailHotRank() {
 export {
     getDefault,
     search,
-    detailHotRank
+    detailHotRank,
+    searchSuggest
 }

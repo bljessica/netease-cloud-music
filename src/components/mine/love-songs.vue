@@ -22,25 +22,38 @@
 
 <script>
 import { getLikeList } from '../../api/mine';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
-            total: 0,
             downLoadNum: 0
         }
     },
     mounted() {
-        this.getLikeList();
+        if(this.$store.getters.likelist.length == 0) {
+            this.getLikeList();
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'likelist'
+        ]),
+        total() {
+            return this.likelist.length;
+        }
     },
     methods: {
+        ...mapMutations({
+            setLikelist: 'SET_LIKELIST'
+        }),
         getLikeList() {
             let that = this;
             getLikeList({
                 uid: that.$store.getters.userID
             }).then(res => {
-                // console.log(res.data);
-                that.total = res.data.ids.length;
+                console.log(res.data);
+                that.setLikelist(res.data.ids)
             }).catch(err => {
                 that.Message({
                     message: err,

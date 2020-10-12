@@ -46,6 +46,24 @@ const mutations = {
     },
     [types.SET_PLAY_LIST_COUNT](state, playListCount) {
         state.playListCount = playListCount;
+    },
+    [types.SET_BACKGROUND_URL](state, backgroundUrl) {
+        state.backgroundUrl = backgroundUrl;
+    },
+    [types.SET_LEVEL](state, level) {
+        state.level = level;
+    },
+    [types.SET_COLLECTED_MENUS](state, collectedMenus) {
+        state.collectedMenus = collectedMenus;
+    },
+    [types.SET_CREATED_MENUS](state, createdMenus) {
+        state.createdMenus = createdMenus;
+    },
+    [types.SET_PLATLIST](state, playlist) {
+        state.playlist = playlist;
+    },
+    [types.SET_LIKELIST](state, likelist) {
+        state.likelist = likelist;
     }
 }
 

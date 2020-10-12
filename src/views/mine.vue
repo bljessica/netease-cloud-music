@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @click="menuShow = false" ref="container">
+    <div class="container" @click.stop="menuShow = false" ref="container">
         <!-- 头部导航栏 -->
         <my-header :selected="'mine'" class="header" @menuShow="menuShowAction"></my-header>
         <!-- 用户信息 -->
@@ -31,6 +31,7 @@ import loveSongs from '../components/mine/love-songs';
 import myMenu from '../components/common/my-menu';
 import menuTabs from '../components/mine/menu-tabs';
 import { getUserInfo } from '../api/mine';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
     components: {
@@ -42,28 +43,36 @@ export default {
     },
     data() {
         return {
-            nickname: '',
-            level: 0,
-            avatarUrl: '',
             menuShow: false
         }
     },
+    computed: {
+        ...mapGetters([
+            'nickname',
+            'avatarUrl',
+            'level'
+        ])
+    },
     mounted() {
-        this.getUserInfo();
+        //没有获取过等级信息
+        if(this.$store.getters.level.length == 0) {
+            this.getUserInfo();
+        }
     },
     methods: {
         menuShowAction() {
             this.menuShow = true;
         },
+        ...mapMutations({
+            setLevel: 'SET_LEVEL'
+        }),
         getUserInfo() {
             let that = this;
             getUserInfo({
                 uid: that.$store.getters.userID
             }).then(res => {
-                // console.log(res.data)
-                that.level = res.data.level;
-                that.nickname = res.data.profile.nickname;
-                that.avatarUrl = res.data.profile.avatarUrl;
+                console.log(res.data)
+                that.setLevel(res.data.level);
             }).catch(err => {
                 that.Message({
                     message: err,

@@ -148,34 +148,36 @@ export default {
             this.setUserID(data.account.id);
             this.setToken(data.token);
             this.setIsLogin(true);
-            // if(data.profile) {
-            //     this.setAvartarUrl(data.profile.avatarUrl);
-            //     this.setBirthday(data.profile.birthday);
+            if(data.profile) {
+                this.setAvartarUrl(data.profile.avatarUrl);
+                this.setBirthday(data.profile.birthday);
             //     this.setCity(data.profile.city);
-            //     this.setFollowed(data.profile.followed);
-            //     this.setFollows(data.profile.follows);
-            //     this.setGender(data.profile.gender);
-            //     this.setNickname(data.profile.nickname);
+                this.setFolloweds(data.profile.followeds);
+                this.setFollows(data.profile.follows);
+                this.setGender(data.profile.gender);
+                this.setNickname(data.profile.nickname);
+                this.setBackgroundUrl(data.profile.backgroundUrl);
             //     this.setPlayListCount(data.profile.playListCount);
             //     this.setProvince(data.profile.province);
-            // }
+            }
         },
         ...mapMutations({
             // setPhone: 'SET_PHONE',
             // setEmail: 'SET_EMAIL',
-            // setAvartarUrl: 'SET_AVATAR_URL',
-            // setBirthday: 'SET_BIRTHDAY',
+            setAvartarUrl: 'SET_AVATAR_URL',
+            setBirthday: 'SET_BIRTHDAY',
             setUserID: 'SET_USER_ID',
             // setUsername: 'SET_USERNAME',
             // setCity: 'SET_CITY',
-            // setFollowed: 'SET_FOLLOWEDS',
-            // setFollows: 'SET_FOLLOWS',
-            // setGender: 'SET_GENDER',
-            // setNickname: 'SET_NICKNAME',
+            setFolloweds: 'SET_FOLLOWEDS',
+            setFollows: 'SET_FOLLOWS',
+            setGender: 'SET_GENDER',
+            setNickname: 'SET_NICKNAME',
             // setPlayListCount: 'SET_PLAY_LIST_COUNT',
             // setProvince: 'SET_PROVINCE',
             setIsLogin: 'SET_IS_LOGIN',
-            setToken: 'SET_TOKEN'
+            setToken: 'SET_TOKEN',
+            setBackgroundUrl: 'SET_BACKGROUND_URL'
         })
     }
 }

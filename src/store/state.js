@@ -13,7 +13,13 @@ const state = {
     nickname: '',
     province: '',
     token: '',
-    playListCount: 0
+    playListCount: 0,
+    backgroundUrl: '',
+    level: '',
+    createdMenus: [],
+    collectedMenus: [],
+    playlist: [],
+    likelist: []
 };
 
 export default state;

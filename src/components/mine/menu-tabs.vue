@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="tab-nav">
+        <div class="tab-nav"> 
             <a href="#create">
                 <span class="create" :class="{active: activeTab === 1}" @click="activeTab = 1">创建歌单</span>
             </a>
@@ -64,34 +64,50 @@
 
 <script>
 import { getPlayLists } from '../../api/mine';
+import { mapMutations, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
-            createdMenuNum: 0,
-            collectedMenuNum: 0,
-            createdMenus: [],
-            activeTab: 1,
-            collectedMenus: []
+            activeTab: 1
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'createdMenus',
+            'collectedMenus'
+        ]),
+        createdMenuNum() {
+            return this.createdMenus.length;
+        },
+        collectedMenuNum() {
+            return this.collectedMenus.length;
         }
     },
     mounted() {
-        this.getPlayLists();
+        if(this.$store.getters.playlist.length == 0) {
+            this.getPlayLists();
+        }
     },
-    methods: {
+    methods: { 
+        ...mapMutations({
+            setPlaylist: 'SET_PLATLIST',
+            setCollectedMenus: 'SET_COLLECTED_MENUS',
+            setCreatedMenus: 'SET_CREATED_MENUS'
+        }),
         getPlayLists() {
             let that = this;
             getPlayLists({
                 uid: that.$store.getters.userID
             }).then(res => {
                 console.log(res.data);
-                that.createdMenus = res.data.playlist.filter(item => {
-                    return item.subscribed === false;
-                }).slice(1);
-                that.collectedMenus = res.data.playlist.filter(item => {
+                that.setPlaylist(res.data.playlist);
+                that.setCollectedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === true;
-                });
-                that.createdMenuNum = that.createdMenus.length;
-                that.collectedMenuNum = that.collectedMenus.length;
+                }));
+                that.setCreatedMenus(res.data.playlist.filter(item => {
+                    return item.subscribed === false;
+                }).slice(1));
             }).catch(err => {
                 that.Message({
                     message: err,

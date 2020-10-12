@@ -1,0 +1,65 @@
+/* 收藏和创建歌单列表样式 */
+.create-menu, .collect-menu {
+    margin-top: 10px;
+    background: white;
+    border-radius: 10px;
+    padding: 0 15px;
+    .menu-title {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #b8b6b6;
+        i:first-of-type {
+            display: inline-block;
+            flex-grow: 1;
+            text-align: right;
+            margin-right: 15px;
+        }
+    }
+    .created-menus, .collected-menus {
+        padding-bottom: 10px;
+        li {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+            .img {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+            }
+            div.img {
+                background: rgba(220, 220, 220, 0.699);
+                i {
+                    font-size: 26px;
+                    line-height: 50px;
+                }
+            }
+            .info {
+                width: 200px;
+                text-align: left;
+                flex-grow: 1;
+                padding: 0 10px;
+                .name {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .num {
+                    margin-top: 4px;
+                    font-size: 12px;
+                    color: #b8b6b6;
+                }
+            }
+            &>i {
+                color: #b8b6b6;
+            }
+        }
+    }
+}

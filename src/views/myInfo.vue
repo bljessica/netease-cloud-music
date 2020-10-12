@@ -85,6 +85,9 @@ export default {
             padding: 10px 20px;
             i {
                 font-size: 24px;
+                &:first-of-type {
+                    font-size: 28px;
+                }
             }
         }
         .avatar {

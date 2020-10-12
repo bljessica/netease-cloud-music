@@ -19,8 +19,10 @@ const createdMenus = state => state.createdMenus;
 const collectedMenus = state => state.collectedMenus;
 const playlist = state => state.playlist;
 const likelist = state => state.likelist;
+const listenSongs = state => state.listenSongs;
 
 export default {
+    listenSongs,
     likelist,
     createdMenus,
     collectedMenus,

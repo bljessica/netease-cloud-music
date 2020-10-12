@@ -64,7 +64,8 @@ export default {
             this.menuShow = true;
         },
         ...mapMutations({
-            setLevel: 'SET_LEVEL'
+            setLevel: 'SET_LEVEL',
+            setListenSongs: 'SET_LISTEN_SONGS'
         }),
         getUserInfo() {
             let that = this;
@@ -73,6 +74,7 @@ export default {
             }).then(res => {
                 console.log(res.data)
                 that.setLevel(res.data.level);
+                that.setListenSongs(res.data.listenSongs);
             }).catch(err => {
                 that.Message({
                     message: err,

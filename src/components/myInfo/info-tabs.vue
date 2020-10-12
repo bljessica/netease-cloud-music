@@ -15,7 +15,7 @@
                     </div>
                     <div class="info">
                         <div>听歌排行</div>
-                        <div>累计听歌{{ }}首</div>
+                        <div>累计听歌{{ listenSongs }}首</div>
                     </div>
                 </div>
                 <div class="like li">
@@ -24,27 +24,93 @@
                     </div>
                     <div class="info">
                         <div>我喜欢的音乐</div>
-                        <div>{{ }}首，播放{{ }}次</div>
+                        <div>{{ playlist[0].trackCount }}首，播放{{ playlist[0].playCount }}次</div>
                     </div>
                 </div>
             </div>
             <!-- 创建的歌单 -->
+            <div class="create-menu">
+                <div class="menu-title">
+                    <span class="title">创建的歌单<span>（{{ createdMenus.length }}个，被收藏{{ collectedNum }}次）</span></span>
+                    <span class="more">更多歌单</span>
+                </div>
+                <ul class="created-menus">
+                    <li v-for="(item, index) in createdMenus.slice(0, 7)" :key="index">
+                        <img :src="item.coverImgUrl" alt="" class="img">
+                        <div class="info">
+                            <div class="name">{{ item.name }}</div>
+                            <div class="num">{{ item.trackCount }}首</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <!-- 收藏的歌单 -->
+            <div class="collect-menu">
+                <div class="menu-title">
+                    <span class="title">收藏的歌单<span>（{{ collectedMenus.length }}个）</span></span>
+                    <span class="more">更多歌单</span>
+                </div>
+                <ul class="collected-menus">
+                    <li v-for="(item, index) in collectedMenus.slice(0, 7)" :key="index">
+                        <img :src="item.coverImgUrl" alt="" class="img">
+                        <div class="info">
+                            <div class="name">{{ item.name }}</div>
+                            <div class="num">{{ item.trackCount }}首</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <!-- 我的评论 -->
+            <div class="comments">
+                <div class="comment-title">
+                    <span class="title">我的评论<span>（评论展示可在隐私设置修改）</span></span>
+                    <span class="more">更多评论</span>
+                </div>
+                <ul class="contents">
+                    <li></li>
+                </ul>
+            </div>
             <!-- 基本信息 -->
         </div>
     </div>
 </template>
 
 <script>
+// import { getSubCount } from '../../api/mine';
+import { mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
             activeTab: 1
         }
+    },
+    mounted() {
+    },
+    computed: {
+        ...mapGetters([
+            'playlist',
+            'listenSongs',
+            'createdMenus',
+            'collectedMenus'
+        ]),
+        collectedNum() {
+            let num = 0;
+            this.createdMenus.forEach(item => {
+                num += item.subscribedCount;
+            })
+            return num;
+        }
+    },
+    methods: {
+        
     }
 }
 </script>
+
+<style scoped lang="scss">
+    @import '../../styles/collect-and-create-menu-list';
+</style>
 
 <style lang="scss" scoped>
     .tabs-container {
@@ -78,8 +144,8 @@ export default {
                     display: flex;
                     align-items: center;
                     .img-wrapper {
-                        width: 60px;
-                        height: 60px;
+                        width: 55px;
+                        height: 55px;
                         border-radius: 5px;
                         i {
                             font-size: 36px;
@@ -112,6 +178,35 @@ export default {
                             color: rgba(255, 0, 0, 0.589);
                         }
                     }
+                }
+            }
+            .create-menu, .collect-menu {
+                padding: 0;
+                .menu-title {
+                    color: black;
+                    .title {
+                        font-size: 18px;
+                        font-weight: bold;
+                        span {
+                            color: rgb(185, 183, 183);
+                            font-size: 14px;
+                            font-weight: normal;
+                        }
+                    }
+                    .more {
+                        font-size: 14px;
+                        border: 1px solid gainsboro;
+                        border-radius: 10px;
+                        padding: 4px 10px;
+                    }
+                }
+            }
+            .comments {
+                .comment-title {
+
+                }
+                .contents {
+                    list-style-type: none;
                 }
             }
         }

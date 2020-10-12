@@ -14,7 +14,7 @@
         <a name="create" style="position: relative;top: -90px;"></a>
         <div class="create-menu">
             <div class="menu-title">
-                <span class="title">创建歌单({{ createdMenuNum }}个)</span>
+                <span class="title">创建歌单({{ createdMenus.length }}个)</span>
                 <i class="iconfont icon-jia"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
@@ -43,7 +43,7 @@
         <a name="collect" style="position: relative;top: -90px;"></a>
         <div class="collect-menu">
             <div class="menu-title">
-                <span class="title">收藏歌单({{ collectedMenuNum }}个)</span>
+                <span class="title">收藏歌单({{ collectedMenus.length }}个)</span>
                 <i class="iconfont icon-jia" style="opacity: 0; visibility: hidden;"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
@@ -76,13 +76,7 @@ export default {
         ...mapGetters([
             'createdMenus',
             'collectedMenus'
-        ]),
-        createdMenuNum() {
-            return this.createdMenus.length;
-        },
-        collectedMenuNum() {
-            return this.collectedMenus.length;
-        }
+        ])
     },
     mounted() {
         if(this.$store.getters.playlist.length == 0) {
@@ -120,6 +114,10 @@ export default {
 }
 </script>
 
+<style scoped lang="scss">
+    @import '../../styles/collect-and-create-menu-list';
+</style>
+
 <style lang="scss" scoped>
     .container {
         padding: 0 15px;
@@ -143,69 +141,6 @@ export default {
             .active {
                 border-bottom: 2px solid rgba(255, 0, 0, 0.719);
                 font-weight: bold;
-            }
-        }
-        .create-menu, .collect-menu {
-            margin-top: 10px;
-            background: white;
-            border-radius: 10px;
-            padding: 0 15px;
-            .menu-title {
-                height: 50px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-size: 12px;
-                color: #b8b6b6;
-                i:first-of-type {
-                    display: inline-block;
-                    flex-grow: 1;
-                    text-align: right;
-                    margin-right: 15px;
-                }
-            }
-            .created-menus, .collected-menus {
-                padding-bottom: 10px;
-                li {
-                    height: 50px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 10px;
-                    &:last-of-type {
-                        margin-bottom: 0;
-                    }
-                    .img {
-                        width: 50px;
-                        height: 50px;
-                        border-radius: 10px;
-                    }
-                    div.img {
-                        background: rgba(220, 220, 220, 0.699);
-                        i {
-                            font-size: 26px;
-                            line-height: 50px;
-                        }
-                    }
-                    .info {
-                        width: 200px;
-                        text-align: left;
-                        flex-grow: 1;
-                        padding: 0 10px;
-                        .name {
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                        }
-                        .num {
-                            font-size: 12px;
-                            color: #b8b6b6;
-                        }
-                    }
-                    &>i {
-                        color: #b8b6b6;
-                    }
-                }
             }
         }
     }

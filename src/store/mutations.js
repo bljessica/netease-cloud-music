@@ -64,6 +64,9 @@ const mutations = {
     },
     [types.SET_LIKELIST](state, likelist) {
         state.likelist = likelist;
+    },
+    [types.SET_LISTEN_SONGS](state, listenSongs) {
+        state.listenSongs = listenSongs;
     }
 }
 

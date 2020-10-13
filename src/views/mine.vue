@@ -21,6 +21,7 @@
         <!-- 歌单导航栏 -->
         <menu-tabs></menu-tabs>
         <my-menu v-if="menuShow"></my-menu>
+        <!-- <play-bar></play-bar> -->
     </div>
 </template>
 
@@ -30,6 +31,7 @@ import mineNavBtns from '../components/mine/mine-nav-btns';
 import loveSongs from '../components/mine/love-songs';
 import myMenu from '../components/common/my-menu';
 import menuTabs from '../components/mine/menu-tabs';
+import playBar from '../components/common/play-bar';
 import { getUserInfo } from '../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -39,7 +41,8 @@ export default {
         mineNavBtns,
         loveSongs,
         menuTabs,
-        myMenu
+        myMenu,
+        playBar
     },
     data() {
         return {

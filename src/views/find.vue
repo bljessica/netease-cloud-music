@@ -8,6 +8,7 @@
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
         <my-menu v-if="menuShow"></my-menu>
+        <play-bar></play-bar>
     </div>
 </template>
 
@@ -16,6 +17,7 @@ import myHeader from '../components/common/my-header';
 import banner from '../components/common/banner';
 import myMenu from '../components/common/my-menu';
 import navBtns from '../components/find/nav-btns';
+import playBar from '../components/common/play-bar';
 import hotSongMenu from '../components/find/hot-song-menu';
 import { getBanner } from '../api/find';
 
@@ -25,7 +27,8 @@ export default {
         banner,
         navBtns,
         hotSongMenu,
-        myMenu
+        myMenu,
+        playBar
     },
     data() {
         return {

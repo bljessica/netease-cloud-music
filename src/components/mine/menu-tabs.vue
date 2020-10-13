@@ -19,7 +19,7 @@
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <ul class="created-menus">
-                <li v-for="(item, index) in createdMenus" :key="index">
+                <li v-for="(item, index) in createdMenus" :key="index" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
                     <img :src="item.coverImgUrl" alt="" class="img">
                     <div class="info">
                         <div class="name">{{ item.name }}</div>
@@ -48,7 +48,7 @@
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <ul class="collected-menus">
-                <li v-for="(item, index) in collectedMenus" :key="index">
+                <li v-for="(item, index) in collectedMenus" :key="index" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
                     <img :src="item.coverImgUrl" alt="" class="img">
                     <div class="info">
                         <div class="name">{{ item.name }}</div>

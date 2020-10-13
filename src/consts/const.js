@@ -49,11 +49,19 @@ const MINE_SETTING_ITEMS = [
 
 const SEARCH_KINDS = ['综合', '单曲', '云村', '视频', '歌手', '云圈', '专辑', '歌单', '主播电台', '用户'];
 
+const PLAYLIST_ACTIONS = [
+    {icon: 'icon-pinglun', name: '评论'},
+    {icon: 'icon-fenxiang', name: '分享'},
+    {icon: 'icon-xiazai-tianchong', name: '下载'},
+    {icon: 'icon-check', name: '多选'}
+]
+
 export {
     FIND_PAGE_NAV_BTNS,
     MINE_PAGE_NAV_BTNS,
     SERVICE_ITEMS,
     OTHER_ITEMS,
     MINE_SETTING_ITEMS,
-    SEARCH_KINDS
+    SEARCH_KINDS,
+    PLAYLIST_ACTIONS
 }

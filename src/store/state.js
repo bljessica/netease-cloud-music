@@ -20,7 +20,8 @@ const state = {
     collectedMenus: [],
     playlist: [],
     likelist: [],
-    listenSongs: ''
+    listenSongs: '',
+    createTime: ''
 };
 
 export default state;

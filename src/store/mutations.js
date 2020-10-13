@@ -67,6 +67,9 @@ const mutations = {
     },
     [types.SET_LISTEN_SONGS](state, listenSongs) {
         state.listenSongs = listenSongs;
+    },
+    [types.SET_CREATE_TIME](state, createTime) {
+        state.createTime = createTime;
     }
 }
 

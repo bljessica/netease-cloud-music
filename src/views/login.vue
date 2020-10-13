@@ -148,17 +148,18 @@ export default {
             this.setUserID(data.account.id);
             this.setToken(data.token);
             this.setIsLogin(true);
+            this.setCreateTime(data.account.createTime);
             if(data.profile) {
                 this.setAvartarUrl(data.profile.avatarUrl);
                 this.setBirthday(data.profile.birthday);
-            //     this.setCity(data.profile.city);
+                this.setCity(data.profile.city);
                 this.setFolloweds(data.profile.followeds);
                 this.setFollows(data.profile.follows);
                 this.setGender(data.profile.gender);
                 this.setNickname(data.profile.nickname);
                 this.setBackgroundUrl(data.profile.backgroundUrl);
             //     this.setPlayListCount(data.profile.playListCount);
-            //     this.setProvince(data.profile.province);
+                this.setProvince(data.profile.province);
             }
         },
         ...mapMutations({
@@ -167,14 +168,15 @@ export default {
             setAvartarUrl: 'SET_AVATAR_URL',
             setBirthday: 'SET_BIRTHDAY',
             setUserID: 'SET_USER_ID',
+            setCreateTime: 'SET_CREATE_TIME',
             // setUsername: 'SET_USERNAME',
-            // setCity: 'SET_CITY',
+            setCity: 'SET_CITY',
             setFolloweds: 'SET_FOLLOWEDS',
             setFollows: 'SET_FOLLOWS',
             setGender: 'SET_GENDER',
             setNickname: 'SET_NICKNAME',
             // setPlayListCount: 'SET_PLAY_LIST_COUNT',
-            // setProvince: 'SET_PROVINCE',
+            setProvince: 'SET_PROVINCE',
             setIsLogin: 'SET_IS_LOGIN',
             setToken: 'SET_TOKEN',
             setBackgroundUrl: 'SET_BACKGROUND_URL'

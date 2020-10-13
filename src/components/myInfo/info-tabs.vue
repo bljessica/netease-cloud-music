@@ -60,9 +60,20 @@
                     </li>
                 </ul>
             </div>
+            <!-- 基本信息 -->
+            <div class="infos">
+                <div class="menu-title">
+                    <span class="title">基本信息<span>（信息展示可在隐私设置修改）</span></span>
+                </div>
+                <div class="contents">
+                    <span>村龄：{{ yearsFromNow }}年（{{ getCreateTime }}注册）</span>
+                    <span>年龄：{{ birthYear }}后 {{ constellation }}座</span>
+                    <span>地区：{{ province }}省 {{ city }}市</span>
+                </div>
+            </div>
             <!-- 我的评论 -->
             <div class="comments">
-                <div class="comment-title">
+                <div class="menu-title">
                     <span class="title">我的评论<span>（评论展示可在隐私设置修改）</span></span>
                     <span class="more">更多评论</span>
                 </div>
@@ -70,7 +81,6 @@
                     <li></li>
                 </ul>
             </div>
-            <!-- 基本信息 -->
         </div>
     </div>
 </template>
@@ -92,7 +102,11 @@ export default {
             'playlist',
             'listenSongs',
             'createdMenus',
-            'collectedMenus'
+            'collectedMenus',
+            'createTime',
+            'birthday',
+            'province',
+            'city'
         ]),
         collectedNum() {
             let num = 0;
@@ -100,6 +114,24 @@ export default {
                 num += item.subscribedCount;
             })
             return num;
+        },
+        getCreateTime() {
+            let date = new Date(this.createTime);
+            return date.getFullYear() + '年' + (date.getMonth() + 1) + '月';
+        },
+        yearsFromNow() {
+            return Math.floor((new Date().getTime() - new Date(this.createTime).getTime()) / 1000 / 60 / 60 / 24 / 365);
+        },
+        birthYear() {
+            let date = new Date(this.birthday);
+            return Math.floor(date.getYear() / 10) + '' + (date.getYear() % 10 >= 5? '5': '0');
+        },
+        constellation() { //星座
+            let date = new Date(this.birthday);
+            let month = date.getMonth() + 1, day = date.getDate();
+            let s="魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+            let arr=[20,19,21,21,21,22,23,23,23,23,22,22];
+            return s.substr(month * 2 - (day < arr[month-1]? 2: 0), 2);
         }
     },
     methods: {
@@ -180,7 +212,7 @@ export default {
                     }
                 }
             }
-            .create-menu, .collect-menu {
+            .create-menu, .collect-menu, .comments, .infos {
                 padding: 0;
                 .menu-title {
                     color: black;
@@ -189,7 +221,7 @@ export default {
                         font-weight: bold;
                         span {
                             color: rgb(185, 183, 183);
-                            font-size: 14px;
+                            font-size: 12px;
                             font-weight: normal;
                         }
                     }
@@ -201,12 +233,23 @@ export default {
                     }
                 }
             }
-            .comments {
-                .comment-title {
-
+            .comments, .infos {
+                margin-top: 10px;
+                .menu-title {
+                    height: 50px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                 }
                 .contents {
                     list-style-type: none;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    height: 70px;
+                    font-size: 14px;
+                    color: rgb(170, 168, 168);
                 }
             }
         }

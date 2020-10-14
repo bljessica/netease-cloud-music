@@ -153,7 +153,7 @@ export default {
                     flex-direction: column;
                     height: 130px;
                     align-items: flex-start;
-                    color: gainsboro;
+                    color: rgb(173, 173, 173);
                     padding-left: 20px;
                     .title {
                         color: white;
@@ -204,7 +204,7 @@ export default {
                     }
                     div {
                         margin-top: 5px;
-                        color: gainsboro;
+                        color: rgb(173, 173, 173);
                         font-size: 14px;
                     }
                 }

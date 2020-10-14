@@ -1,7 +1,7 @@
 <template>
     <div class="container" @click.stop="menuShow = false" ref="container">
         <!-- 头部导航栏 -->
-        <my-header :selected="'mine'" class="header" @menuShow="menuShowAction"></my-header>
+        <my-header :selected="'mine'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- 用户信息 -->
         <div class="userinfo" @click="$router.push('/myInfo')">
             <img :src="avatarUrl" alt="头像" class="avatar">
@@ -20,7 +20,7 @@
         <love-songs></love-songs>
         <!-- 歌单导航栏 -->
         <menu-tabs></menu-tabs>
-        <my-menu v-if="menuShow"></my-menu>
+        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
         <!-- <play-bar></play-bar> -->
     </div>
 </template>
@@ -63,9 +63,6 @@ export default {
         }
     },
     methods: {
-        menuShowAction() {
-            this.menuShow = true;
-        },
         ...mapMutations({
             setLevel: 'SET_LEVEL',
             setListenSongs: 'SET_LISTEN_SONGS'
@@ -89,6 +86,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    @import '../styles/my-menu';
+</style>
 
 <style lang="scss" scoped>
     .userinfo {

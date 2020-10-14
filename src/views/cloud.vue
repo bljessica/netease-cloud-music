@@ -1,10 +1,10 @@
 <template>
-    <div class="container" @click="menuShow = false">
+    <div class="container" @click.stop="menuShow = false">
         <!-- 头部导航栏 -->
-        <my-header :selected="'cloud'" class="header" @menuShow="menuShowAction"></my-header>
+        <my-header :selected="'cloud'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- tabs -->
         <cloud-tabs></cloud-tabs>
-        <my-menu v-if="menuShow"></my-menu>
+        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
     </div>
 </template>
 
@@ -23,15 +23,14 @@ export default {
         return {
             menuShow: false
         }
-    },
-    methods: {
-        menuShowAction() {
-            this.menuShow = true;
-        }
     }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    @import '../styles/my-menu';
+</style>
+
+<style scoped>
 
 </style>

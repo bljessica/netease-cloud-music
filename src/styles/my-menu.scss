@@ -1,0 +1,10 @@
+.my-menu {
+    position: absolute;
+    left: -330px;
+    top: 0;
+    transition: .5s;
+    &.menuShowing {
+        left: 0;
+        transition: .5s;
+    }
+}

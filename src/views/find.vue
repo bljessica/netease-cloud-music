@@ -1,13 +1,13 @@
 <template>
-    <div class="container" @click="menuShow = false">
-        <my-header :selected="'find'" @menuShow="menuShowAction"></my-header>
+    <div class="find-container" @click.stop="menuShow = false">
+        <my-header :selected="'find'" @menuShow="menuShow = true"></my-header>
         <!-- 轮播图 -->
         <banner :bannersData="bannerImgs" class="banner"></banner>
         <!-- 导航按钮栏 -->
         <nav-btns></nav-btns>
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
-        <my-menu v-if="menuShow"></my-menu>
+        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
         <play-bar></play-bar>
     </div>
 </template>
@@ -40,9 +40,6 @@ export default {
         this.getBanner();
     },
     methods: {
-        menuShowAction() {
-            this.menuShow = true;
-        },
         //获取轮播图数据
         getBanner() {
             let that = this;
@@ -62,5 +59,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    
+    //权重较低，不生效
+    // @import '../styles/my-menu';
+</style>
+
+<style lang="scss" scoped>
+    .find-container {
+        .my-menu {
+            position: absolute;
+            left: -330px;
+            top: 0;
+            transition: .5s;
+            &.menuShowing {
+                left: 0;
+                transition: .5s;
+            }
+        }
+    }
 </style>

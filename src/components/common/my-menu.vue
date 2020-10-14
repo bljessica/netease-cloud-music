@@ -95,9 +95,9 @@ export default {
     .container {
         position: absolute;
         top: 0;
-        // bottom: 0;
         left: 0;
         right: 30px;
+        width: 300px;
         z-index: 5001;
         padding: 0 15px;
         background: #faf6f6;
@@ -269,7 +269,8 @@ export default {
             position: fixed;
             bottom: 0;
             left: 0;
-            right: 30px;
+            width: 330px;
+            // right: 30px;
             height: 50px;
             background: white;
             font-size: 14px;

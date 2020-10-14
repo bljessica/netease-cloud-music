@@ -6,7 +6,7 @@
         </div>
         <div class="wrapper" ref="wrapper">
             <ul class="menu" ref="slider">
-                <li v-for="item in menu.slice(0, 6)" :key="item.id">
+                <li v-for="item in menu.slice(0, 6)" :key="item.id" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
                     <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                         <span class="play-amount">
                             <i class="iconfont icon-bofangsanjiaoxing"></i>
@@ -64,7 +64,8 @@ export default {
         initSlider() {
             const slider = new BScroll(this.$refs.wrapper, {
                 scrollX: true,
-                scrollY: false
+                scrollY: false,
+                click: true
             })
         }
     }

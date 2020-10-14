@@ -41,7 +41,7 @@
                 <span>（共{{ songs.length }}首）</span>
             </div>
             <ul class="songs">
-                <li v-for="(item, index) in songs" :key="index">
+                <li v-for="(item, index) in songs" :key="index" @click="$router.push({name: 'playSong', params: {id: item.id, playlist: playlist}})">
                     <span class="no">{{ index + 1 }}</span>
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>

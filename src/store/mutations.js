@@ -70,6 +70,12 @@ const mutations = {
     },
     [types.SET_CREATE_TIME](state, createTime) {
         state.createTime = createTime;
+    },
+    [types.SET_PLAYING_SONG](state, playingSong) {
+        state.playingSong = playingSong;
+    },
+    [types.SET_PLAYING_LIST](state, playingList) {
+        state.playingList = playingList;
     }
 }
 

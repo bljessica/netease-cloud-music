@@ -60,6 +60,11 @@ const router = new Router({
       path: '/playlist',
       name: 'playlist',
       component: () => import('@/views/playlist.vue')
+    },
+    {
+      path: '/playSong',
+      name: 'playSong',
+      component: () => import('@/views/playSong.vue')
     }
   ]
 });

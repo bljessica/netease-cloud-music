@@ -21,7 +21,9 @@ const state = {
     playlist: [],
     likelist: [],
     listenSongs: '',
-    createTime: ''
+    createTime: '',
+    playingSong: '',
+    playingList: ''
 };
 
 export default state;

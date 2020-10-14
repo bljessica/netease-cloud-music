@@ -18,7 +18,17 @@ function getPlaylistDetail(data) {
     })
 }
 
+//播放：获取歌曲详情
+function getPlaySongDetail(data) {
+    return request({
+        url: '/song/detail',
+        method: 'get',
+        data: data
+    })
+}
+
 export {
     getPlayRecord,
-    getPlaylistDetail
+    getPlaylistDetail,
+    getPlaySongDetail
 }

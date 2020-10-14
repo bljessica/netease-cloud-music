@@ -1,5 +1,8 @@
 <template>
-    <div class="container">
+    <div class="my-menu-wrapper" ref="wrapper">
+
+    
+    <div class="my-menu-container">
         <!-- 开通VIP -->
         <div class="vip"> 
             <div class="title">
@@ -71,11 +74,14 @@
             </span>
         </footer>
     </div>
+
+    </div>
 </template>
 
 <script>
 import asideMenuItems from '../common/aside-menu-items';
 import { SERVICE_ITEMS, OTHER_ITEMS, MINE_SETTING_ITEMS } from '../../consts/const';
+import BScroll from '@better-scroll/core';
 
 export default {
     components: {
@@ -87,12 +93,31 @@ export default {
             otherItems: OTHER_ITEMS,
             mineSettingItems: MINE_SETTING_ITEMS
         }
+    },
+    mounted() {
+        this.initSlider();
+    },
+    methods: {
+        initSlider() {
+            let slider = new BScroll(this.$refs.wrapper, {
+                scrollX: false,
+                scrollY: true,
+                click: true
+            })
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .container {
+.my-menu-wrapper{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    .my-menu-container {
         position: absolute;
         top: 0;
         left: 0;
@@ -266,7 +291,8 @@ export default {
             margin-bottom: 65px;
         }
         .footer {
-            position: fixed;
+            // position: fixed;
+            position: absolute;
             bottom: 0;
             left: 0;
             width: 330px;
@@ -295,4 +321,5 @@ export default {
 
         }
     }
+}
 </style>

@@ -6,7 +6,7 @@
         </div>
         <div class="wrapper" ref="wrapper">
             <ul class="menu" ref="slider">
-                <li v-for="item in menu.slice(0, 6)" :key="item.id" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
+                <li v-for="item in menu.slice(0, 6)" :key="item.id" @click="toPlaylist(item)">
                     <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                         <span class="play-amount">
                             <i class="iconfont icon-bofangsanjiaoxing"></i>
@@ -25,6 +25,12 @@ import { getSuggestHotMenu } from '../../api/find';
 import BScroll from '@better-scroll/core';
 
 export default {
+    props: {
+        menuShow: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             menu: []
@@ -37,6 +43,11 @@ export default {
         });
     },
     methods: {
+        toPlaylist(item) {
+            if(!this.menuShow) {
+                this.$router.push({'name': 'playlist', params: {id: item.id}})
+            }
+        },
         getPlayNum(item) {
             if(item.playCount >= 100000000) {
                 return (item.playCount / 100000000).toFixed(1) + '亿';

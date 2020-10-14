@@ -3,7 +3,7 @@
         <!-- 头部导航栏 -->
         <my-header :selected="'mine'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- 用户信息 -->
-        <div class="userinfo" @click="$router.push('/myInfo')">
+        <div class="userinfo" @click="toMyInfo">
             <img :src="avatarUrl" alt="头像" class="avatar">
             <span class="nickname">{{ nickname }}</span>
             <div class="buyVIP">
@@ -19,7 +19,7 @@
         <!-- 我喜欢的音乐 -->
         <love-songs></love-songs>
         <!-- 歌单导航栏 -->
-        <menu-tabs></menu-tabs>
+        <menu-tabs :menuShow="menuShow"></menu-tabs>
         <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
         <!-- <play-bar></play-bar> -->
     </div>
@@ -63,6 +63,11 @@ export default {
         }
     },
     methods: {
+        toMyInfo() {
+            if(!this.menuShow) {
+                this.$router.push('/myInfo');
+            }
+        },
         ...mapMutations({
             setLevel: 'SET_LEVEL',
             setListenSongs: 'SET_LISTEN_SONGS'

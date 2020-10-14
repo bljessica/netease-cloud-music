@@ -19,7 +19,7 @@
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <ul class="created-menus">
-                <li v-for="(item, index) in createdMenus" :key="index" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
+                <li v-for="(item, index) in createdMenus" :key="index" @click="toPlaylist(item)">
                     <img :src="item.coverImgUrl" alt="" class="img">
                     <div class="info">
                         <div class="name">{{ item.name }}</div>
@@ -48,7 +48,7 @@
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <ul class="collected-menus">
-                <li v-for="(item, index) in collectedMenus" :key="index" @click="$router.push({'name': 'playlist', params: {id: item.id}})">
+                <li v-for="(item, index) in collectedMenus" :key="index" @click="toPlaylist(item)">
                     <img :src="item.coverImgUrl" alt="" class="img">
                     <div class="info">
                         <div class="name">{{ item.name }}</div>
@@ -67,6 +67,12 @@ import { getPlayLists } from '../../api/mine';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
+    props: {
+        menuShow: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             activeTab: 1
@@ -84,6 +90,11 @@ export default {
         }
     },
     methods: { 
+        toPlaylist(item) {
+            if(!this.menuShow) {
+                this.$router.push({'name': 'playlist', params: {id: item.id}})
+            }
+        },
         ...mapMutations({
             setPlaylist: 'SET_PLATLIST',
             setCollectedMenus: 'SET_COLLECTED_MENUS',

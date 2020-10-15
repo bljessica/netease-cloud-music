@@ -3,7 +3,7 @@
         <div class="up-wrapper" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')'}">
             <!-- 头部操作导航栏 -->
             <div class="nav">
-                <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
+                <i class="iconfont icon-zuo" @click="$router.push('/find')"></i>
                 <span>歌单<i>&reg;</i></span>
                 <span class="blank"></span>
                 <i class="iconfont icon-sousuo"></i>

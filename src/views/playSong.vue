@@ -5,7 +5,7 @@
         <!-- 播放棒 -->
         <div class="stick" :class="{playing: playing == true}" v-if="!lyricShow"></div>
         <!-- 音乐封面 -->
-        <div class="nav-to-lyric-wrapper" v-if="lyricShow == false" @click="lyricShow = true">
+        <div class="nav-to-lyric-wrapper" v-if="lyricShow == false" @click="lyricsShow">
             <div class="wrapper">
                 <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
             </div>
@@ -60,8 +60,18 @@ export default {
         ])
     },
     methods: {
+        lyricsShow() {
+            this.lyricShow = true;
+            let that = this;
+            // that.$nextTick(() => {
+                // that.$refs.lyrics.findPrevTime();
+                // console.log('find')
+            // })
+        },
         findPrev() {
-            this.$refs.lyrics.findPrevTime();
+            if(this.lyricShow == true) {
+                this.$refs.lyrics.findPrevTime();
+            }
         },
         angleChange(angle) {
             this.angle = angle;            

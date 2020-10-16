@@ -46,6 +46,7 @@ export default {
         }
     },
     mounted() {
+        // console.log('mount')
         this.getLyrics();
     },
     beforeDestroy() {
@@ -53,6 +54,7 @@ export default {
     },
     methods: {
         findPrevTime() {
+            console.log(9999, this.lyrics.length, this.prevTime)
             let time = '00:00';
             for(let item of this.lyrics) {
                 if(this.getCurrentTime(Math.floor(this.player.currentTime)) > item.time.slice(0, 5)) {
@@ -60,9 +62,11 @@ export default {
                 }
                 else {
                     this.prevTime = time;
-                    let node = document.getElementById(this.prevTime);
-                    this.topNow = 180 - node.offsetTop;
-                    return;
+                    this.$nextTick(() => {
+                        let node = document.getElementById(this.prevTime);
+                        this.topNow = 180 - node.offsetTop;
+                        return;
+                    })
                 }
             }
         },
@@ -157,6 +161,7 @@ export default {
                     }
                     that.getLyricsArr();
                     that.startSlide();
+                    that.findPrevTime();
                 }
             }).catch(err => {
                 that.Message({

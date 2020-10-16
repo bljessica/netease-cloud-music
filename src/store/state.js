@@ -25,7 +25,8 @@ const state = {
     playingSong: {},
     playingList: {},
     playingTimer: null,
-    playingType: 0 //0列表循环，随机播放，2单曲循环
+    playingType: 0, //0列表循环，随机播放，2单曲循环,
+    player: ''  //音乐播放器
 };
 
 export default state;

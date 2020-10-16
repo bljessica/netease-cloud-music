@@ -86,6 +86,9 @@ const mutations = {
     [types.SET_PLAYING_TYPE](state) {
         state.playingType += 1;
         state.playingType %= 3;
+    },
+    [types.SET_PLAYER](state, player) {
+        state.player = player;
     }
 }
 

@@ -36,9 +36,19 @@ function getPlaySongUrl(data) {
     })
 }
 
+//播放：获取歌词
+function getLyrics(data) {
+    return request({
+        url: '/lyric',
+        method: 'get',
+        data: data
+    })
+}
+
 export {
     getPlayRecord,
     getPlaylistDetail,
     getPlaySongDetail,
-    getPlaySongUrl
+    getPlaySongUrl,
+    getLyrics
 }

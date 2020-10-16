@@ -21,7 +21,8 @@ export default {
         ...mapGetters([
             'playingSong',
             'playingList',
-            'playingTimer'
+            'playingTimer',
+            'player'
         ]),
         getArtists() {
             let res = '';
@@ -41,13 +42,15 @@ export default {
             this.$router.push({name: 'playlist', params: {id: this.playingList.id}})
         },
         ...mapMutations({
-            setPlayingTimer: 'SET_PLAYING_TIMER'
+            setPlayingTimer: 'SET_PLAYING_TIMER',
+            setPlayer: 'SET_PLAYER',
         }),
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.header-container {
     .nav {
         height: 70px;
         display: flex;
@@ -93,4 +96,5 @@ export default {
             flex-grow: 1;
         }
     }
+}
 </style>

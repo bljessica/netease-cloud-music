@@ -45,7 +45,7 @@ export default {
     methods: {
         toPlaylist(item) {
             // if(!this.menuShow) {
-                this.$router.push({'name': 'playlist', params: {id: item.id}})
+                this.$router.push({'name': 'playlist', params: {id: item.id}});
             // }
         },
         getPlayNum(item) {

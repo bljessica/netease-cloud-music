@@ -25,8 +25,10 @@ const playingSong = state => state.playingSong;
 const playingList = state => state.playingList;
 const playingTimer = state => state.playingTimer;
 const playingType = state => state.playingType;
+const player = state => state.player;
 
 export default {
+    player,
     playingTimer,
     playingType,
     playingSong,

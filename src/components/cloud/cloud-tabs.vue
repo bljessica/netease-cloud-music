@@ -32,7 +32,7 @@
 import ground from './ground';
 import followBar from './follow-bar';
 
-export default {
+export default { 
     components: {
         ground,
         followBar

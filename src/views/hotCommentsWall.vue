@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :style="{background: 'linear-gradient(to bottom, ' + getRandom() + ', rgba(0, 0, 0, 0.875))'}">
         <div class="header">
             <i class="back iconfont icon-zuo" @click="$router.push('/cloud')"></i>
             <span class="title">热评墙</span>
@@ -87,6 +87,11 @@ export default {
         }
     },
     methods: {
+        getRandom() {
+            let color = 'rgba(' + Math.floor(Math.random() * 106) + ', ' + Math.floor(Math.random() * 80) + ", " + Math.floor(Math.random() * 80) + ', 0.8)';
+            console.log(color)
+            return color;
+        },
         likeThis() {
             let that = this;
             let t = 0;
@@ -152,11 +157,13 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.336), rgba(0, 0, 0, 0.829));
+    // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.336), rgba(0, 0, 0, 0.829));
     color: white;
     padding: 0 20px;
     position: absolute;
     top: 0;
+    right: 0;
+    left: 0;
     bottom: 0;
     .header {
         height: 60px;
@@ -215,9 +222,6 @@ export default {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            // @keyframes pulse{
-
-            // }
             .like.icon-aixin {
                 color: rgba(255, 0, 0, 0.884);
             }

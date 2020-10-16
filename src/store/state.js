@@ -22,8 +22,10 @@ const state = {
     likelist: [],
     listenSongs: '',
     createTime: '',
-    playingSong: '',
-    playingList: ''
+    playingSong: {},
+    playingList: {},
+    playingTimer: null,
+    playingType: 0 //0列表循环，随机播放，2单曲循环
 };
 
 export default state;

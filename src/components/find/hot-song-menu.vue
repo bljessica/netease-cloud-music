@@ -25,12 +25,12 @@ import { getSuggestHotMenu } from '../../api/find';
 import BScroll from '@better-scroll/core';
 
 export default {
-    props: {
-        menuShow: {
-            type: Boolean,
-            default: false
-        }
-    },
+    // props: {
+    //     menuShow: {
+    //         type: Boolean,
+    //         default: false
+    //     }
+    // },
     data() {
         return {
             menu: []
@@ -44,9 +44,9 @@ export default {
     },
     methods: {
         toPlaylist(item) {
-            if(!this.menuShow) {
+            // if(!this.menuShow) {
                 this.$router.push({'name': 'playlist', params: {id: item.id}})
-            }
+            // }
         },
         getPlayNum(item) {
             if(item.playCount >= 100000000) {

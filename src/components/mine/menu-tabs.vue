@@ -67,12 +67,12 @@ import { getPlayLists } from '../../api/mine';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
-    props: {
-        menuShow: {
-            type: Boolean,
-            default: false
-        }
-    },
+    // props: {
+    //     menuShow: {
+    //         type: Boolean,
+    //         default: false
+    //     }
+    // },
     data() {
         return {
             activeTab: 1
@@ -91,9 +91,9 @@ export default {
     },
     methods: { 
         toPlaylist(item) {
-            if(!this.menuShow) {
-                this.$router.push({'name': 'playlist', params: {id: item.id}})
-            }
+            // if(!this.menuShow) { 
+                this.$router.push({name: 'playlist', params: {id: item.id}})
+            // }
         },
         ...mapMutations({
             setPlaylist: 'SET_PLATLIST',

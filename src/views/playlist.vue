@@ -265,6 +265,10 @@ export default {
                             }
                         }
                         div {
+                            width: 100%;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                             font-size: 12px;
                             color: rgb(158, 156, 156);
                             margin-top: 5px;

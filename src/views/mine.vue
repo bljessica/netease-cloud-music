@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @click.stop="menuShow = false" ref="container">
+    <div class="container" @click="menuShow = false" ref="container">
         <!-- 头部导航栏 -->
         <my-header :selected="'mine'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- 用户信息 -->
@@ -19,8 +19,8 @@
         <!-- 我喜欢的音乐 -->
         <love-songs></love-songs>
         <!-- 歌单导航栏 -->
-        <menu-tabs :menuShow="menuShow"></menu-tabs>
-        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
+        <menu-tabs></menu-tabs>
+        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
         <!-- <play-bar></play-bar> -->
     </div>
 </template>
@@ -64,9 +64,11 @@ export default {
     },
     methods: {
         toMyInfo() {
-            if(!this.menuShow) {
-                this.$router.push('/myInfo');
-            }
+            console.log(1)
+            // if(!this.menuShow) { 
+            // console.log(2)
+                this.$router.push({name: 'myInfo'});
+            // }
         },
         ...mapMutations({
             setLevel: 'SET_LEVEL',

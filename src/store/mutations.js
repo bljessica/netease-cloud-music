@@ -76,6 +76,16 @@ const mutations = {
     },
     [types.SET_PLAYING_LIST](state, playingList) {
         state.playingList = playingList;
+    },
+    [types.SET_PLAYING_LIST](state, playingList) {
+        state.playingList = playingList;
+    },
+    [types.SET_PLAYING_TIMER](state, playingTimer) {
+        state.playingTimer = playingTimer;
+    },
+    [types.SET_PLAYING_TYPE](state) {
+        state.playingType += 1;
+        state.playingType %= 3;
     }
 }
 

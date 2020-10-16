@@ -1,10 +1,10 @@
 <template>
-    <div class="container" @click.stop="menuShow = false">
+    <div class="container" @click="menuShow = false">
         <!-- 头部导航栏 -->
         <my-header :selected="'cloud'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- tabs -->
         <cloud-tabs></cloud-tabs>
-        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
+        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
     </div>
 </template>
 

@@ -6,8 +6,8 @@
         <!-- 导航按钮栏 -->
         <nav-btns></nav-btns>
         <!-- 人气歌单推荐 -->
-        <hot-song-menu :menuShow="menuShow"></hot-song-menu>
-        <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu>
+        <hot-song-menu></hot-song-menu>
+        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
         <play-bar></play-bar>
     </div>
 </template>

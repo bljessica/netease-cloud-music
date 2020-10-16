@@ -20,7 +20,7 @@
                 <i class="iconfont icon-jianyi"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
-            <play-actions ref="actions" @angleChange="angleChange"></play-actions>
+            <play-actions @findPrev="findPrev" ref="actions" @angleChange="angleChange"></play-actions>
         </div>
     </div>
 </template>
@@ -60,6 +60,9 @@ export default {
         ])
     },
     methods: {
+        findPrev() {
+            this.$refs.lyrics.findPrevTime();
+        },
         angleChange(angle) {
             this.angle = angle;            
         },

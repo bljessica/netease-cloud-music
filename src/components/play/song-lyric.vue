@@ -29,7 +29,7 @@ export default {
             tlyric: '',
             lyrics: [],
             tlyrics: [],
-            activeIndex: 0,
+            // activeIndex: 0,
             topNow: 200,
             timer: null,
             currentTime: '00:00',
@@ -52,16 +52,27 @@ export default {
         clearInterval(this.timer);
     },
     methods: {
+        findPrevTime() {
+            let time = '00:00';
+            for(let item of this.lyrics) {
+                if(this.getCurrentTime(Math.floor(this.player.currentTime)) > item.time.slice(0, 5)) {
+                    time = item.time.slice(0, 5);
+                }
+                else {
+                    this.prevTime = time;
+                    let node = document.getElementById(this.prevTime);
+                    this.topNow = 180 - node.offsetTop;
+                    return;
+                }
+            }
+        },
         startSlide() {
             let that = this;
             this.timer = setInterval(() => {
                 that.currentTime = that.getCurrentTime(Math.floor(this.player.currentTime));
-                console.log(that.currentTime);
                 let node = document.getElementById(that.currentTime)
                 if(node) {
                     that.prevTime = that.currentTime
-                    console.log(node);
-                    console.log(node.offsetTop)
                     that.topNow = 180 - node.offsetTop;
                 }
             }, 1000);
@@ -120,7 +131,7 @@ export default {
                         });
                     }
                 }
-                console.log(this.lyrics,this.tlyrics, this.calcBetween)
+                // console.log(this.lyrics,this.tlyrics, this.calcBetween)
             }
         },
         coverShow() {

@@ -61,6 +61,7 @@ export default {
             this.dotLeft = e.offsetX;
             this.player.currentTime = this.player.duration * this.dotLeft / width;
             this.current = Math.floor(this.player.currentTime);
+            this.$emit('findPrev');
         },
         getCurrentTime(current) {
             //超过一分钟

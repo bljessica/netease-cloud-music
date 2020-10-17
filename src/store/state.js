@@ -26,7 +26,10 @@ const state = {
     playingList: {},//正播放的歌单
     playingTimer: null,
     playingType: 0, //0列表循环，随机播放，2单曲循环,
-    player: ''  //音乐播放器
+    player: '',  //音乐播放器,
+    lyricNow: '', //现在的这一句歌词,
+    lyrics: [],
+    currentTime: 0 //现在这首歌放到了第几秒
 };
 
 export default state;

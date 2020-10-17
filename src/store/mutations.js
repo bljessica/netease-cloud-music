@@ -89,6 +89,15 @@ const mutations = {
     },
     [types.SET_PLAYER](state, player) {
         state.player = player;
+    },
+    [types.SET_LYRIC_NOW](state, lyricNow) {
+        state.lyricNow = lyricNow;
+    },
+    [types.SET_CURRENT_TIME](state, currentTime) {
+        state.currentTime = currentTime;
+    },
+    [types.SET_LYRICS](state, lyrics) {
+        state.lyrics = lyrics;
     }
 }
 

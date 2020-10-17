@@ -1,6 +1,6 @@
 <template>
     <div class="header-container">
-        <div class="nav">
+        <div class="nav"> 
             <i class="iconfont icon-zuo" @click="goBack"></i>
             <div class="name">
                 <span>{{ playingSong.name }}</span>

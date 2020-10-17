@@ -8,7 +8,7 @@
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <play-bar></play-bar>
+        <play-bar v-if="$store.getters.playingSong"></play-bar>
     </div>
 </template>
 

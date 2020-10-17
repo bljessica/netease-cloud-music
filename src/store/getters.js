@@ -26,8 +26,14 @@ const playingList = state => state.playingList;
 const playingTimer = state => state.playingTimer;
 const playingType = state => state.playingType;
 const player = state => state.player;
+const lyricNow = state => state.lyricNow;
+const currentTime = state => state.currentTime;
+const lyrics = state => state.lyrics;
 
 export default {
+    lyrics,
+    currentTime,
+    lyricNow,
     player,
     playingTimer,
     playingType,

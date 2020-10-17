@@ -6,7 +6,7 @@
         <div class="stick" :class="{playing: playing == true}" v-if="!lyricShow"></div>
         <!-- 音乐封面 -->
         <div class="nav-to-lyric-wrapper" v-if="lyricShow == false" @click="lyricsShow">
-            <div class="wrapper">
+            <div class="wrapper"> 
                 <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
             </div>
         </div>
@@ -86,7 +86,7 @@ export default {
         ...mapMutations({
             setPlayingSong: 'SET_PLAYING_SONG',
             setPlayingList: 'SET_PLAYING_LIST',
-            setPlayingTimer: 'SET_PLAYING_TIMER'
+            setPlayingTimer: 'SET_PLAYING_TIMER',
         }),
         getPlaySongDetail() {
             let that = this;

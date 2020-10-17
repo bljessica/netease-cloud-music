@@ -40,6 +40,7 @@
 <script>
 import { getLyrics } from '../../api/play';
 import { mapGetters, mapMutations} from 'vuex';
+import { getCurrentTime, getLyricTime } from '../../utils/processData';
 import BScroll from '@better-scroll/core';
 
 export default {
@@ -60,7 +61,8 @@ export default {
     computed: {
         ...mapGetters([
             'playingSong',
-            'player'
+            'player',
+            'lyricNow'
         ]),
         calcBetween() {
             return this.lyrics.length - this.tlyrics.length;
@@ -74,6 +76,12 @@ export default {
         clearInterval(this.timer);
     },
     methods: {
+        ...mapMutations({
+            setLyricNow: 'SET_LYRIC_NOW',
+            setCurrentTime: 'SET_CURRENT_TIME',
+            setLyricNow: 'SET_LYRIC_NOW',
+            setLyrics: 'SET_LYRICS'
+        }),
         initSlider() {
             // console.log(this.$refs.lyricWrapper)
             let that = this;
@@ -110,6 +118,9 @@ export default {
                     let process = that.findSelectLi(y);
                     let node = document.getElementById(that.lyrics[process].time);
                     that.prevTime = (that.lyrics[process]).time;
+                    that.setCurrentTime(that.timeToSeconds(that.prevTime));
+                    that.setLyricNow((that.lyrics[process]).content);
+                    console.log(that.lyricNow)
                     that.player.currentTime = that.timeToSeconds(that.prevTime);
                     that.autoSlide = true;
                 });
@@ -137,7 +148,7 @@ export default {
             // console.log(9999, this.lyrics.length, this.prevTime)
             let time = '00:00';
             for(let item of this.lyrics) {
-                if(this.getCurrentTime(Math.floor(this.player.currentTime)) > item.time) {
+                if(getCurrentTime(Math.floor(this.player.currentTime)) > item.time) {
                     time = item.time;
                 }
                 else {
@@ -154,46 +165,19 @@ export default {
         startSlide() {
             let that = this;
             this.timer = setInterval(() => {
-                that.currentTime = that.getCurrentTime(Math.floor(this.player.currentTime));
+                that.currentTime = getCurrentTime(Math.floor(this.player.currentTime));
                 let node = document.getElementById(that.currentTime)
                 if(node) {
-                    that.prevTime = that.currentTime
+                    that.prevTime = that.currentTime;
+                    that.setLyricNow(node.children[0].innerHTML);
+                    console.log(that.lyricNow)
                 }
                 if(node && that.autoSlide) {
                     that.topNow = 180 - node.offsetTop;
                 }
-                let lyricNode = document.getElementById('lyrics');
-                // console.log(lyricNode.offsetTop)
             }, 1000);
         },
-        getCurrentTime(current) {
-            //超过一分钟
-            if(current > 60) {
-                //超过十分钟
-                if(current / 60 >= 10) {
-                    if((current % 60) < 10) {
-                        return Math.floor(current / 60) + ':0' + (current % 60);
-                    }
-                    return Math.floor(current / 60) + ':' + (current % 60);
-                }
-                else {
-                    if((current % 60) < 10) {
-                        return '0' + Math.floor(current / 60) + ':0' + (current % 60);
-                    }
-                    return '0' + Math.floor(current / 60) + ':' + (current % 60);
-                }
-            }
-            else {
-                if(current < 10) {
-                    return '00:0' + current;
-                }
-                return '00:' + current;
-            }
-        },
-        getLyricTime(time) {
-            let times = time.split(':');
-            return times[0] + ':' +times[1].substring(0, 2);
-        },
+        getLyricTime: getLyricTime,
         getLyricsArr() {
             let tmpArr = this.lyric.split('[');
             this.lyrics = [];
@@ -207,6 +191,7 @@ export default {
                     });
                 }
             }
+            // this.setLyrics(this.lyrics);
             if(this.tlyric.length > 0) {
                 tmpArr = this.tlyric.split('[');
                 this.tlyrics = [];
@@ -237,7 +222,8 @@ export default {
                     that.lyrics = [{
                         content: '暂无歌词',
                         time: ''
-                    }]
+                    }];
+                    that.setLyricNow('暂无歌词');
                 }
                 else {
                     that.lyric = res.data.lrc.lyric;

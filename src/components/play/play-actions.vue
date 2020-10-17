@@ -53,7 +53,8 @@ export default {
             setPlayingSong: 'SET_PLAYING_SONG',
             setPlayingType: 'SET_PLAYING_TYPE',
             setPlayingTimer: 'SET_PLAYING_TIMER',
-            setPlayer: 'SET_PLAYER'
+            setPlayer: 'SET_PLAYER',
+            setCurrentTime: 'SET_CURRENT_TIME'
         }),
         jumpToprogress() { 
             let e = event || window.event;
@@ -61,6 +62,7 @@ export default {
             this.dotLeft = e.offsetX;
             this.player.currentTime = this.player.duration * this.dotLeft / width;
             this.current = Math.floor(this.player.currentTime);
+            this.setCurrentTime(this.current);
             this.$emit('findPrev');
         },
         getCurrentTime(current) {
@@ -93,6 +95,7 @@ export default {
             clearInterval(this.playingTimer);
             this.setPlayingTimer(setInterval(() => {
                 that.current = Math.floor(that.player.currentTime);
+                that.setCurrentTime(that.current);
                 that.duration = Math.floor(that.player.duration);
                 that.dotLeft = width * (that.player.currentTime / that.player.duration);
                 if(that.playing) {
@@ -113,7 +116,6 @@ export default {
             else {
                 this.player.pause();
             }
-            // this.playMusic();
         },
     }
 }

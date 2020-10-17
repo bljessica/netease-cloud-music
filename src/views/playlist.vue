@@ -1,6 +1,6 @@
 <template>
-    <div class="playlist-container">
-        <div class="up-wrapper" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')'}">
+    <div class="playlist-container" :style="{background: 'url(' + playlist.coverImgUrl + ') center center'}">
+        <div class="up-wrapper" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')', zIndex: 1002}">
             <!-- 头部操作导航栏 -->
             <div class="nav">
                 <i class="iconfont icon-zuo" @click="$router.push('/find')"></i>
@@ -12,7 +12,7 @@
             <!-- 歌单信息 -->
             <div class="info">
                 <div class="picture" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')'}">
-                    <span><i class="iconfont icon-bofangsanjiaoxing"></i>{{ playlist.playCount }}</span>
+                    <span><i class="iconfont icon-bofangsanjiaoxing"></i>{{ getPlayNum(playlist.playCount) }}</span>
                 </div>
                 <div class="name">
                     <span class="title">{{ playlist.name }}</span>
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <!-- 操作 -->
-            <ul class="actions">
+            <ul class="actions" :style="{opacity: actionsShow == false? 0: 1}">
                 <li v-for="(item, index) in playlistActions" :key="index">
                     <i class="iconfont" :class="item.icon"></i>
                     <div>{{ item.name }}</div>
@@ -64,13 +64,36 @@ export default {
         return {
             playlist: {},
             songs: [],
-            playlistActions: PLAYLIST_ACTIONS
+            playlistActions: PLAYLIST_ACTIONS,
+            actionsShow: true
         }
     },
     mounted() {
         this.getPlaylistDetail();
+        window.addEventListener('scroll', () => {
+            let that = this;
+            //浏览器兼容
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            if(scrollTop >= 230) {
+                that.actionsShow = false;
+            }
+            else {
+                that.actionsShow = true;
+            }
+        })
     },
     methods: {
+        getPlayNum(playCount) {
+            if(playCount >= 100000000) {
+                return (playCount / 100000000).toFixed(1) + '亿';
+            }
+            else if(playCount >= 10000) {
+                return Math.round(playCount / 10000) + '万';
+            }
+            else {
+                return playCount;
+            }
+        },
         getPlaylistDetail() {
             let that = this;
             getPlaylistDetail({
@@ -93,14 +116,24 @@ export default {
 
 <style lang="scss" scoped>
     .playlist-container {
+        background-position: center center;
         .blank {
             flex-grow: 1;
         }
         .up-wrapper {
+            // background-position: center center;
             color: white;
-            background-size: 400% 400%;
-            background-position: center center;
+            position: relative;
+            padding-top: 70px;
+            position: sticky;
+            position: -webkit-sticky;
+            top: -230px;
             .nav {
+                position: fixed;
+                z-index: 1003;
+                top: 0;
+                left: 0;
+                right: 0;
                 padding: 0 20px;
                 height: 70px;
                 display: flex;
@@ -127,6 +160,7 @@ export default {
                 }
             }
             .info {
+                // margin-top: 70px;
                 display: flex;
                 height: 130px;
                 justify-content: space-between;
@@ -214,7 +248,7 @@ export default {
             padding: 15px;
             border-radius: 20px;
             position: relative;
-            top: -15px;
+            // top: -15px;
             z-index: 1000;
             background: white;
             .title {

@@ -18,12 +18,12 @@ const state = {
     level: '',
     createdMenus: [],
     collectedMenus: [],
-    playlist: [],
+    playlist: [],//用户自己的全部歌单
     likelist: [],
     listenSongs: '',
     createTime: '',
     playingSong: {},
-    playingList: {},
+    playingList: {},//正播放的歌单
     playingTimer: null,
     playingType: 0, //0列表循环，随机播放，2单曲循环,
     player: ''  //音乐播放器

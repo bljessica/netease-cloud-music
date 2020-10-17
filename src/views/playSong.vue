@@ -17,10 +17,10 @@
                 <i class="iconfont" :class="{'icon-icon-test': true, 'icon-aixin': false}"></i>
                 <i class="iconfont icon-xiazai"></i>
                 <i class="iconfont icon-luyin"></i>
-                <i class="iconfont icon-jianyi"></i>
+                <i class="iconfont icon-jianyi" @click="$router.push({name: 'songComments', params: {id: playingSong.id}})"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
-            <play-actions @findPrev="findPrev" ref="actions" @angleChange="angleChange"></play-actions>
+            <play-actions @changePlaying="changePlaying" @findPrev="findPrev" ref="actions" @angleChange="angleChange"></play-actions>
         </div>
     </div>
 </template>
@@ -60,13 +60,11 @@ export default {
         ])
     },
     methods: {
+        changePlaying() {
+            this.playing = !this.playing;
+        },
         lyricsShow() {
             this.lyricShow = true;
-            let that = this;
-            // that.$nextTick(() => {
-                // that.$refs.lyrics.findPrevTime();
-                // console.log('find')
-            // })
         },
         findPrev() {
             if(this.lyricShow == true) {

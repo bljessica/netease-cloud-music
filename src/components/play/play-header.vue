@@ -36,6 +36,7 @@ export default {
     },
     methods: {
         goBack() {
+            console.log(this.playingList, this.playingSong)
             clearInterval(this.playingTimer);
             console.log('leave')
             this.setPlayingTimer(null);

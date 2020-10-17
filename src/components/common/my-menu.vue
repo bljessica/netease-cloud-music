@@ -1,80 +1,77 @@
 <template>
     <div class="my-menu-wrapper" ref="wrapper">
-
-    
-    <div class="my-menu-container">
-        <!-- 开通VIP -->
-        <div class="vip"> 
-            <div class="title">
-                <span>开通黑胶VIP</span>
-                <span>会员中心</span>
-            </div>
-            <p>加入黑胶VIP，立享超17项专属特权</p>
-            <div>
-                <span>黑胶VIP首月仅5元，赢万元苹果礼包</span>
-                <i class="iconfont icon-jia1"></i>
-            </div>
-        </div>
-        <!-- 消息中心 -->
-        <div class="msgs">
-            <div class="yunbei li"> 
-                <div class="wrapper">
-                    <i class="iconfont icon-yun"></i>
+        <div class="my-menu-container">
+            <!-- 开通VIP -->
+            <div class="vip"> 
+                <div class="title">
+                    <span>开通黑胶VIP</span>
+                    <span>会员中心</span>
                 </div>
-                <div class="content">
-                    <span>云贝中心</span>
-                    <div class="sign">签到<i class="iconfont icon-you"></i></div>
+                <p>加入黑胶VIP，立享超17项专属特权</p>
+                <div>
+                    <span>黑胶VIP首月仅5元，赢万元苹果礼包</span>
+                    <i class="iconfont icon-jia1"></i>
                 </div>
             </div>
-            <div class="msg li">
-                <div class="wrapper">
-                    <i class="iconfont icon-xinxi"></i>
+            <!-- 消息中心 -->
+            <div class="msgs">
+                <div class="yunbei li"> 
+                    <div class="wrapper">
+                        <i class="iconfont icon-yun"></i>
+                    </div>
+                    <div class="content">
+                        <span>云贝中心</span>
+                        <div class="sign">签到<i class="iconfont icon-you"></i></div>
+                    </div>
                 </div>
-                <div class="content">
-                    <span>消息中心&nbsp;<span class="num">9</span></span>
-                    <div class="sign">有人私信了你</div>
+                <div class="msg li">
+                    <div class="wrapper">
+                        <i class="iconfont icon-xinxi"></i>
+                    </div>
+                    <div class="content">
+                        <span>消息中心&nbsp;<span class="num">9</span></span>
+                        <div class="sign">有人私信了你</div>
+                    </div>
                 </div>
             </div>
+            <!-- 创作者中心 -->
+            <div class="creater">
+                <span class="icon-wrapper">
+                    <i class="iconfont icon-2"></i>
+                </span>
+                <span class="name">创作者中心</span>
+                <i class="iconfont icon-you"></i>
+            </div>
+            <!-- 音乐服务 -->
+            <div class="service items-wrapper">
+                <div class="title">音乐服务</div>
+                <aside-menu-items :items="serviceItems" class="items"></aside-menu-items>
+            </div>
+            <!-- 其他 -->
+            <div class="others items-wrapper">
+                <div class="title">音乐服务</div>
+                <aside-menu-items :items="otherItems" class="items"></aside-menu-items>
+            </div>
+            <!-- 关于 -->
+            <div class="about items-wrapper">
+                <aside-menu-items :items="mineSettingItems" class="items"></aside-menu-items>
+            </div>
+            <!-- 底部导航栏 -->
+            <footer class="footer">
+                <span class="night">
+                    <i class="iconfont icon-yewan"></i>
+                    夜间模式
+                </span>
+                <span class="setting">
+                    <i class="iconfont icon-shezhi"></i>
+                    设置
+                </span>
+                <span class="exit">
+                    <i class="iconfont icon-guanji"></i>
+                    退出
+                </span>
+            </footer>
         </div>
-        <!-- 创作者中心 -->
-        <div class="creater">
-            <span class="icon-wrapper">
-                <i class="iconfont icon-2"></i>
-            </span>
-            <span class="name">创作者中心</span>
-            <i class="iconfont icon-you"></i>
-        </div>
-        <!-- 音乐服务 -->
-        <div class="service items-wrapper">
-            <div class="title">音乐服务</div>
-            <aside-menu-items :items="serviceItems" class="items"></aside-menu-items>
-        </div>
-        <!-- 其他 -->
-        <div class="others items-wrapper">
-            <div class="title">音乐服务</div>
-            <aside-menu-items :items="otherItems" class="items"></aside-menu-items>
-        </div>
-        <!-- 关于 -->
-        <div class="about items-wrapper">
-            <aside-menu-items :items="mineSettingItems" class="items"></aside-menu-items>
-        </div>
-        <!-- 底部导航栏 -->
-        <footer class="footer">
-            <span class="night">
-                <i class="iconfont icon-yewan"></i>
-                夜间模式
-            </span>
-            <span class="setting">
-                <i class="iconfont icon-shezhi"></i>
-                设置
-            </span>
-            <span class="exit">
-                <i class="iconfont icon-guanji"></i>
-                退出
-            </span>
-        </footer>
-    </div>
-
     </div>
 </template>
 

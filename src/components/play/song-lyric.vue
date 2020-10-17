@@ -97,7 +97,6 @@ export default {
                     //进度(应该active的li的索引)
                     let process = that.findSelectLi(y);
                     let node = document.getElementById(that.lyrics[process].time);
-                    console.log(process, lyricsNum)
                     that.select = process;
                 });
                 slider.on('scrollEnd', () => {

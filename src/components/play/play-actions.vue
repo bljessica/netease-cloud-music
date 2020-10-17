@@ -106,6 +106,7 @@ export default {
         },
         changePlay() {
             this.playing = !this.playing;
+            this.$emit('changePlaying');
             if(this.playing) {
                 this.player.play();
             }

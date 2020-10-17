@@ -45,7 +45,17 @@ function getLyrics(data) {
     })
 }
 
+//播放：获取歌曲评论
+function getSongComments(data) {
+    return request({
+        url: '/comment/music',
+        method: 'get',
+        data: data
+    })
+}
+
 export {
+    getSongComments,
     getPlayRecord,
     getPlaylistDetail,
     getPlaySongDetail,

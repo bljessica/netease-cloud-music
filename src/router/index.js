@@ -65,6 +65,11 @@ const router = new Router({
       path: '/playSong',
       name: 'playSong',
       component: () => import('@/views/playSong.vue')
+    },
+    {
+      path: '/songComments',
+      name: 'songComments',
+      component: () => import('@/views/songComments.vue')
     }
   ]
 });

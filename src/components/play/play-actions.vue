@@ -55,7 +55,7 @@ export default {
             setPlayingTimer: 'SET_PLAYING_TIMER',
             setPlayer: 'SET_PLAYER'
         }),
-        jumpToprogress() {
+        jumpToprogress() { 
             let e = event || window.event;
             let width = this.$refs.line.offsetWidth;
             this.dotLeft = e.offsetX;

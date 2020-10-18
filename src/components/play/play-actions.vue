@@ -11,22 +11,27 @@
         </div>
         <div class="actions-down">
             <i class="iconfont" @click="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
-            <i class="iconfont icon-047caozuo_shangyishou"></i>
+            <i class="iconfont icon-047caozuo_shangyishou" @click="prevSong"></i>
             <i class="iconfont" @click="changePlay" :class="{'icon-zanting_huaban': playing == true, 'icon-bofang2': playing == false}"></i>
-            <i class="iconfont icon-048caozuo_xiayishou"></i>
-            <i class="iconfont icon-bofangliebiao"></i>
+            <i class="iconfont icon-048caozuo_xiayishou" @click="nextSong"></i>
+            <i class="iconfont icon-bofangliebiao" @click.stop="playingListShow"></i>
         </div>
+        <!-- <playing-list v-show="playingListShow"></playing-list> -->
         <!-- 音乐播放器 -->
-        <audio ref="player" :src="playingSong.musicUrl" autoplay="" loop>
+        <audio ref="player" :key="audioKey" :src="playingSong.musicUrl" autoplay="" loop>
             您的浏览器不支持 audio 标签
         </audio>
     </div>
 </template>
 
 <script>
+// import playingList from '../common/playing-list';
 import { mapGetters, mapMutations} from 'vuex';
 
 export default {
+    components: {
+        // playingList
+    },
     data() {
         return {
             playing: true,
@@ -34,7 +39,10 @@ export default {
             current: 0,
             duration: 0,
             dotLeft: 0,
-            angle: 0
+            angle: 0,
+            tracks: [],
+            index: -1,
+            audioKey: 0
         }
     },
     mounted() {
@@ -45,24 +53,71 @@ export default {
             'playingSong',
             'playingTimer',
             'playingType',
-            'player'
+            'player',
+            'currentTime',
+            'playingList'
         ])
     },
     methods: {
+        prevSong() {
+            let index = this.findThisInList();
+            index--;
+            if(index < 0) {
+                index += this.tracks.length;
+            }
+            console.log(index)
+            this.setLyricNow('');
+            this.setCurrentTime(0);
+            this.setPlayingSong(this.tracks[index]);
+            this.$emit('changeSong');
+
+        },
+        nextSong() {
+            let index = this.findThisInList();
+            index++;
+            if(index >= this.tracks.length) {
+                index %= this.tracks.length;
+            }
+            console.log(index)
+            this.setLyricNow('');
+            this.setCurrentTime(0);
+            this.setPlayingSong(this.tracks[index]);
+            this.$emit('changeSong');
+        },
+        changeSongRandomly() {
+            let index = Math.floor(Math.random() * this.tracks.length);
+            this.setLyricNow('');
+            this.setCurrentTime(0);
+            this.setPlayingSong(this.tracks[index]);
+            this.$emit('changeSong');
+        },
+        playingListShow() {
+            this.$emit('playingListShow');
+        },
         ...mapMutations({
             setPlayingSong: 'SET_PLAYING_SONG',
             setPlayingType: 'SET_PLAYING_TYPE',
             setPlayingTimer: 'SET_PLAYING_TIMER',
             setPlayer: 'SET_PLAYER',
-            setCurrentTime: 'SET_CURRENT_TIME'
+            setCurrentTime: 'SET_CURRENT_TIME',
+            setLyricNow: 'SET_LYRIC_NOW'
         }),
+        findThisInList() {
+            this.tracks = this.playingList.tracks;
+            for(let i in this.tracks) {
+                if(this.tracks[i].name == this.playingSong.name) {
+                    console.log(i);
+                    return i;
+                }
+            }
+        },
         jumpToprogress() { 
             let e = event || window.event;
             let width = this.$refs.line.offsetWidth;
             this.dotLeft = e.offsetX;
             this.player.currentTime = this.player.duration * this.dotLeft / width;
             this.current = Math.floor(this.player.currentTime);
-            this.setCurrentTime(this.current);
+            this.setCurrentTime(Math.floor(this.player.currentTime));
             this.$emit('findPrev');
         },
         getCurrentTime(current) {
@@ -90,14 +145,34 @@ export default {
             }
         },
         changeProgress() {
+            if(this.$route.params.id == this.playingSong.id) {
+                //继续播放
+                this.setPlayer(this.$refs.player);
+                this.player.currentTime = this.currentTime;
+            }
             let width = this.$refs.line.offsetWidth;
             let that = this;
             clearInterval(this.playingTimer);
             this.setPlayingTimer(setInterval(() => {
                 that.current = Math.floor(that.player.currentTime);
-                that.setCurrentTime(that.current);
+                that.setCurrentTime(Math.floor(that.player.currentTime));
                 that.duration = Math.floor(that.player.duration);
                 that.dotLeft = width * (that.player.currentTime / that.player.duration);
+                //这首歌放完
+                if(that.current === that.duration) {
+                    //列表循环
+                    if(that.playingType === 0) {
+                        clearInterval(that.playingTimer);
+                        that.nextSong();
+                        return;
+                    }
+                    //随机
+                    else if(this.playingType == 1) {
+                        clearInterval(that.playingTimer);
+                        that.changeSongRandomly();
+                        return;
+                    }
+                }
                 if(that.playing) {
                     that.angle += 0.2;
                 }

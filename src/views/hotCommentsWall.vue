@@ -44,12 +44,18 @@
             </div>
             <i class="iconfont icon-fenxiang"></i>
         </div>
+        <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar>
     </div>
 </template>
 
 <script>
+import playBar from '../components/common/play-bar';
 import { getHotWall, likeComment } from '../api/cloud';
+
 export default {
+    components: {
+        playBar
+    },
     data() {
         return {
             hotWall: [],
@@ -89,7 +95,6 @@ export default {
     methods: {
         getRandom() {
             let color = 'rgba(' + Math.floor(Math.random() * 106) + ', ' + Math.floor(Math.random() * 80) + ", " + Math.floor(Math.random() * 80) + ', 0.8)';
-            console.log(color)
             return color;
         },
         likeThis() {
@@ -101,16 +106,18 @@ export default {
             else {
                 t = 1;//点赞
             }
+            console.log(t)
             likeComment({
                 id: that.hotWall[that.curIndex].simpleResourceInfo.songId,
                 cid: that.hotWall[that.curIndex].id,
                 t: t,
                 type: 0 //歌曲
             }).then(res => {
-                console.log(res);
+                console.log(res.data);
                 if(res.data.code === 200) {
-                    this.likes[this.curIndex] = !this.likes[this.curIndex];
-                    this.likeKey++;
+                    that.likes[that.curIndex] = !that.likes[that.curIndex];
+                    console.log(that.likes)
+                    that.likeKey++;
                 }
             }).catch(err => {
                 that.Message({

@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import VueRouter from'vue-router';
 import App from './App';
 import router from './router';
 import '../static/iconfont.css';
@@ -17,6 +18,11 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.Message = Message;
 
+//解决页面路由重复点击报错
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+   return originalPush.call(this, location).catch(err => err)
+}
 
 /* eslint-disable no-new */
 new Vue({

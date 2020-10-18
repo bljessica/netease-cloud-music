@@ -1,5 +1,5 @@
 <template>
-    <div class="find-container" @click.stop="menuShow = false">
+    <div class="find-container">
         <my-header :selected="'find'" @menuShow="menuShow = true"></my-header>
         <!-- 轮播图 -->
         <banner :bannersData="bannerImgs" class="banner"></banner>
@@ -8,16 +8,18 @@
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <play-bar v-if="$store.getters.playingSong"></play-bar>
+        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
-<script>
+<script> 
 import myHeader from '../components/common/my-header';
 import banner from '../components/common/banner';
 import myMenu from '../components/common/my-menu';
 import navBtns from '../components/find/nav-btns';
 import playBar from '../components/common/play-bar';
+import playingList from '../components/common/playing-list';
 import hotSongMenu from '../components/find/hot-song-menu';
 import { getBanner } from '../api/find';
 
@@ -28,18 +30,29 @@ export default {
         navBtns,
         hotSongMenu,
         myMenu,
-        playBar
+        playBar,
+        playingList
     },
     data() {
         return {
             bannerImgs: [],
-            menuShow: false
+            menuShow: false,
+            playingListShow: false,
         }
     },
     mounted() {
         this.getBanner();
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
+        })
     },
     methods: {
+        changeSong() {
+            this.$refs.bar.refresh();
+        },
         //获取轮播图数据
         getBanner() {
             let that = this;

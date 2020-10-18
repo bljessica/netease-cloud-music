@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @click="menuShow = false" ref="container">
+    <div class="container" ref="container">
         <!-- 头部导航栏 -->
         <my-header :selected="'mine'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- 用户信息 -->
@@ -21,7 +21,8 @@
         <!-- 歌单导航栏 -->
         <menu-tabs></menu-tabs>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <!-- <play-bar></play-bar> -->
+        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
@@ -34,6 +35,8 @@ import menuTabs from '../components/mine/menu-tabs';
 import playBar from '../components/common/play-bar';
 import { getUserInfo } from '../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
+import playingList from '../components/common/playing-list';
+
 
 export default {
     components: {
@@ -42,11 +45,13 @@ export default {
         loveSongs,
         menuTabs,
         myMenu,
-        playBar
+        playBar,
+        playingList
     },
     data() {
         return {
-            menuShow: false
+            menuShow: false,
+            playingListShow: false,
         }
     },
     computed: {
@@ -61,8 +66,17 @@ export default {
         if(this.$store.getters.level.length == 0) {
             this.getUserInfo();
         }
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
+        })
     },
     methods: {
+        changeSong() {
+            this.$refs.bar.refresh();
+        },
         toMyInfo() {
             console.log(1)
             // if(!this.menuShow) { 

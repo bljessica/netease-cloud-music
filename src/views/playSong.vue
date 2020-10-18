@@ -10,8 +10,8 @@
                 <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
             </div>
         </div>
-        <song-lyric v-if="lyricShow == true" ref="lyrics" @coverShow="coverShow"></song-lyric>
-        <!-- 操作栏 -->
+        <song-lyric :key="songKey" v-show="lyricShow == true" ref="lyrics" @coverShow="coverShow"></song-lyric>
+        <!-- 操作栏 --> 
         <div class="actions">
             <div class="actions-up">
                 <i class="iconfont" :class="{'icon-icon-test': true, 'icon-aixin': false}"></i>
@@ -20,8 +20,9 @@
                 <i class="iconfont icon-jianyi" @click="$router.push({name: 'songComments', params: {id: playingSong.id}})"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
-            <play-actions @changePlaying="changePlaying" @findPrev="findPrev" ref="actions" @angleChange="angleChange"></play-actions>
+            <play-actions ref="actions" :key="songKey" @changeSong="changeSong" @playingListShow="showPlayingList" @changePlaying="changePlaying" @findPrev="findPrev" @angleChange="angleChange"></play-actions>
         </div>
+        <playing-list class="playing-list" @changeSong="changeSong" v-show="playingListShow"></playing-list>
     </div>
 </template>
 
@@ -31,6 +32,7 @@ import { mapGetters, mapMutations} from 'vuex';
 import playHeader from '../components/play/play-header';
 import playActions from '../components/play/play-actions';
 import songLyric from '../components/play/song-lyric';
+import playingList from '../components/common/playing-list';
 
 export default {
     data() {
@@ -38,17 +40,26 @@ export default {
             playing: true,
             musicUrl: '',
             angle: 0,
-            lyricShow: false
+            lyricShow: false,
+            playingListShow: false,
+            songKey: 0
         }
     },
     components: {
         playHeader,
         playActions,
-        songLyric
+        songLyric,
+        playingList
     },
     mounted() {
-        this.setPlayingList(this.$route.params.playlist);
+        this.setPlayingList(this.$route.params.playingList);
         this.getPlaySongDetail();
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
+        })
     },
     computed: {
         ...mapGetters([
@@ -56,10 +67,20 @@ export default {
             'playingList',
             'playingTimer',
             'playingType',
-            'player'
+            'player',
+            'currentTime'
         ])
     },
     methods: {
+        changeSong() { 
+            // if(this.lyricShow == true) {
+                this.$refs.lyrics.refresh();//刷新歌词
+            // }
+            this.getPlaySongDetail(1); //为歌曲添加url
+        },
+        showPlayingList() {
+            this.playingListShow = true;
+        },
         changePlaying() {
             this.playing = !this.playing;
         },
@@ -87,11 +108,25 @@ export default {
             setPlayingSong: 'SET_PLAYING_SONG',
             setPlayingList: 'SET_PLAYING_LIST',
             setPlayingTimer: 'SET_PLAYING_TIMER',
+            setPlayer: 'SET_PLAYER'
         }),
-        getPlaySongDetail() {
+        getPlaySongDetail(type=0) { 
+            //0为正常，1为切歌时获取歌曲url
+            if(this.$route.params.id == this.playingSong.id && type == 0) {
+                //继续播放
+                this.$refs.actions.changeProgress();
+                return;
+            }
+            let id = '';
+            if(type === 0) {
+                id = this.$route.params.id;
+            }
+            else if(type === 1) {
+                id = this.playingSong.id;
+            }
             let that = this;
             getPlaySongDetail({
-                ids: that.$route.params.id
+                ids: id
             }).then(res => {
                 console.log(res.data.songs[0]);
                 that.setPlayingSong(res.data.songs[0]);
@@ -112,7 +147,6 @@ export default {
                     let obj = Object.assign(that.playingSong, {
                         musicUrl: res.data.data[0].url
                     })
-                    // console.log(obj)
                     that.setPlayingSong(obj);
                     //开启进度条
                     that.$refs.actions.changeProgress();

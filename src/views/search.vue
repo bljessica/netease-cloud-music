@@ -30,26 +30,42 @@
 
             </li>
         </ul> -->
+        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script>
 import searchBar from '../components/search/search-bar';
+import playBar from '../components/common/play-bar';
+import playingList from '../components/common/playing-list';
 import { detailHotRank } from '../api/search';
 export default {
     data() {
         return {
             hotRank: [],
             hotRankShow: [],
+            playingListShow: false,
         }
     },
     components: {
-        searchBar
+        searchBar,
+        playBar,
+        playingList
     },
     mounted() {
         this.hotSearchRank();
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
+        })
     },
     methods: {
+        changeSong() {
+            this.$refs.bar.refresh();
+        },
         detailHotRank() {
             this.hotRankShow = this.hotRank;
         },

@@ -76,6 +76,10 @@ export default {
         clearInterval(this.timer);
     },
     methods: {
+        refresh() {
+            clearInterval(this.timer);
+            this.getLyrics();
+        },
         ...mapMutations({
             setLyricNow: 'SET_LYRIC_NOW',
             setCurrentTime: 'SET_CURRENT_TIME',
@@ -89,7 +93,7 @@ export default {
                 let slider = new BScroll(that.$refs.lyricWrapper, {
                     scrollX: false,
                     scrollY: true,
-                    click: true,
+                    // click: true,
                     bounce: false,
                     probeType: 3 // 默认不会调用scroll回调，3不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
                 });
@@ -120,7 +124,7 @@ export default {
                     that.prevTime = (that.lyrics[process]).time;
                     that.setCurrentTime(that.timeToSeconds(that.prevTime));
                     that.setLyricNow((that.lyrics[process]).content);
-                    console.log(that.lyricNow)
+                    // console.log(that.lyricNow)
                     that.player.currentTime = that.timeToSeconds(that.prevTime);
                     that.autoSlide = true;
                 });
@@ -145,7 +149,6 @@ export default {
             return minutes * 60 + seconds;
         },
         findPrevTime() {
-            // console.log(9999, this.lyrics.length, this.prevTime)
             let time = '00:00';
             for(let item of this.lyrics) {
                 if(getCurrentTime(Math.floor(this.player.currentTime)) > item.time) {
@@ -156,7 +159,6 @@ export default {
                     this.$nextTick(() => {
                         let node = document.getElementById(this.prevTime);
                         this.topNow = 180 - node.offsetTop;
-                        // console.log('find ' + this.topNow)
                         return;
                     })
                 }
@@ -170,7 +172,6 @@ export default {
                 if(node) {
                     that.prevTime = that.currentTime;
                     that.setLyricNow(node.children[0].innerHTML);
-                    console.log(that.lyricNow)
                 }
                 if(node && that.autoSlide) {
                     that.topNow = 180 - node.offsetTop;

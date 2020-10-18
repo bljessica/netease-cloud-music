@@ -1,5 +1,5 @@
 <template>
-    <div class="player-container">
+    <div class="player-container" @click="$router.push({name: 'playSong', params: {id: playingSong.id, playingList: playingList}})">
         <img :src="playingSong.al.picUrl" alt="">
         <div class="song">
             <div>{{ playingSong.name }}</div>
@@ -7,9 +7,9 @@
         </div>
         <div class="action">
             <span class="play-btn">
-                <i class="iconfont" @click="changePlay" :class="{'icon-zanting_huaban': playing == true, 'icon-bofang2': playing == false}"></i>
+                <i class="iconfont" @click.stop="changePlay" :class="{'icon-zanting_huaban': playing == true, 'icon-bofang2': playing == false}"></i>
             </span>
-            <i class="iconfont icon-bofangliebiao"></i>
+            <i class="iconfont icon-bofangliebiao" @click.stop="playingListShow"></i>
         </div>
         <!-- 音乐播放器 -->
         <audio ref="player" :src="playingSong.musicUrl" autoplay="" loop>
@@ -19,9 +19,10 @@
 </template>
 
 <script>
-import { getLyrics } from '../../api/play';
+import { getLyrics, getPlaySongUrl } from '../../api/play';
 import { mapGetters, mapMutations} from 'vuex';
 import { getCurrentTime } from '../../utils/processData';
+
 
 export default {
     data() {
@@ -29,16 +30,20 @@ export default {
             playing: true,
             lyric: '',
             prevTime: '00:00',
-            timer: null
+            tracks: []
+            // timer: null
         }
     },
     mounted() {
+        console.log(this.playingList)
+        // this.tracks = this.this.playingList.tracks;
         this.getProgress();
         this.getLyrics();
     },
     computed: {
         ...mapGetters([
             'playingSong',
+            'playingList',
             'playingTimer',
             'playingType',
             'player',
@@ -48,26 +53,101 @@ export default {
         ])
     },
     beforeDestroy() {
-        clearInterval(this.timer);
+        clearInterval(this.playingTimer);
     },
-    methods: {
+    methods: { 
+        refresh() {
+            // this.getProgress();
+            this.player.currentTime = this.currentTime;
+            this.getLyrics();
+        },
+        playingListShow() {
+            this.$emit('playingListShow');
+        },
         getProgress() {
-            console.log(this.lyricNow, this.playingType, this.currentTime)
             this.setPlayer(this.$refs.player);
             this.player.currentTime = this.currentTime;
         },
+        getPlaySongUrl() {
+            let that = this;
+            getPlaySongUrl({
+                id: that.playingSong.id
+            }).then(res => {
+                console.log(res.data);
+                if(!res.data.data[0].url) {
+                    that.Message({
+                        message: '暂无资源',
+                        type: 'warning',
+                        duration: 2000
+                    });
+                    return;
+                }
+                let musicUrl = res.data.data[0].url;
+                let obj = Object.assign(that.playingSong, {
+                    musicUrl: res.data.data[0].url
+                })
+                that.setPlayingSong(obj);
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
+            })
+        },
+        changeSong(index) {
+            this.setPlayingSong(this.tracks[index]);
+            this.setLyricNow('');
+            this.setCurrentTime(0);
+            this.getPlaySongUrl();
+            this.getLyrics();
+        },
+        findThisInList() {
+            this.tracks = this.playingList.tracks;
+            for(let i in this.tracks) {
+                if(this.tracks[i].name == this.playingSong.name) {
+                    console.log(i);
+                    return i;
+                }
+            }
+        },
         findLyricAutomatically() {
             let that = this;
-            this.timer = setInterval(() => {
+            clearInterval(this.playingTimer); 
+            this.setPlayingTimer(setInterval(() => {
                 let current = getCurrentTime(Math.floor(that.player.currentTime));
+                that.setCurrentTime(Math.floor(that.player.currentTime));
+                if(Math.floor(that.player.currentTime) + 1 === Math.floor(that.player.duration)) {
+                    //列表循环
+                    if(that.playingType === 0) {
+                        clearInterval(that.playingTimer);
+                        // that.nextSong();
+                        let index = that.findThisInList();
+                        index++;
+                        if(index >= that.tracks.length) {
+                            index %= that.tracks.length;
+                        }
+                        that.changeSong(index);
+                        return;
+                    }
+                    //随机
+                    else if(this.playingType == 1) {
+                        clearInterval(that.playingTimer);
+                        that.tracks = that.playingList.tracks;
+                        let index = Math.floor(Math.random() * that.tracks.length);
+                        that.changeSong(index);
+                        return;
+                    }
+                }
                 // console.log(current);
                 for(let item of that.lyrics) {
                     if(item.time == current) {
                         that.prevTime = current;
                         that.setLyricNow(item.content);
+                        // console.log(that.lyricNow)
                     }
                 }
-            }, 1000);
+            }, 1000));
         },
         getLyricsArr() {
             let tmpArr = this.lyric.split('[');
@@ -83,7 +163,7 @@ export default {
                 }
             }
             this.setLyrics(lyrics);
-            console.log(this.lyrics);
+            // console.log(this.lyrics);
             this.findLyricAutomatically();
         },
         getLyrics() {
@@ -126,6 +206,7 @@ export default {
             setPlayingTimer: 'SET_PLAYING_TIMER',
             setPlayer: 'SET_PLAYER',
             setLyrics: 'SET_LYRICS',
+            setCurrentTime: 'SET_CURRENT_TIME',
             setLyricNow: 'SET_LYRIC_NOW'
         })
     }
@@ -134,10 +215,11 @@ export default {
 
 <style lang="scss" scoped>
     .player-container {
-        position: absolute;
+        position: fixed;
         bottom: 0;
-        left: 10px;
-        right: 10px;
+        left: 0;
+        right: 0;
+        padding: 0 10px;
         z-index: 2000;
         height: 60px;
         background: white;

@@ -41,7 +41,7 @@
                 <span>（共{{ songs.length }}首）</span>
             </div>
             <ul class="songs">
-                <li v-for="(item, index) in songs" :key="index" @click="$router.push({name: 'playSong', params: {id: item.id, playlist: playlist}})">
+                <li v-for="(item, index) in songs" :key="index" @click="$router.push({name: 'playSong', params: {id: item.id, playingList: playlist}})">
                     <span class="no">{{ index + 1 }}</span>
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>
@@ -52,10 +52,14 @@
                 </li>
             </ul>
         </div>
+        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script>
+import playBar from '../components/common/play-bar';
+import playingList from '../components/common/playing-list';
 import { getPlaylistDetail } from '../api/play';
 import { PLAYLIST_ACTIONS } from '../consts/const';
 
@@ -65,8 +69,13 @@ export default {
             playlist: {},
             songs: [],
             playlistActions: PLAYLIST_ACTIONS,
-            actionsShow: true
+            actionsShow: true,
+            playingListShow: false,
         }
+    },
+    components: {
+        playBar,
+        playingList
     },
     mounted() {
         this.getPlaylistDetail();
@@ -80,9 +89,18 @@ export default {
             else {
                 that.actionsShow = true;
             }
+        });
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
         })
     },
     methods: {
+        changeSong() {
+            this.$refs.bar.refresh();
+        },
         getPlayNum(playCount) {
             if(playCount >= 100000000) {
                 return (playCount / 100000000).toFixed(1) + '亿';
@@ -117,6 +135,7 @@ export default {
 <style lang="scss" scoped>
     .playlist-container {
         background-position: center center;
+        padding-bottom: 60px;
         .blank {
             flex-grow: 1;
         }
@@ -246,7 +265,7 @@ export default {
         }
         .playlist {
             padding: 15px;
-            border-radius: 20px;
+            border-radius: 20px 20px 0 0;
             position: relative;
             // top: -15px;
             z-index: 1000;

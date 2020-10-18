@@ -2,7 +2,7 @@
     <div class="container">
         <!-- 头部操作导航栏 -->
         <div class="nav">
-            <i class="iconfont icon-zuo" @click="$router.push({name: 'playSong', params: {id: playingSong.id, playlist: playingList}})"></i>
+            <i class="iconfont icon-zuo" @click="$router.push({name: 'playSong', params: {id: playingSong.id, playingList: playingList}})"></i>
             <span class="name">评论（{{ total }}）</span>
             <span class="blank"></span>
             <i class="iconfont icon-fenxiang"></i>
@@ -21,36 +21,46 @@
                 <li v-for="(item, index) in commentsSelected" :key="index">
                     <div class="user-wrapper">
                         <img :src="item.user.avatarUrl" alt="">
-                        <!-- <div>收到了抱抱</div> -->
+                        <div v-if="hugsShow[index]">收到了抱抱</div>
                     </div>
                     <div class="info">
-                        <div class="user-info">
-                            <span>
-                                {{ item.user.nickname }}
-                                <span class="time"><br>{{ getTime(item.time) }}</span>
-                            </span>
-                            <span class="num">{{ getPlayNum(item.likedCount) }} <i class="iconfont icon-zan1"></i></span>
-                        </div>
-                        <p class="content">{{ item.content }}</p>
-                        <div>{{ }}条评论</div>
+                        <v-touch @swipeleft="swipeleft(index)" @swiperight="swiperight(index)">
+                            <div class="user-info">
+                                <span>
+                                    {{ item.user.nickname }}
+                                    <span class="time"><br>{{ getTime(item.time) }}</span>
+                                </span>
+                                <span class="num">{{ getPlayNum(item.likedCount) }} <i class="iconfont icon-zan1"></i></span>
+                            </div>
+                            <p class="content">{{ item.content }}</p>
+                            <div class="replyNum">{{ }}条回复</div>
+                        </v-touch>
                     </div>
+                    <img :key="key" class="hug" :class="{'active': hugsShow[index]}" src="../assets/hug.gif" alt="">
                 </li>
             </ul>
         </div>
+        <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar>
     </div>
 </template>
 
 <script>
+import playBar from '../components/common/play-bar';
 import { mapGetters, mapMutations} from 'vuex';
 import { getSongComments } from '../api/play';
 
 export default {
+    components: {
+        playBar
+    },
     data() {
         return {
             comments: [],
             hotComments: [],
             total: 0,
-            selectedType: 0
+            selectedType: 0,
+            hugsShow: [],
+            key: 0
         }
     },
     computed: {
@@ -60,9 +70,15 @@ export default {
         ]),
         commentsSelected() {
             if(this.selectedType == 0 || this.selectedType == 1) {
+                for(let i = 0; i < this.hotComments.length; i++) {
+                    this.hugsShow[i] = false;
+                }
                 return this.hotComments;
             }
             else {
+                for(let i = 0; i < this.comments.length; i++) {
+                    this.hugsShow[i] = false;
+                }
                 return this.comments;
             }
         }
@@ -71,6 +87,14 @@ export default {
         this.getSongComments();
     },
     methods: {
+        swipeleft(index) {
+            this.hugsShow[index] = true;
+            this.key++;
+        },
+        swiperight(index) {
+            this.hugsShow[index] = false;
+            this.key++;
+        },
         getTime(time) {
             let date = new Date(time);
             return date.getFullYear() + '年' + date.getMonth() + '月' + date.getDate() + '日';
@@ -177,6 +201,7 @@ export default {
                     display: flex;
                     // height: 200px;
                     padding-top: 10px;
+                    position: relative;
                     .user-wrapper {
                         font-size: 10px;
                         img {
@@ -209,6 +234,23 @@ export default {
                         .content {
                             font-size: 14px;
                             line-height: 22px;
+                        }
+                        .replyNum {
+                            color: rgba(41, 41, 190, 0.877);
+                            font-size: 10px;
+                            line-height: 24px;
+                        }
+                    }
+                    .hug {
+                        width: 70px;
+                        height: 70px;
+                        position: absolute;
+                        bottom: 0;
+                        right: 20px;
+                        transition: opacity 2s;
+                        opacity: 0;
+                        &.active {
+                            opacity: 1;
                         }
                     }
                 }

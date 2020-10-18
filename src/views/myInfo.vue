@@ -32,16 +32,37 @@
         </div>
         <!-- 主页、动态 -->
         <info-tabs></info-tabs>
+        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import infoTabs from '../components/myInfo/info-tabs';
+import playBar from '../components/common/play-bar';
+import playingList from '../components/common/playing-list';
+
 
 export default {
+    data() {
+        return {
+            playingListShow: false,
+
+        }
+    },
     components: {
-        infoTabs
+        infoTabs,
+        playBar,
+        playingList
+    },
+    mounted() {
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow == true && className != 'playing-list') {
+                this.playingListShow = false;
+            }
+        })
     },
     computed: {
         ...mapGetters([
@@ -58,6 +79,11 @@ export default {
             let date = new Date(this.birthday);
             return Math.floor(date.getYear() / 10) + '' + (date.getYear() % 10 >= 5? '5': '0');
         }
+    },
+    methods: {
+        changeSong() {
+            this.$refs.bar.refresh();
+        },
     }
 }
 </script>

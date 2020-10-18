@@ -62,7 +62,7 @@ const router = new Router({
       component: () => import('@/views/playlist.vue')
     },
     {
-      path: '/playSong',
+      path: '/playSong/:id',
       name: 'playSong',
       component: () => import('@/views/playSong.vue')
     },

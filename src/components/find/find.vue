@@ -29,16 +29,14 @@
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list>
+        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
 <script> 
 import myHeader from '../common/my-header';
-// import banner from '../common/banner';
 import myMenu from '../common/my-menu';
-// import navBtns from '../find/nav-btns';
 import playBar from '../common/play-bar';
 import playingList from '../common/playing-list';
 import hotSongMenu from '../find/hot-song-menu';
@@ -52,8 +50,6 @@ BScroll.use(Slide);
 export default {
     components: {
         myHeader,
-        // banner,
-        // navBtns,
         hotSongMenu,
         myMenu,
         playBar,

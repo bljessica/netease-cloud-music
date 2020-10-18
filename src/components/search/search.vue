@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <!-- 搜索框 -->
+        <!-- 搜索框 --> 
         <search-bar class="search-bar"></search-bar>
         <!-- 广告 -->
 
@@ -30,8 +30,8 @@
 
             </li>
         </ul> -->
-        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
+        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
@@ -63,12 +63,15 @@ export default {
         })
     },
     methods: {
+        //切歌
         changeSong() {
             this.$refs.bar.refresh();
         },
+        //展开全部热搜
         detailHotRank() {
             this.hotRankShow = this.hotRank;
         },
+        //获取热搜榜
         hotSearchRank() {
             let that = this;
             detailHotRank().then(res => {

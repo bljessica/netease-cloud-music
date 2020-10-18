@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :style="{background: 'linear-gradient(to bottom, ' + getRandom() + ', rgba(0, 0, 0, 0.875))'}">
+    <div class="container" :style="{background: bgColor}">
         <div class="header">
             <i class="back iconfont icon-zuo" @click="$router.push('/cloud')"></i>
             <span class="title">热评墙</span>
@@ -44,7 +44,7 @@
             </div>
             <i class="iconfont icon-fenxiang"></i>
         </div>
-        <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar>
+        <!-- <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar> -->
     </div>
 </template>
 
@@ -58,17 +58,20 @@ export default {
     },
     data() {
         return {
-            hotWall: [],
+            hotWall: [], //热评墙数据
             total: 0,
-            curIndex: 0,
-            likes: [],
-            likeKey: 0
+            curIndex: 0, 
+            likes: [], //记录评论喜爱情况
+            likeKey: 0, //控制组件刷新，
+            bgColor: '' //背景色
         }
     },
     created() {
         this.getHotWall();
+        this.bgColor = 'linear-gradient(to bottom, ' + this.getRandomColor() + ', rgba(0, 0, 0, 0.875))'
     },
     computed: {
+        //获取作者名字符串
         getArtists() {
             if(!this.hotWall[this.curIndex]) {
                 return '';
@@ -80,6 +83,7 @@ export default {
             });
             return res.substring(0, res.length - 1);
         },
+        //获取评论喜爱数
         getLikedCount() {
             if(!this.hotWall[this.curIndex]) {
                 return '';
@@ -93,10 +97,12 @@ export default {
         }
     },
     methods: {
-        getRandom() {
+        //获取随机颜色
+        getRandomColor() {
             let color = 'rgba(' + Math.floor(Math.random() * 106) + ', ' + Math.floor(Math.random() * 80) + ", " + Math.floor(Math.random() * 80) + ', 0.8)';
             return color;
         },
+        //点赞或取消点赞
         likeThis() {
             let that = this;
             let t = 0;
@@ -116,7 +122,7 @@ export default {
                 console.log(res.data);
                 if(res.data.code === 200) {
                     that.likes[that.curIndex] = !that.likes[that.curIndex];
-                    console.log(that.likes)
+                    // console.log(that.likes)
                     that.likeKey++;
                 }
             }).catch(err => {
@@ -127,18 +133,21 @@ export default {
                 });
             })
         },
+        //左滑
         swiperleft() {
             if(this.curIndex == this.total - 1) {
                 return;
             }
             this.curIndex++;
         },
+        //右滑
         swiperright() {
             if(this.curIndex == 0) {
                 return;
             }
             this.curIndex--;
         },
+        //获取热评墙数据
         getHotWall() {
             let that = this;
             getHotWall().then(res => {
@@ -164,7 +173,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.336), rgba(0, 0, 0, 0.829));
     color: white;
     padding: 0 20px;
     position: absolute;

@@ -42,7 +42,7 @@
                 <span>（共{{ songs.length }}首）</span>
             </div>
             <ul class="songs">
-                <li v-for="(item, index) in songs" :key="index" @click="$router.push({name: 'playSong', params: {id: item.id, playingList: playlist}})">
+                <li v-for="(item, index) in songs" :key="index" @click="selectSong(index)">
                     <span class="no">{{ index + 1 }}</span>
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>
@@ -53,8 +53,8 @@
                 </li>
             </ul>
         </div>
-        <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list>
+        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
+        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
@@ -101,9 +101,15 @@ export default {
         })
     },
     methods: {
+        //选择一首歌播放
+        selectSong(index) {
+            $router.push({name: 'playSong', params: {id: item.id, playingList: playlist}})
+        },
+        //切歌
         changeSong() {
             this.$refs.bar.refresh();
         },
+        //歌曲播放量
         getPlayNum(playCount) {
             if(playCount >= 100000000) {
                 return (playCount / 100000000).toFixed(1) + '亿';
@@ -115,6 +121,7 @@ export default {
                 return playCount;
             }
         },
+        //获取歌单详情，背景取色
         getPlaylistDetail() {
             let that = this;
             getPlaylistDetail({

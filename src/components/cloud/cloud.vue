@@ -1,31 +1,35 @@
 <template>
     <div class="container">
-        <search-bar :word="$route.params.word"></search-bar>
-        <!-- 搜索结果分类 -->
-        <kind-bar></kind-bar>
+        <!-- 头部导航栏 -->
+        <my-header :selected="'cloud'" class="header" @menuShow="menuShow = true"></my-header>
+        <!-- tabs -->
+        <cloud-tabs></cloud-tabs>
+        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
         <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
         <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script>
-import searchBar from '../components/search/search-bar';
-import playBar from '../components/common/play-bar';
-import kindBar from '../components/search/kind-bar';
-import playingList from '../components/common/playing-list';
+import myHeader from '../common/my-header';
+import playBar from '../common/play-bar';
+import myMenu from '../common/my-menu';
+import playingList from '../common/playing-list';
+import cloudTabs from '../cloud/cloud-tabs';
 
 export default {
-    data() {
-        return {
-            playingListShow: false,
-
-        }
-    },
     components: {
-        searchBar,
-        kindBar,
+        myHeader,
+        cloudTabs,
+        myMenu,
         playBar,
         playingList
+    },
+    data() {
+        return {
+            menuShow: false,
+            playingListShow: false,
+        }
     },
     mounted() {
         document.addEventListener('click', (e) => {
@@ -38,14 +42,14 @@ export default {
     methods: {
         changeSong() {
             this.$refs.bar.refresh();
-        },
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .container {
-        background: white;
-        padding: 0 20px;
-    }
+    @import '../../common/styles/my-menu';
+</style>
+
+<style scoped>
 </style>

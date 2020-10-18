@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    @import '../../styles/collect-and-create-menu-list';
+    @import '../../common/styles/collect-and-create-menu-list';
 </style>
 
 <style lang="scss" scoped>

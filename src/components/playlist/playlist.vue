@@ -1,6 +1,6 @@
 <template>
-    <div class="playlist-container" :style="{background: 'url(' + playlist.coverImgUrl + ') center center'}">
-        <div class="up-wrapper" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')', zIndex: 1002}">
+    <div class="playlist-container" :style="{background: bgColor}">
+        <div class="up-wrapper" :style="{background: bgColor, zIndex: 1002}">
             <!-- 头部操作导航栏 -->
             <div class="nav">
                 <i class="iconfont icon-zuo" @click="$router.push('/find')"></i>
@@ -10,6 +10,7 @@
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <!-- 歌单信息 -->
+            <img class="colorImg" :src="playlist.coverImgUrl" alt="" ref="picture">
             <div class="info">
                 <div class="picture" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')'}">
                     <span><i class="iconfont icon-bofangsanjiaoxing"></i>{{ getPlayNum(playlist.playCount) }}</span>
@@ -53,15 +54,16 @@
             </ul>
         </div>
         <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
+        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script>
-import playBar from '../components/common/play-bar';
-import playingList from '../components/common/playing-list';
-import { getPlaylistDetail } from '../api/play';
-import { PLAYLIST_ACTIONS } from '../consts/const';
+import playBar from '../common/play-bar';
+import playingList from '../common/playing-list';
+import { getPlaylistDetail } from '../../api/play';
+import { PLAYLIST_ACTIONS } from '../../consts/const';
+import ColorThief from 'colorthief';
 
 export default {
     data() {
@@ -71,6 +73,7 @@ export default {
             playlistActions: PLAYLIST_ACTIONS,
             actionsShow: true,
             playingListShow: false,
+            bgColor: ''
         }
     },
     components: {
@@ -120,6 +123,21 @@ export default {
                 console.log(res.data);
                 that.playlist = res.data.playlist;
                 that.songs = res.data.playlist.tracks;
+                //背景取色
+                let domImg = that.$refs.picture;
+                domImg.crossOrigin = '';
+                let colorthief = new ColorThief();
+                domImg.addEventListener('load', () => {
+                    let result = colorthief.getColor(domImg);
+                    that.bgColor = 'linear-gradient(to bottom, ';
+                    let color = 'rgba('
+                    for(let i of result) {
+                        color += i +',';
+                    }
+                    color = color.slice(0, color.length - 1);
+                    that.bgColor += color + ',1), ' + color + ',0.1))'
+                    console.log(that.bgColor, color)
+                })
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -138,6 +156,11 @@ export default {
         padding-bottom: 60px;
         .blank {
             flex-grow: 1;
+        }
+        .colorImg {
+            width: 20px;
+            height: 20px;
+            display: none;
         }
         .up-wrapper {
             // background-position: center center;
@@ -189,6 +212,7 @@ export default {
                     width: 130px;
                     height: 130px;
                     background-size: cover;
+                    // background-size: 100% 100%;
                     border-radius: 10px;
                     position: relative;
                     font-size: 12px;

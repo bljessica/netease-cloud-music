@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../common/js/request';
 
 //手机号登录
 function phoneLogin(data) {

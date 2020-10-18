@@ -9,67 +9,67 @@ const router = new Router({
     {
       path: '/',
       name: 'start',
-      component: () => import('@/views/start.vue')
+      component: () => import('@/components/start/start.vue')
     },
     {
       path: '/find',
       name: 'find',
-      component: () => import('@/views/find.vue')
+      component: () => import('@/components/find/find.vue')
     },
     {
       path: '/mine',
       name: 'mine',
-      component: () => import('@/views/mine.vue')
+      component: () => import('@/components/mine/mine.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/login.vue')
+      component: () => import('@/components/start/login.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('@/views/register.vue')
+      component: () => import('@/components/start/register.vue')
     },
     {
       path: '/cloud',
       name: 'cloud',
-      component: () => import('@/views/cloud.vue')
+      component: () => import('@/components/cloud/cloud.vue')
     },
     {
       path: '/hotCommentsWall',
       name: 'hotCommentsWall',
-      component: () => import('@/views/hotCommentsWall.vue')
+      component: () => import('@/components/cloud/hotCommentsWall.vue')
     },
     {
       path: '/search',
       name: 'search',
-      component: () => import('@/views/search.vue')
+      component: () => import('@/components/search/search.vue')
     },
     {
       path: '/searchTo',
       name: 'searchTo',
-      component: () => import('@/views/searchTo.vue')
+      component: () => import('@/components/search/searchTo.vue')
     },
     {
       path: '/myInfo',
       name: 'myInfo',
-      component: () => import('@/views/myInfo.vue')
+      component: () => import('@/components/myInfo/myInfo.vue')
     },
     {
       path: '/playlist',
       name: 'playlist',
-      component: () => import('@/views/playlist.vue')
+      component: () => import('@/components/playlist/playlist.vue')
     },
     {
       path: '/playSong/:id',
       name: 'playSong',
-      component: () => import('@/views/playSong.vue')
+      component: () => import('@/components/play/playSong.vue')
     },
     {
       path: '/songComments',
       name: 'songComments',
-      component: () => import('@/views/songComments.vue')
+      component: () => import('@/components/play/songComments.vue')
     }
   ]
 });

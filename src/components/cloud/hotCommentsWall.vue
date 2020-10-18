@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import playBar from '../components/common/play-bar';
-import { getHotWall, likeComment } from '../api/cloud';
+import playBar from '../common/play-bar';
+import { getHotWall, likeComment } from '../../api/cloud';
 
 export default {
     components: {

@@ -21,7 +21,7 @@
 <script>
 import { getLyrics, getPlaySongUrl } from '../../api/play';
 import { mapGetters, mapMutations} from 'vuex';
-import { getCurrentTime } from '../../utils/processData';
+import { getCurrentTime } from '../../common/js/processData';
 
 
 export default {

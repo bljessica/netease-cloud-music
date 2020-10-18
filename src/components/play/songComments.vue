@@ -36,7 +36,7 @@
                             <div class="replyNum">{{ }}条回复</div>
                         </v-touch>
                     </div>
-                    <img :key="key" class="hug" :class="{'active': hugsShow[index]}" src="../assets/hug.gif" alt="">
+                    <img :key="key" class="hug" :class="{'active': hugsShow[index]}" src="../../assets/hug.gif" alt="">
                 </li>
             </ul>
         </div>
@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import playBar from '../components/common/play-bar';
+import playBar from '../common/play-bar';
 import { mapGetters, mapMutations} from 'vuex';
-import { getSongComments } from '../api/play';
+import { getSongComments } from '../../api/play';
 
 export default {
     components: {

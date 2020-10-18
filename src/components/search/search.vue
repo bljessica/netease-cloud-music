@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import searchBar from '../components/search/search-bar';
-import playBar from '../components/common/play-bar';
-import playingList from '../components/common/playing-list';
-import { detailHotRank } from '../api/search';
+import searchBar from '../search/search-bar';
+import playBar from '../common/play-bar';
+import playingList from '../common/playing-list';
+import { detailHotRank } from '../../api/search';
 export default {
     data() {
         return {

@@ -39,9 +39,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import infoTabs from '../components/myInfo/info-tabs';
-import playBar from '../components/common/play-bar';
-import playingList from '../components/common/playing-list';
+import infoTabs from '../myInfo/info-tabs';
+import playBar from '../common/play-bar';
+import playingList from '../common/playing-list';
 
 
 export default {

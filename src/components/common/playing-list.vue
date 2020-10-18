@@ -59,11 +59,12 @@ export default {
         }
     },
     mounted() {
-        this.songs = this.playingList.tracks;
+        // this.songs = this.playingList.tracks;
+        // console.log('get'+this.playingList)
         let that = this;
         this.$nextTick(() => {
             that.initSlider();
-            that.calcOriginY();
+            // that.calcOriginY();
         })
     },
     methods: { 
@@ -102,6 +103,9 @@ export default {
             })
         },
         calcOriginY() {
+            this.songs = this.playingList.tracks;
+            console.log(this.songs)
+            console.log('get')
             //播放歌曲在歌单中的位置
             let index = 0;
             for(let i = 0; i < (this.songs).length; i++) {

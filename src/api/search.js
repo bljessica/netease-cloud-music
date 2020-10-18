@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../common/js/request';
 
 //搜索：默认搜索关键词
 function getDefault() {

@@ -9,19 +9,19 @@
         <hot-song-menu></hot-song-menu>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
         <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list>
+        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list>
     </div>
 </template>
 
 <script> 
-import myHeader from '../components/common/my-header';
-import banner from '../components/common/banner';
-import myMenu from '../components/common/my-menu';
-import navBtns from '../components/find/nav-btns';
-import playBar from '../components/common/play-bar';
-import playingList from '../components/common/playing-list';
-import hotSongMenu from '../components/find/hot-song-menu';
-import { getBanner } from '../api/find';
+import myHeader from '../common/my-header';
+import banner from '../common/banner';
+import myMenu from '../common/my-menu';
+import navBtns from '../find/nav-btns';
+import playBar from '../common/play-bar';
+import playingList from '../common/playing-list';
+import hotSongMenu from '../find/hot-song-menu';
+import { getBanner } from '../../api/find';
 
 export default {
     components: {

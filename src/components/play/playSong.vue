@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :style="{background: bgColor}">
         <!-- 头部操作导航栏 -->
         <play-header></play-header>
         <!-- 播放棒 -->
@@ -7,10 +7,10 @@
         <!-- 音乐封面 -->
         <div class="nav-to-lyric-wrapper" v-if="lyricShow == false" @click="lyricsShow">
             <div class="wrapper"> 
-                <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
+                <img ref="picture" v-if="playingSong.al" :src="playingSong.al.picUrl" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
             </div>
         </div>
-        <song-lyric :key="songKey" v-show="lyricShow == true" ref="lyrics" @coverShow="coverShow"></song-lyric>
+        <song-lyric :key="songKey" v-if="lyricShow == true" ref="lyrics" @coverShow="coverShow"></song-lyric>
         <!-- 操作栏 --> 
         <div class="actions">
             <div class="actions-up">
@@ -22,17 +22,18 @@
             </div>
             <play-actions ref="actions" :key="songKey" @changeSong="changeSong" @playingListShow="showPlayingList" @changePlaying="changePlaying" @findPrev="findPrev" @angleChange="angleChange"></play-actions>
         </div>
-        <playing-list class="playing-list" @changeSong="changeSong" v-show="playingListShow"></playing-list>
+        <playing-list ref="list" class="playing-list" @changeSong="changeSong" v-show="playingListShow"></playing-list>
     </div>
 </template>
 
 <script>
-import { getPlaySongDetail, getPlaySongUrl } from '../api/play';
+import { getPlaySongDetail, getPlaySongUrl } from '../../api/play';
 import { mapGetters, mapMutations} from 'vuex';
-import playHeader from '../components/play/play-header';
-import playActions from '../components/play/play-actions';
-import songLyric from '../components/play/song-lyric';
-import playingList from '../components/common/playing-list';
+import playHeader from '../play/play-header';
+import playActions from '../play/play-actions';
+import songLyric from '../play/song-lyric';
+import playingList from '../common/playing-list';
+import ColorThief from 'colorthief';
 
 export default {
     data() {
@@ -42,7 +43,8 @@ export default {
             angle: 0,
             lyricShow: false,
             playingListShow: false,
-            songKey: 0
+            songKey: 0,
+            bgColor: ''
         }
     },
     components: {
@@ -53,6 +55,8 @@ export default {
     },
     mounted() {
         this.setPlayingList(this.$route.params.playingList);
+        console.log('set')
+        this.$refs.list.calcOriginY();
         this.getPlaySongDetail();
         document.addEventListener('click', (e) => {
             let className = e.target.className;
@@ -73,10 +77,28 @@ export default {
     },
     methods: {
         changeSong() { 
-            // if(this.lyricShow == true) {
+            if(this.lyricShow == true) {
                 this.$refs.lyrics.refresh();//刷新歌词
-            // }
+            }
             this.getPlaySongDetail(1); //为歌曲添加url
+        },
+        getBgColor() {
+            //背景取色
+            let domImg = this.$refs.picture;
+            domImg.crossOrigin = '';
+            let colorthief = new ColorThief();
+            domImg.addEventListener('load', () => {
+                let result = colorthief.getColor(domImg);
+                this.bgColor = 'linear-gradient(to bottom, ';
+                let color = 'rgba('
+                for(let i of result) {
+                    // color += parseInt(i - 70) +',';
+                    color += parseInt(i) +',';
+                }
+                color = color.slice(0, color.length - 1);
+                this.bgColor += color + ',1), ' + color + ',0.7))'
+                console.log(this.bgColor, color)
+            })
         },
         showPlayingList() {
             this.playingListShow = true;
@@ -111,6 +133,7 @@ export default {
             setPlayer: 'SET_PLAYER'
         }),
         getPlaySongDetail(type=0) { 
+            // this.getBgColor();
             //0为正常，1为切歌时获取歌曲url
             if(this.$route.params.id == this.playingSong.id && type == 0) {
                 //继续播放
@@ -130,6 +153,7 @@ export default {
             }).then(res => {
                 console.log(res.data.songs[0]);
                 that.setPlayingSong(res.data.songs[0]);
+                that.getBgColor();
                 getPlaySongUrl({
                     id: that.playingSong.id
                 }).then(res => {
@@ -165,7 +189,7 @@ export default {
 
 <style lang="scss" scoped>
     .container {
-        background: linear-gradient(to bottom, rgba(94, 109, 136, 0.822),  rgba(94, 109, 136, 0.993));
+        // background: linear-gradient(to bottom, rgba(94, 109, 136, 0.822),  rgba(94, 109, 136, 0.993));
         color: gainsboro;
         padding: 0 20px;
         position: absolute;
@@ -174,7 +198,7 @@ export default {
         left: 0;
         right: 0;
         .stick {
-            background: url('../assets/stick.png');
+            background: url('../../assets/stick.png');
             // background-size: 100% 100%;
             height: 100px;
             width: 135px;
@@ -196,7 +220,7 @@ export default {
             top: 70px;
             bottom: 165px;
             .wrapper {
-                background: url('../assets/record.png');
+                background: url('../../assets/record.png');
                 background-size: 100% 100%;
                 height: 250px;
                 width: 250px;

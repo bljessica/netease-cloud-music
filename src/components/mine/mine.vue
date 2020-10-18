@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import myHeader from '../components/common/my-header';
-import mineNavBtns from '../components/mine/mine-nav-btns';
-import loveSongs from '../components/mine/love-songs';
-import myMenu from '../components/common/my-menu';
-import menuTabs from '../components/mine/menu-tabs';
-import playBar from '../components/common/play-bar';
-import { getUserInfo } from '../api/mine';
+import myHeader from '../common/my-header';
+import mineNavBtns from '../mine/mine-nav-btns';
+import loveSongs from '../mine/love-songs';
+import myMenu from '../common/my-menu';
+import menuTabs from '../mine/menu-tabs';
+import playBar from '../common/play-bar';
+import { getUserInfo } from '../../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
-import playingList from '../components/common/playing-list';
+import playingList from '../common/playing-list';
 
 
 export default {
@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../styles/my-menu';
+    @import '../../common/styles/my-menu';
 </style>
 
 <style lang="scss" scoped>

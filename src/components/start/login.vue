@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import '../styles/common.css';
+import '../../common/styles/common.css';
 import { mapMutations } from 'vuex';
-import { phoneLogin, emailLogin } from '../api/login';
-import { verifyEmail, verifyLoginPassword, verifyPhone} from '../utils/verifyInput';
+import { phoneLogin, emailLogin } from '../../api/login';
+import { verifyEmail, verifyLoginPassword, verifyPhone} from '../../common/js/verifyInput';
 
 export default {
     data() {

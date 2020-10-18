@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../common/js/request';
 
 //云村：获取云村热评
 function getHotWall() {

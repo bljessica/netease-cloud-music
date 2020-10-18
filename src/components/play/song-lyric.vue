@@ -40,7 +40,7 @@
 <script>
 import { getLyrics } from '../../api/play';
 import { mapGetters, mapMutations} from 'vuex';
-import { getCurrentTime, getLyricTime } from '../../utils/processData';
+import { getCurrentTime, getLyricTime } from '../../common/js/processData';
 import BScroll from '@better-scroll/core';
 
 export default {
@@ -158,8 +158,10 @@ export default {
                     this.prevTime = time;
                     this.$nextTick(() => {
                         let node = document.getElementById(this.prevTime);
-                        this.topNow = 180 - node.offsetTop;
-                        return;
+                        if(node) {
+                            this.topNow = 180 - node.offsetTop;
+                            return;
+                        }
                     })
                 }
             }

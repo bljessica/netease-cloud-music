@@ -50,7 +50,6 @@ export default {
 .container {
     width: 100%;
     overflow: hidden;
-}
     .btns {
         margin-top: 15px;
         width: 630px;
@@ -105,4 +104,5 @@ export default {
             }
         }
     }
+}
 </style>

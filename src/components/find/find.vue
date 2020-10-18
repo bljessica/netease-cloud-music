@@ -2,7 +2,6 @@
     <div class="find-container">
         <my-header :selected="'find'" @menuShow="menuShow = true"></my-header>
         <!-- 轮播图 --> 
-        <!-- <banner :bannersData="bannerImgs" class="banner"></banner> -->
         <div class="banner-wrapper" ref="slider"> 
             <ul class="content" ref="content">
                 <li v-for="(item, index) in bannerImgs" :key="index" style="width: 350px;"
@@ -14,7 +13,19 @@
             </div>
         </div>
         <!-- 导航按钮栏 -->
-        <nav-btns></nav-btns>
+        <!-- <nav-btns></nav-btns> -->
+        <div class="nav-btns-container" ref="wrapper">
+            <ul class="btns" ref="content">
+                <li v-for="item in navBtns" :key="item.id">
+                    <span class="icon-wrapper">
+                        <i class="iconfont" :class="item.icon"></i>
+                        <span class="copy" v-if="item.name == '歌单'">&reg;</span>
+                        <span class="date" v-if="item.name == '每日推荐'">{{ getDate }}</span>
+                    </span>
+                    <span class="name">{{ item.name }}</span>
+                </li>
+            </ul>
+        </div>
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
         <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
@@ -27,11 +38,12 @@
 import myHeader from '../common/my-header';
 // import banner from '../common/banner';
 import myMenu from '../common/my-menu';
-import navBtns from '../find/nav-btns';
+// import navBtns from '../find/nav-btns';
 import playBar from '../common/play-bar';
 import playingList from '../common/playing-list';
 import hotSongMenu from '../find/hot-song-menu';
 import { getBanner } from '../../api/find';
+import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 import Slide from '@better-scroll/slide';
 
@@ -41,7 +53,7 @@ export default {
     components: {
         myHeader,
         // banner,
-        navBtns,
+        // navBtns,
         hotSongMenu,
         myMenu,
         playBar,
@@ -52,9 +64,11 @@ export default {
             bannerImgs: [],
             menuShow: false,
             playingListShow: false,
-            slide: null,
-            curIndex: 0,
-            playTimer: null
+            slide: null, //轮播图
+            curIndex: 0, //轮播图当前索引
+            bannerTimer: null, //轮播图滚动定时器
+            navBtns: FIND_PAGE_NAV_BTNS,
+            date: 0 //日期
         }
     },
     watch: {
@@ -67,6 +81,9 @@ export default {
     },
     mounted() {
         this.getBanner();
+        this.$nextTick(() => {
+            this.initNavBtnsSlider();
+        })
         document.addEventListener('click', (e) => {
             let className = e.target.className;
             if(this.playingListShow == true && className != 'playing-list') {
@@ -74,7 +91,21 @@ export default {
             }
         })
     },
+    computed: {
+        getDate() {
+            let date = new Date();
+            return date.getDate();
+        }
+    },
     methods: {
+        //初始化导航按钮滑块
+        initNavBtnsSlider() {
+            const slideBtns = new BScroll(this.$refs.wrapper, {
+                scrollX: true,
+                scrollY: false
+            })
+        },
+        //初始化轮播图
         initBanner() {
             let num = this.bannerImgs.length;
             this.$nextTick(() => {
@@ -104,7 +135,7 @@ export default {
                 this.autoGoNext();
             })
             this.slide.on('beforeScrollStart', () => {
-                clearTimeout(this.playTimer);
+                clearTimeout(this.bannerTimer);
             });
             this.slide.on('touchEnd', () => {
                 this.autoGoNext();
@@ -113,15 +144,18 @@ export default {
                 this.curIndex = page.pageX;
             })
         },
+        //轮播图切下一张
         nextPage() {
             this.slide.next();
         },
+        //设置轮播图自动切换
         autoGoNext() {
-            clearTimeout(this.playTimer);
-            this.playTimer = setTimeout(() => {
+            clearTimeout(this.bannerTimer);
+            this.bannerTimer = setTimeout(() => {
                 this.nextPage();
             }, 2000);
         },
+        //切歌
         changeSong() {
             this.$refs.bar.refresh();
         },
@@ -195,6 +229,64 @@ export default {
                 }
                 span.active {
                     background: red;
+                }
+            }
+        }
+        .nav-btns-container {
+            width: 100%;
+            overflow: hidden;
+            .btns {
+                margin-top: 15px;
+                width: 630px;
+                height: 90px;
+                list-style-type: none;
+                li {
+                    display: inline-block;
+                    width: 70px;
+                    .icon-wrapper {
+                        display: inline-block;
+                        width: 46px;
+                        height: 46px;
+                        border-radius: 50%;
+                        position: relative;
+                        background: linear-gradient(to right, rgba(231, 34, 34, 0.507), red);
+                        i {
+                            font-size: 30px;
+                            color: white;
+                            line-height: 50px;
+                            position: relative;
+                            bottom: 3px;
+                            &.icon-rili, &.icon-ziyuan {
+                                font-size: 22px;
+                            }
+                        }
+                        .copy {
+                            position: absolute;
+                            color: #cac7c7;
+                            font-size: 10px;
+                            right: 2px;
+                            bottom: -14px;
+                        }
+                        .date {
+                            // color: rgba(231, 34, 34, 0.507);
+                            color: white;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            display: inline-block;
+                            width: 46px;
+                            height: 46px;
+                            line-height: 46px;
+                            text-align: center;
+                        }
+                    }
+                    .name {
+                        margin-top: 5px;
+                        display: inline-block;
+                        width: 70px;
+                        text-align: center;
+                        font-size: 10px;
+                    }
                 }
             }
         }

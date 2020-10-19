@@ -37,8 +37,8 @@
 <script> 
 import myHeader from '../common/my-header';
 import myMenu from '../common/my-menu';
-import playBar from '../common/play-bar';
-import playingList from '../common/playing-list';
+// import playBar from '../common/play-bar';
+// import playingList from '../common/playing-list';
 import hotSongMenu from '../find/hot-song-menu';
 import { getBanner } from '../../api/find';
 import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
@@ -52,8 +52,8 @@ export default {
         myHeader,
         hotSongMenu,
         myMenu,
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     data() {
         return {
@@ -193,15 +193,15 @@ export default {
         .banner-wrapper {
             width: 350px;
             margin: 0 auto;
-            height: 150px;
+            height: 130px;
             border-radius: 10px;
             overflow: hidden;
             white-space: nowrap;
             .content {
-                height: 150px;
+                height: 130px;
                 list-style-type: none;
                 li {
-                    height: 150px;
+                    height: 130px;
                     display: inline-block;
                     background-size: 100% 100%;
                     //设置 useTransition = true时，可能在 iphone 某些系统上出现闪烁

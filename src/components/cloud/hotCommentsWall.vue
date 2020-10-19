@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import playBar from '../common/play-bar';
+// import playBar from '../common/play-bar';
 import { getHotWall, likeComment } from '../../api/cloud';
 
 export default {
     components: {
-        playBar
+        // playBar
     },
     data() {
         return {

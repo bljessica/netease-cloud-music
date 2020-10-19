@@ -1,17 +1,14 @@
 <template>
   <div id="app">
     <div v-show="$route.meta.play">
-      <player ref="player"></player>
+      <player ref="player" v-show="$route.name !== 'playing'"></player>
     </div>
-    <router-view @play="play" @stop="stop"></router-view>
-    <!-- <router-view @play="play" @stop="stop" @unShowPlayer="playerShow = false" @showPlayer="playerShow = true"></router-view> -->
+    <router-view @play="play" @stop="stop" @nextSong="nextSong" @prevSong="prevSong" @selectSong="selectSong"></router-view>
   </div>
 </template>
 
 <script>
 import player from './components/player/player';
-// import playBar from './components/play/play-bar';
-// import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -29,6 +26,15 @@ export default {
     },
     stop() {
       this.$refs.player.stopMusic();
+    },
+    nextSong() {
+      this.$refs.player.nextSong();
+    },
+    prevSong() {
+      this.$refs.player.prevSong();
+    },
+    selectSong(index) {
+      this.$refs.player.selectSong(index);
     }
   }
 }

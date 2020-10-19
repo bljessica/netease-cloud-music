@@ -85,7 +85,10 @@ const router = new Router({
     {
       path: '/playing',
       name: 'playing',
-      component: () => import('@/components/play/playing.vue')
+      component: () => import('@/components/play/playing.vue'),
+      meta: {
+        play: true
+      }
     },
   ]
 });

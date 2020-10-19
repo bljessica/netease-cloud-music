@@ -37,8 +37,8 @@
 
 <script>
 import searchBar from '../search/search-bar';
-import playBar from '../common/play-bar';
-import playingList from '../common/playing-list';
+// import playBar from '../common/play-bar';
+// import playingList from '../common/playing-list';
 import { detailHotRank } from '../../api/search';
 export default {
     data() {
@@ -50,8 +50,8 @@ export default {
     },
     components: {
         searchBar,
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     mounted() {
         this.hotSearchRank();

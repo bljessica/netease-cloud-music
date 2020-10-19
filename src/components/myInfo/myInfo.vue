@@ -120,8 +120,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import playBar from '../common/play-bar';
-import playingList from '../common/playing-list';
+// import playBar from '../common/play-bar';
+// import playingList from '../common/playing-list';
 
 
 export default {
@@ -132,8 +132,8 @@ export default {
         }
     },
     components: {
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     mounted() {
         document.addEventListener('click', (e) => {

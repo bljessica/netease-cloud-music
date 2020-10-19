@@ -113,18 +113,18 @@
 <script>
 import myHeader from '../common/my-header';
 import myMenu from '../common/my-menu';
-import playBar from '../common/play-bar';
+// import playBar from '../common/play-bar';
 import { getUserInfo, getLikeList, getPlayLists } from '../../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
-import playingList from '../common/playing-list';
+// import playingList from '../common/playing-list';
 import { MINE_PAGE_NAV_BTNS } from '../../consts/const';
 
 export default {
     components: {
         myHeader,
         myMenu,
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     data() {
         return {

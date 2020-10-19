@@ -19,8 +19,8 @@
 
 <script> 
 import searchBar from '../search/search-bar';
-import playBar from '../common/play-bar';
-import playingList from '../common/playing-list';
+// import playBar from '../common/play-bar';
+// import playingList from '../common/playing-list';
 import { SEARCH_KINDS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 import { search } from '../../api/search';
@@ -35,8 +35,8 @@ export default {
     },
     components: {
         searchBar,
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     mounted() {
         this.initSlider();

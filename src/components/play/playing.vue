@@ -10,7 +10,6 @@
                 <img ref="picture" v-if="playingSong.al" :src="playingSong.al.picUrl" alt="专辑封面" :style="{transform: 'rotate(' + angle + 'deg)'}">
             </div>
         </div>
-        <!-- <song-lyric :key="songKey" v-if="lyricShow == true" ref="lyrics" @coverShow="coverShow"></song-lyric> -->
         <!-- 歌词 -->
         <div class="lyric-container" v-show="onShow === 2" @click.stop="onShow = 1">
             <div class="volumn-bar">
@@ -71,7 +70,6 @@
             </div>
 
         </div>
-        <!-- <playing-list ref="list" class="playing-list" @changeSong="changeSong" v-show="playingListShow"></playing-list> -->
     </div>
 </template>
 
@@ -81,7 +79,6 @@ import { secondsToStr, strToSeconds } from '../../common/js/processData';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';
 import BScroll from '@better-scroll/core';
-// import { _throttle } from "../../common/js/throttle";
 
 export default {
     components: {
@@ -117,7 +114,6 @@ export default {
     updated () {
         //重新计算高度
         this.slider.refresh();
-
         //当数据加载完毕以后通知better-scroll
         // this.slider.finishPullUp();
     },
@@ -263,11 +259,11 @@ export default {
         },
         //切到上一首歌
         prevSong() {
-
+            this.$emit('prevSong');
         },
         //切到下一首歌
         nextSong() {
-
+            this.$emit('nextSong');
         },
         //背景取色
         getBgColor() {
@@ -305,7 +301,8 @@ export default {
 
 <style lang="scss" scoped>
     .container {
-        // background: linear-gradient(to bottom, rgba(94, 109, 136, 0.822),  rgba(94, 109, 136, 0.993));
+        // background: black;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8),  rgba(0, 0, 0, 0.3));
         color: gainsboro;
         padding: 0 20px;
         position: absolute;

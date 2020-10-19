@@ -150,7 +150,7 @@ export default {
                 this.setPlayer(this.$refs.player);
                 this.player.currentTime = this.currentTime;
             }
-            let width = this.$refs.line.offsetWidth;
+            let width = this.$refs.line.offsetWidth; 
             let that = this;
             clearInterval(this.playingTimer);
             this.setPlayingTimer(setInterval(() => {

@@ -56,9 +56,9 @@
 
 <script>
 import myHeader from '../common/my-header';
-import playBar from '../common/play-bar';
+// import playBar from '../common/play-bar';
 import myMenu from '../common/my-menu';
-import playingList from '../common/playing-list';
+// import playingList from '../common/playing-list';
 import { getFollows } from '../../api/cloud';
 import BScroll from '@better-scroll/core';
 
@@ -66,8 +66,8 @@ export default {
     components: {
         myHeader,
         myMenu,
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     data() {
         return {

@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import playBar from '../common/play-bar';
-import playingList from '../common/playing-list';
+// import playBar from '../common/play-bar';
+// import playingList from '../common/playing-list';
 import { getPlaylistDetail, getLyrics, getPlaySongUrl } from '../../api/play';
 import { PLAYLIST_ACTIONS } from '../../consts/const';
 import ColorThief from 'colorthief';
@@ -79,8 +79,8 @@ export default {
         }
     },
     components: {
-        playBar,
-        playingList
+        // playBar,
+        // playingList
     },
     computed: {
         ...mapGetters([
@@ -129,11 +129,13 @@ export default {
             // setPlayer: 'SET_PLAYER'
         }),
         //选择一首歌播放
-        selectSong(index) {
+        selectSong(index) { 
             this.setPlayingSong(this.songs[index]);
             this.setPlayingList(this.playlist);
-            //获取音乐url，歌词，启动播放
-            this.getMusicUrl();
+            this.$emit('selectSong', index);
+            
+            // //获取音乐url，歌词，启动播放
+            // this.getMusicUrl();
         },
         //获取要播放的歌曲的url(->获取歌词)
         getMusicUrl() {
@@ -204,7 +206,7 @@ export default {
             }
             this.setLyrics(lyrics);
         },
-        //获取歌词,播放
+        //获取歌词(处理为数组),播放
         getLyrics() {
             let that = this;
             getLyrics({

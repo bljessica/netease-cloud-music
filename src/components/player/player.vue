@@ -1,5 +1,19 @@
 <template>
     <div class="player-container">
+        <!-- 下方小的播放器 -->
+        <div class="play-bar-container" @click="$router.push({name: 'playing'})">
+            <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="">
+            <div class="song">
+                <div>{{ playingSong.name }}</div>
+                <div class="lyric">{{ lyricNow.length > 0? lyricNow: '左右滑动可以切换歌曲哦~' }}</div>
+            </div>
+            <div class="action">
+                <span class="play-btn">
+                    <i class="iconfont" @click.stop="changePlay" :class="{'icon-zanting_huaban': isPlaying === true, 'icon-bofang2': isPlaying === false}"></i>
+                </span>
+                <i class="iconfont icon-bofangliebiao"></i>
+            </div>
+        </div>
         <!-- 音乐播放器 -->
         <audio ref="myPlayer" :key="audioKey" v-if="playingSong" :src="playingSong.musicUrl" autoplay="" loop>
             您的浏览器不支持 audio 标签
@@ -24,20 +38,27 @@ export default {
             'currentTime',
             // 'playingList',
             // 'player',
-            // 'lyricNow'
+            'isPlaying',
+            'lyricNow',
             'lyrics',
             'playingTimer'
         ])
     },
     methods: {
+        //播放/暂停
+        changePlay() {
+            if(this.isPlaying) {
+                this.stopMusic()
+            }
+            else {
+                this.startMusic();
+            }
+        },
         //开始/继续播放音乐
         startMusic() {
             this.audioKey++;
-            // let prevTime = this.currentTime? this.currentTime: 0; //小数
             let player = this.$refs.myPlayer;
             player.currentTime = this.currentTime;
-            // player.play();
-            // console.log('start:'+player.currentTime)
             let that = this;
             let flag = false;//是否设置了总时长和开始时间
             this.setIsPlaying(true);
@@ -48,7 +69,6 @@ export default {
                 if(player) {
                     if(!flag) {
                         player.currentTime = that.currentTime;
-                        // player.currentTime = prevTime;
                         console.log('set:' + player.currentTime)
                         flag = true;
                         that.setPlayer(player);
@@ -69,7 +89,6 @@ export default {
             let player = this.$refs.myPlayer;
             player.pause();
             clearInterval(this.playingTimer);
-            // player.currentTime = this.currentTime;
             console.log('stop', this.currentTime)
             this.setIsPlaying(false);
         },
@@ -97,6 +116,50 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .play-bar-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 10px;
+        z-index: 2000;
+        height: 60px;
+        background: white;
+        border-top: 1px solid gainsboro;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        .song {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 40px;
+            div {
+                width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-left: 10px;
+                &.lyric {
+                    font-size: 14px;
+                    color: rgb(155, 155, 155);
+                }
+            }
+        }
+        .action {
+            i {
+                font-size: 30px;
+                &:last-of-type {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
 </style>

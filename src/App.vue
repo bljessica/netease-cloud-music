@@ -1,34 +1,27 @@
 <template>
   <div id="app">
-    <!-- <audio autoplay="" loop src="'http://m7.music.126.net/20201019002103/ff3cac231eaf0de6934a1db8008dcb5b/ymusic/f19d/1924/eafa/a7bd1c57f094cb98791f2e1feca61945.mp3'"></audio> -->
-    <player ref="player"></player>
-    <!-- <router-view/> -->
+    <div v-show="$route.meta.play">
+      <player ref="player"></player>
+    </div>
     <router-view @play="play" @stop="stop"></router-view>
+    <!-- <router-view @play="play" @stop="stop" @unShowPlayer="playerShow = false" @showPlayer="playerShow = true"></router-view> -->
   </div>
 </template>
 
 <script>
 import player from './components/player/player';
-import { mapGetters, mapMutations } from 'vuex';
+// import playBar from './components/play/play-bar';
+// import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      playerShow: true
+    }
+  },
   components: {
-    player
-  },
-  computed: {
-    ...mapGetters([
-    //     'playingSong',
-    //     // 'playingList',
-        // 'player',
-    //     // 'lyricNow'
-    //     'lyrics',
-    //     'playingTimer'
-    ])
-  },
-  mounted() {
-    // this.setPlayer(this.$refs.player);
-    // console.log('set:'+this.player)
+    player,
   },
   methods: {
     play() {
@@ -36,16 +29,7 @@ export default {
     },
     stop() {
       this.$refs.player.stopMusic();
-    },
-    ...mapMutations({
-      // setPlayingSong: 'SET_PLAYING_SONG',
-      // setPlayingList: 'SET_PLAYING_LIST',
-      // setLyricNow: 'SET_LYRIC_NOW',
-      // setLyrics: 'SET_LYRICS',
-      // setCurrentTime: 'SET_CURRENT_TIME',
-      // setPlayingTimer: 'SET_PLAYING_TIMER',
-      // setPlayer: 'SET_PLAYER'
-  }),
+    }
   }
 }
 </script>

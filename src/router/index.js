@@ -14,12 +14,18 @@ const router = new Router({
     {
       path: '/find',
       name: 'find',
-      component: () => import('@/components/find/find.vue')
+      component: () => import('@/components/find/find.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/mine',
       name: 'mine',
-      component: () => import('@/components/mine/mine.vue')
+      component: () => import('@/components/mine/mine.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/login',
@@ -34,7 +40,10 @@ const router = new Router({
     {
       path: '/cloud',
       name: 'cloud',
-      component: () => import('@/components/cloud/cloud.vue')
+      component: () => import('@/components/cloud/cloud.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/hotCommentsWall',
@@ -44,38 +53,40 @@ const router = new Router({
     {
       path: '/search',
       name: 'search',
-      component: () => import('@/components/search/search.vue')
+      component: () => import('@/components/search/search.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/searchTo',
       name: 'searchTo',
-      component: () => import('@/components/search/searchTo.vue')
+      component: () => import('@/components/search/searchTo.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/myInfo',
       name: 'myInfo',
-      component: () => import('@/components/myInfo/myInfo.vue')
+      component: () => import('@/components/myInfo/myInfo.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/playlist',
       name: 'playlist',
-      component: () => import('@/components/playlist/playlist.vue')
+      component: () => import('@/components/playlist/playlist.vue'),
+      meta: {
+        play: true
+      }
     },
     {
       path: '/playing',
       name: 'playing',
       component: () => import('@/components/play/playing.vue')
     },
-    // {
-    //   path: '/playSong',
-    //   name: 'playSong',
-    //   component: () => import('@/components/play/playSong.vue')
-    // },
-    // {
-    //   path: '/songComments',
-    //   name: 'songComments',
-    //   component: () => import('@/components/play/songComments.vue')
-    // }
   ]
 });
 

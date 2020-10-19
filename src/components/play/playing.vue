@@ -103,17 +103,13 @@ export default {
         }
     },
     mounted() {
+        // this.$emit('unShowPlayer');
         let that = this;
         setTimeout(() => {
             that.getBgColor();
         }, 20);
         this.startTimer();
         this.initSlider();
-        // this.$nextTick(() => {
-            // setTimeout(() => {
-                // that.initSlider();
-            // }, 2000)
-        // });
     },
     beforeDestroy() {
         clearInterval(this.timer);
@@ -140,6 +136,7 @@ export default {
         ])
     },
     methods: {
+        //显示歌词页
         showLyrics() {
             this.onShow = 2;
             this.findPrevTime();

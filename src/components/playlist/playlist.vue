@@ -187,19 +187,18 @@ export default {
                 let tmp = tmpArr[i];
                 let content = tmp.split(']')[1];
                 if(content && content.length > 0 && content != '\n') {
-                    if(!hasTlyrics) {
-                        lyrics.push({
-                            content: content,
-                            time: (tmp.split(']')[0]).slice(0, 5)
-                        });
-                    }
-                    else {
-                        let between = lyrics.length - tlyrics.length;
-                        lyrics.push({
-                            content: content,
-                            tcontent: i >= between? tlyrics[i - between].content: null,
-                            time: (tmp.split(']')[0]).slice(0, 5)
-                        });
+                    lyrics.push({
+                        content: content,
+                        time: (tmp.split(']')[0]).slice(0, 5)
+                    });
+                }
+            }
+            //有翻译
+            if(hasTlyrics) {
+                let between = lyrics.length - tlyrics.length;
+                for(let i = 0; i < lyrics.length; i++) {
+                    if(i >= between) {
+                        lyrics[i]['tcontent'] = tlyrics[i - between].content;
                     }
                 }
             }

@@ -47,6 +47,9 @@ export default {
             email: ''
         }
     },
+    mounted() {
+        // this.$emit('unShowPlayer');
+    },
     methods: {
         tabClick() {
             this.phone = '';

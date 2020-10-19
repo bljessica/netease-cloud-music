@@ -17,7 +17,9 @@
 
 <script>
 export default {
-
+    mounted() {
+        // this.$emit('unShowPlayer');
+    }
 }
 </script>
 

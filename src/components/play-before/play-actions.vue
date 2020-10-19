@@ -111,7 +111,7 @@ export default {
                 }
             }
         },
-        jumpToprogress() { 
+        jumpToprogress() {  
             let e = event || window.event;
             let width = this.$refs.line.offsetWidth;
             this.dotLeft = e.offsetX;
@@ -198,14 +198,14 @@ export default {
 
 <style lang="scss" scoped>
     .actions-down {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        height: 70px;
-        padding: 0 15px;
-        i {
-            font-size: 26px;
-        }
+        // display: flex;
+        // justify-content: space-around;
+        // align-items: center;
+        // height: 70px;
+        // padding: 0 15px;
+        // i {
+        //     font-size: 26px;
+        // }
     }
     .playing-progress {
         font-size: 10px;
@@ -238,17 +238,20 @@ export default {
         }
     }
     .actions-down {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+        padding: 0 15px;
         margin-bottom: 10px;
         i {
+            font-size: 26px;
             &.icon-ziyuan1, &.icon-bofang2 {
                 font-size: 44px;
             }
             &.icon-zanting_huaban {
                 font-size: 44px;
             }
-        }
-        i:nth-of-type(3) {
-            // font-size: 44px;
         }
     }
 </style>

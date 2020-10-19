@@ -20,9 +20,9 @@ export default {
     computed: {
         ...mapGetters([
             'playingSong',
-            // 'playingList',
-            // 'playingTimer',
-            // 'player'
+            'playingList',
+            'playingTimer',
+            'player'
         ]),
         getArtists() {
             let res = '';
@@ -36,15 +36,15 @@ export default {
     },
     methods: {
         goBack() {
-            // console.log(this.playingList, this.playingSong)
-            // clearInterval(this.playingTimer);
-            // console.log('leave')
-            // this.setPlayingTimer(null);
-            this.$router.push({name: 'playlist'})
+            console.log(this.playingList, this.playingSong)
+            clearInterval(this.playingTimer);
+            console.log('leave')
+            this.setPlayingTimer(null);
+            this.$router.push({name: 'playlist', params: {id: this.playingList.id}})
         },
         ...mapMutations({
-            // setPlayingTimer: 'SET_PLAYING_TIMER',
-            // setPlayer: 'SET_PLAYER',
+            setPlayingTimer: 'SET_PLAYING_TIMER',
+            setPlayer: 'SET_PLAYER',
         }),
     }
 }
@@ -75,7 +75,7 @@ export default {
             }
             div {
                 font-size: 14px;
-                color: gainsboro;
+                color: rgb(180, 178, 178);
                 width: 250px;
                 overflow: hidden;
                 text-overflow: ellipsis;

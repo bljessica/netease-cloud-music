@@ -60,8 +60,12 @@ const player = state => state.player
 const lyricNow = state => state.lyricNow 
 const currentTime = state => state.currentTime 
 const lyrics = state => state.lyrics
+const isPlaying = state => state.isPlaying
+const duration = state => state.duration
 
 export default {
+    duration,
+    isPlaying,
     lyrics,
     currentTime,
     lyricNow,

@@ -24,7 +24,7 @@
         </div>
         <playing-list ref="list" class="playing-list" @changeSong="changeSong" v-show="playingListShow"></playing-list>
     </div>
-</template>
+</template> 
 
 <script>
 import { getPlaySongDetail, getPlaySongUrl } from '../../api/play';

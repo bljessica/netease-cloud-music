@@ -21,15 +21,17 @@ const state = {
     playlist: [],//用户自己的全部歌单
     likelist: [],
     listenSongs: '',
-    createTime: '',
-    playingSong: {},
+    createTime: '',//用户创建时间
+    playingSong: {},//正播放的歌曲
     playingList: {},//正播放的歌单
-    playingTimer: null, 
+    playingTimer: null,  
     playingType: 2, //0列表循环，1随机播放，2单曲循环,
-    player: '',  //音乐播放器,
+    player: '',  //音乐播放器,(好像不需要)
     lyricNow: '', //现在的这一句歌词,
-    lyrics: [],
-    currentTime: '' //现在这首歌放到了第几秒
+    lyrics: [], //当前歌的歌词(如果有翻译则包含翻译)
+    currentTime: 0, //当前播放时间 小数
+    duration: 0, //歌曲总时长 小数
+    isPlaying: false //当前是否在播放
 };
 
 export default state;

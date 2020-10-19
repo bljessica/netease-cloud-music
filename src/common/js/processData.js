@@ -1,4 +1,5 @@
-function getCurrentTime(current) {
+//秒数->XX:XX
+function secondsToStr(current) {
     //超过一分钟
     if(current > 60) {
         //超过十分钟
@@ -23,12 +24,21 @@ function getCurrentTime(current) {
     }
 }
 
+//获取歌词的时间
 function getLyricTime(time) {
     let times = time.split(':');
     return times[0] + ':' +times[1].substring(0, 2);
 }
 
+//XX:XX->秒数
+function strToSeconds(time) {
+    let times = time.split(':');
+    let minutes = Number(times[0]), seconds = Number(times[1]);
+    return minutes * 60 + seconds;
+}
+
 export {
-    getCurrentTime,
-    getLyricTime
+    secondsToStr,
+    getLyricTime,
+    strToSeconds
 }

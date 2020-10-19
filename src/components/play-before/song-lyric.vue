@@ -75,13 +75,13 @@ export default {
     beforeDestroy() {
         clearInterval(this.timer);
     },
-    methods: {
+    methods: { 
         refresh() {
             clearInterval(this.timer);
             this.getLyrics();
         },
         ...mapMutations({
-            setLyricNow: 'SET_LYRIC_NOW',
+            // setLyricNow: 'SET_LYRIC_NOW',
             setCurrentTime: 'SET_CURRENT_TIME',
             setLyricNow: 'SET_LYRIC_NOW',
             setLyrics: 'SET_LYRICS'
@@ -148,7 +148,7 @@ export default {
             let minutes = Number(times[0]), seconds = Number(times[1]);
             return minutes * 60 + seconds;
         },
-        findPrevTime() {
+        findPrevTime() { 
             let time = '00:00';
             for(let item of this.lyrics) {
                 if(getCurrentTime(Math.floor(this.player.currentTime)) > item.time) {

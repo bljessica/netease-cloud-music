@@ -61,9 +61,11 @@
 <script>
 import playBar from '../common/play-bar';
 import playingList from '../common/playing-list';
-import { getPlaylistDetail } from '../../api/play';
+import { getPlaylistDetail, getLyrics, getPlaySongUrl } from '../../api/play';
 import { PLAYLIST_ACTIONS } from '../../consts/const';
 import ColorThief from 'colorthief';
+import { mapGetters, mapMutations } from 'vuex';
+
 
 export default {
     data() {
@@ -80,8 +82,24 @@ export default {
         playBar,
         playingList
     },
+    computed: {
+        ...mapGetters([
+            'playingSong',
+            'playingList',
+            'player',
+            // 'lyricNow'
+        ])
+    },
     mounted() {
-        this.getPlaylistDetail();
+        if(this.$route.params.id) {
+            this.getPlaylistDetail();
+        }
+        else {
+            this.playlist = this.playingList;
+            this.songs = this.playingList.tracks;
+            this.getBgColor();
+        }
+        //歌单导航栏吸顶
         window.addEventListener('scroll', () => {
             let that = this;
             //浏览器兼容
@@ -101,13 +119,149 @@ export default {
         })
     },
     methods: {
+        ...mapMutations({
+            setPlayingSong: 'SET_PLAYING_SONG',
+            setPlayingList: 'SET_PLAYING_LIST',
+            setLyricNow: 'SET_LYRIC_NOW',
+            setLyrics: 'SET_LYRICS',
+            setCurrentTime: 'SET_CURRENT_TIME',
+            // setPlayingTimer: 'SET_PLAYING_TIMER',
+            // setPlayer: 'SET_PLAYER'
+        }),
         //选择一首歌播放
         selectSong(index) {
-            $router.push({name: 'playSong', params: {id: item.id, playingList: playlist}})
+            this.setPlayingSong(this.songs[index]);
+            this.setPlayingList(this.playlist);
+            //获取音乐url，歌词，启动播放
+            this.getMusicUrl();
+        },
+        //获取要播放的歌曲的url(->获取歌词)
+        getMusicUrl() {
+            let that = this;
+            getPlaySongUrl({
+                id: that.playingSong.id
+            }).then(res => {
+                console.log(res.data);
+                if(!res.data.data[0].url) {
+                    that.Message({
+                        message: '暂无资源',
+                        type: 'warning',
+                        duration: 2000
+                    });
+                    return;
+                }
+                let obj = Object.assign(that.playingSong, {
+                    musicUrl: res.data.data[0].url
+                })
+                that.setPlayingSong(obj);
+                that.getLyrics();
+                // console.log(that.playingSong.musicUrl)
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
+            })
+        },
+        //处理歌词为数组(时间格式XX:XX)
+        setLyricsArr(lyric, tlyric='') {
+            let tlyrics = [], hasTlyrics = false;
+            if(tlyric.length > 0) {
+                hasTlyrics = true;
+                let tmpArr = tlyric.split('[');
+                for(let i = 0; i < tmpArr.length; i++) {
+                    let tmp = tmpArr[i];
+                    let content = tmp.split(']')[1];
+                    if(content && content.length > 0 && content != '\n') {
+                        tlyrics.push({
+                            content: content,
+                            time: (tmp.split(']')[0]).slice(0, 5)
+                        });
+                    }
+                }
+            }
+            let tmpArr = lyric.split('[');
+            let lyrics = [];
+            for(let i = 0; i < tmpArr.length; i++) {
+                let tmp = tmpArr[i];
+                let content = tmp.split(']')[1];
+                if(content && content.length > 0 && content != '\n') {
+                    if(!hasTlyrics) {
+                        lyrics.push({
+                            content: content,
+                            time: (tmp.split(']')[0]).slice(0, 5)
+                        });
+                    }
+                    else {
+                        let between = lyrics.length - tlyrics.length;
+                        lyrics.push({
+                            content: content,
+                            tcontent: i >= between? tlyrics[i - between].content: null,
+                            time: (tmp.split(']')[0]).slice(0, 5)
+                        });
+                    }
+                }
+            }
+            this.setLyrics(lyrics);
+        },
+        //获取歌词,播放
+        getLyrics() {
+            let that = this;
+            getLyrics({
+                id: that.playingSong.id
+            }).then(res => {
+                console.log(res.data);
+                if(res.data.nolyric) {
+                    that.setLyricNow('暂无歌词');
+                    that.setLyrics([{
+                        content: '暂无歌词',
+                        time: ''
+                    }]);
+                }
+                else {
+                    if(res.data.tlyric.lyric) {
+                        that.setLyricsArr(res.data.lrc.lyric, res.data.tlyric.lyric);
+                    }
+                    else {
+                        that.setLyricsArr(res.data.lrc.lyric)
+                    }
+                }
+                that.setCurrentTime(0);
+                that.$router.push('/playing');
+                that.$emit('play');
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
+            })
         },
         //切歌
         changeSong() {
             this.$refs.bar.refresh();
+        },
+        //背景取色
+        getBgColor() {
+            let domImg = this.$refs.picture;
+            domImg.crossOrigin = '';
+            let colorthief = new ColorThief();
+            let that = this;
+            domImg.addEventListener('load', () => {
+                let result = colorthief.getColor(domImg);
+                that.bgColor = 'linear-gradient(to bottom, ';
+                let color = 'rgba('
+                for(let i of result) {
+                    if(i > 70) {
+                        i -= 70;
+                    }
+                    color += i +',';
+                }
+                color = color.slice(0, color.length - 1);
+                that.bgColor += color + ',1), ' + color + ',0.1))'
+                console.log(that.bgColor, color)
+            })
         },
         //歌曲播放量
         getPlayNum(playCount) {
@@ -131,20 +285,21 @@ export default {
                 that.playlist = res.data.playlist;
                 that.songs = res.data.playlist.tracks;
                 //背景取色
-                let domImg = that.$refs.picture;
-                domImg.crossOrigin = '';
-                let colorthief = new ColorThief();
-                domImg.addEventListener('load', () => {
-                    let result = colorthief.getColor(domImg);
-                    that.bgColor = 'linear-gradient(to bottom, ';
-                    let color = 'rgba('
-                    for(let i of result) {
-                        color += i +',';
-                    }
-                    color = color.slice(0, color.length - 1);
-                    that.bgColor += color + ',1), ' + color + ',0.1))'
-                    console.log(that.bgColor, color)
-                })
+                that.getBgColor();
+                // let domImg = that.$refs.picture;
+                // domImg.crossOrigin = '';
+                // let colorthief = new ColorThief();
+                // domImg.addEventListener('load', () => {
+                //     let result = colorthief.getColor(domImg);
+                //     that.bgColor = 'linear-gradient(to bottom, ';
+                //     let color = 'rgba('
+                //     for(let i of result) {
+                //         color += i +',';
+                //     }
+                //     color = color.slice(0, color.length - 1);
+                //     that.bgColor += color + ',1), ' + color + ',0.1))'
+                //     console.log(that.bgColor, color)
+                // })
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -198,7 +353,7 @@ export default {
                     i {
                         font-weight: normal;
                         font-size: 14px;
-                        color: gainsboro;
+                        color: rgb(231, 230, 230);
                         position: relative;
                         bottom: 10px;
                     }
@@ -237,7 +392,7 @@ export default {
                     flex-direction: column;
                     height: 130px;
                     align-items: flex-start;
-                    color: rgb(173, 173, 173);
+                    color: rgb(231, 230, 230);
                     padding-left: 20px;
                     .title {
                         color: white;
@@ -288,7 +443,7 @@ export default {
                     }
                     div {
                         margin-top: 5px;
-                        color: rgb(173, 173, 173);
+                        color: rgb(231, 230, 230);
                         font-size: 14px;
                     }
                 }

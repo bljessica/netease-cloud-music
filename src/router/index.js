@@ -62,15 +62,20 @@ const router = new Router({
       component: () => import('@/components/playlist/playlist.vue')
     },
     {
-      path: '/playSong/:id',
-      name: 'playSong',
-      component: () => import('@/components/play/playSong.vue')
+      path: '/playing',
+      name: 'playing',
+      component: () => import('@/components/play/playing.vue')
     },
-    {
-      path: '/songComments',
-      name: 'songComments',
-      component: () => import('@/components/play/songComments.vue')
-    }
+    // {
+    //   path: '/playSong',
+    //   name: 'playSong',
+    //   component: () => import('@/components/play/playSong.vue')
+    // },
+    // {
+    //   path: '/songComments',
+    //   name: 'songComments',
+    //   component: () => import('@/components/play/songComments.vue')
+    // }
   ]
 });
 

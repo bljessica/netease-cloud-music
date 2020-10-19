@@ -129,6 +129,12 @@ const mutations = {
     [types.SET_LYRICS](state, lyrics) {
         state.lyrics = lyrics;
         localStorage.lyrics = lyrics;
+    },
+    [types.SET_IS_PLAYING](state, isPlaying) {
+        state.isPlaying = isPlaying;
+    },
+    [types.SET_DURATION](state, duration) {
+        state.duration = duration;
     }
 }
 

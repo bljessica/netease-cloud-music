@@ -48,31 +48,20 @@
                 </div>
             </div>
         </div>
-        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
 <script>
 import myHeader from '../common/my-header';
-// import playBar from '../common/play-bar';
-import myMenu from '../common/my-menu';
-// import playingList from '../common/playing-list';
 import { getFollows } from '../../api/cloud';
 import BScroll from '@better-scroll/core';
 
 export default {
     components: {
         myHeader,
-        myMenu,
-        // playBar,
-        // playingList
     },
     data() {
         return {
-            menuShow: false,
-            playingListShow: false,
             activeTab: 1, 
             follows: [], //关注的人
             activeImgIndex: 0 //选中的人的索引
@@ -117,7 +106,7 @@ export default {
             getFollows({
                 uid: that.$store.getters.userID
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.follows = res.data.follow;
                 that.initSlider();
             }).catch(err => {

@@ -40,19 +40,14 @@
                 </li>
             </ul>
         </div>
-        <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar>
     </div>
 </template>
 
 <script>
-import playBar from '../common/play-bar';
 import { mapGetters, mapMutations} from 'vuex';
 import { getSongComments } from '../../api/play';
 
 export default {
-    components: {
-        playBar
-    },
     data() {
         return {
             comments: [],
@@ -115,7 +110,7 @@ export default {
             getSongComments({
                 id: that.$route.params.id
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.comments = res.data.comments;
                 that.hotComments = res.data.hotComments;
                 that.total = res.data.total;

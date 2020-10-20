@@ -19,8 +19,8 @@
             <div class="playinglist-container">
                 <div class="title">当前播放<span>（{{ songs? songs.length: 0 }}）</span></div>
                 <div class="playinglist-actions">
-                    <i class="iconfont" @click="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
-                    <span>{{ typeName }}</span>
+                    <i class="iconfont" @click.stop="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
+                    <span @click.stop="setPlayingType">{{ typeName }}</span>
                     <span class="blank"></span>
                     <span class="collect"><i class="iconfont icon-xing"></i>收藏全部</span>
                     <i class="iconfont icon-zuo"></i>
@@ -152,7 +152,7 @@ export default {
             getPlaySongUrl({
                 id: that.playingSong.id
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if(!res.data.data[0].url) {
                     that.Message({
                         message: '暂无资源',
@@ -185,7 +185,7 @@ export default {
             getLyrics({
                 id: that.playingSong.id
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if(res.data.nolyric) {
                     that.setLyricNow('暂无歌词');
                     that.setLyrics([{

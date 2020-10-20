@@ -47,9 +47,6 @@ export default {
             email: ''
         }
     },
-    mounted() {
-        // this.$emit('unShowPlayer');
-    },
     methods: {
         tabClick() {
             this.phone = '';
@@ -80,7 +77,7 @@ export default {
                 phone: that.phone,
                 password: that.password
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if(res.data.code !== 200) {
                     that.Message({
                         message: res.data.msg,

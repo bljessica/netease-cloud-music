@@ -112,24 +112,16 @@
 
 <script>
 import myHeader from '../common/my-header';
-import myMenu from '../common/my-menu';
-// import playBar from '../common/play-bar';
 import { getUserInfo, getLikeList, getPlayLists } from '../../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
-// import playingList from '../common/playing-list';
 import { MINE_PAGE_NAV_BTNS } from '../../consts/const';
 
 export default {
     components: {
         myHeader,
-        myMenu,
-        // playBar,
-        // playingList
     },
     data() {
         return {
-            menuShow: false,
-            playingListShow: false,
             navBtns: MINE_PAGE_NAV_BTNS,
             downLoadNum: 0, //我喜欢的歌曲中已下载的数量,
             activeTab: 1
@@ -188,7 +180,7 @@ export default {
             getPlayLists({
                 uid: that.$store.getters.userID
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.setPlaylist(res.data.playlist);
                 that.setCollectedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === true;
@@ -223,7 +215,7 @@ export default {
             getLikeList({
                 uid: that.$store.getters.userID
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.setLikelist(res.data.ids)
             }).catch(err => {
                 that.Message({
@@ -239,7 +231,7 @@ export default {
             getUserInfo({
                 uid: that.$store.getters.userID
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 that.setLevel(res.data.level);
                 that.setListenSongs(res.data.listenSongs);
             }).catch(err => {

@@ -73,8 +73,8 @@
             <div class="playinglist-container">
                 <div class="title">当前播放<span>（{{ songs? songs.length: 0 }}）</span></div>
                 <div class="playinglist-actions">
-                    <i class="iconfont" @click="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
-                    <span>{{ typeName }}</span>
+                    <i class="iconfont" @click.stop="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
+                    <span @click.stop="setPlayingType">{{ typeName }}</span>
                     <span class="blank"></span>
                     <span class="collect"><i class="iconfont icon-xing"></i>收藏全部</span>
                     <i class="iconfont icon-zuo"></i>

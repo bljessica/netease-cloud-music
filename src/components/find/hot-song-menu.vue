@@ -62,7 +62,7 @@ export default {
         getMenu() {
             let that = this;
             getSuggestHotMenu().then(res => {
-                console.log(res.data.result);
+                // console.log(res.data.result);
                 that.menu = res.data.result;
             }).catch(err => {
                 that.Message({

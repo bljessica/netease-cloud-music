@@ -113,35 +113,18 @@
                 </div>
             </div>
         </div>
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-// import playBar from '../common/play-bar';
-// import playingList from '../common/playing-list';
 
 
 export default {
     data() {
         return {
-            playingListShow: false,
             activeTab: 1
         }
-    },
-    components: {
-        // playBar,
-        // playingList
-    },
-    mounted() {
-        document.addEventListener('click', (e) => {
-            let className = e.target.className;
-            if(this.playingListShow == true && className != 'playing-list') {
-                this.playingListShow = false;
-            }
-        })
     },
     computed: {
         ...mapGetters([

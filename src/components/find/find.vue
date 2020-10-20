@@ -34,7 +34,6 @@
 
 <script> 
 import myHeader from '../common/my-header';
-import myMenu from '../common/my-menu';
 import hotSongMenu from '../find/hot-song-menu';
 import { getBanner } from '../../api/find';
 import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
@@ -47,13 +46,10 @@ export default {
     components: {
         myHeader,
         hotSongMenu,
-        myMenu
     },
     data() {
         return {
             bannerImgs: [],
-            menuShow: false,
-            // playingListShow: false,
             slide: null, //轮播图
             curIndex: 0, //轮播图当前索引
             bannerTimer: null, //轮播图滚动定时器
@@ -74,13 +70,6 @@ export default {
         this.$nextTick(() => {
             this.initNavBtnsSlider();
         })
-        // document.addEventListener('click', (e) => {
-        //     let className = e.target.className;
-        //     //播放列表
-        //     if(this.playingListShow == true && className != 'playing-list') {
-        //         this.playingListShow = false;
-        //     }
-        // })
     },
     computed: {
         getDate() {
@@ -154,7 +143,7 @@ export default {
         getBanner() {
             let that = this;
             getBanner().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.bannerImgs = res.data.banners;
             }).catch(err => {
                 that.Message({

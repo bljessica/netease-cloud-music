@@ -12,15 +12,11 @@
 
             </div>
         </div>
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
 <script> 
 import searchBar from '../search/search-bar';
-// import playBar from '../common/play-bar';
-// import playingList from '../common/playing-list';
 import { SEARCH_KINDS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 import { search } from '../../api/search';
@@ -28,24 +24,15 @@ import { search } from '../../api/search';
 export default {
     data() {
         return {
-            playingListShow: false,
             searchKinds: SEARCH_KINDS,
             activeIndex: 0
         }
     },
     components: {
         searchBar,
-        // playBar,
-        // playingList
     },
     mounted() {
         this.initSlider();
-        document.addEventListener('click', (e) => {
-            let className = e.target.className;
-            if(this.playingListShow == true && className != 'playing-list') {
-                this.playingListShow = false;
-            }
-        })
     },
     methods: {
         //切歌
@@ -67,7 +54,7 @@ export default {
                 keywords: that.searchWord,
                 type: type
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             }).catch(err => {
                 that.Message({
                     message: err,

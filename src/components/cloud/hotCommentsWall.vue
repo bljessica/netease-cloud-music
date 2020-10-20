@@ -44,18 +44,13 @@
             </div>
             <i class="iconfont icon-fenxiang"></i>
         </div>
-        <!-- <play-bar v-if="$store.getters.playingSong.id" style="visibility: hidden"></play-bar> -->
     </div>
 </template>
 
 <script>
-// import playBar from '../common/play-bar';
 import { getHotWall, likeComment } from '../../api/cloud';
 
 export default {
-    components: {
-        // playBar
-    },
     data() {
         return {
             hotWall: [], //热评墙数据
@@ -119,7 +114,7 @@ export default {
                 t: t,
                 type: 0 //歌曲
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if(res.data.code === 200) {
                     that.likes[that.curIndex] = !that.likes[that.curIndex];
                     // console.log(that.likes)
@@ -151,7 +146,7 @@ export default {
         getHotWall() {
             let that = this;
             getHotWall().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.hotWall = res.data.data;
                 that.total = that.hotWall.length;
                 that.likes = [];

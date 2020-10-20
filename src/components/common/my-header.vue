@@ -161,7 +161,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-    // height: 70px;
+    height: 70px;
     .container {
         width: 100%;
         height: 70px;

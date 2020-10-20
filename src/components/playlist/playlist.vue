@@ -78,7 +78,6 @@ export default {
             headerZIndex: 1000,
             playlistPosition: 'relative',
             playlistTop: '-20px',
-            // slider: null
         }
     },
     computed: {
@@ -179,7 +178,7 @@ export default {
             getPlaylistDetail({
                 id: that.$route.params.id
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 that.playlist = res.data.playlist;
                 that.songs = res.data.playlist.tracks;
                 //背景取色

@@ -45,16 +45,16 @@
             <!-- 音乐服务 -->
             <div class="service items-wrapper">
                 <div class="title">音乐服务</div>
-                <aside-menu-items :items="serviceItems" class="items"></aside-menu-items>
+                <my-menu-items :items="serviceItems" class="items"></my-menu-items>
             </div>
             <!-- 其他 -->
             <div class="others items-wrapper">
                 <div class="title">音乐服务</div>
-                <aside-menu-items :items="otherItems" class="items"></aside-menu-items>
+                <my-menu-items :items="otherItems" class="items"></my-menu-items>
             </div>
             <!-- 关于 -->
             <div class="about items-wrapper">
-                <aside-menu-items :items="mineSettingItems" class="items"></aside-menu-items>
+                <my-menu-items :items="mineSettingItems" class="items"></my-menu-items>
             </div>
             <!-- 底部导航栏 -->
             <footer class="footer">
@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import asideMenuItems from '../common/aside-menu-items';
+import myMenuItems from '../common/my-menu-items';
 import { SERVICE_ITEMS, OTHER_ITEMS, MINE_SETTING_ITEMS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 
 export default {
     components: {
-        asideMenuItems
+        myMenuItems
     },
     data() {
         return {
@@ -97,8 +97,8 @@ export default {
     methods: {
         initSlider() {
             let slider = new BScroll(this.$refs.wrapper, {
-                scrollX: false,
-                scrollY: true,
+                // scrollX: false,
+                // scrollY: true,
                 click: true
             })
         }

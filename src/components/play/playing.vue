@@ -273,6 +273,15 @@ export default {
         //找到应该高亮歌词的XX:XX时间并定位歌词到屏幕中间
         findPrevTime() {
             let time = '00:00';
+            //在歌词最前面
+            if(secondsToStr(Math.floor(this.player.currentTime)) < this.lyrics[0].time) {
+                this.prevTime = '00:00';
+                let node = document.getElementById(this.lyrics[0].time);
+                if( this.autoSlide && node) {
+                    this.topNow = 180 - node.offsetTop;
+                    return;
+                }
+            }
             for(let item of this.lyrics) {
                 if(secondsToStr(Math.floor(this.player.currentTime)) > item.time) {
                     time = item.time;

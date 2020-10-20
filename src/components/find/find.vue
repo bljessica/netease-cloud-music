@@ -28,17 +28,13 @@
         </div>
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
-        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list> -->
+        <!-- <my-menu :class="{'menu-showing': menuShow == true}" class="my-menu"></my-menu> -->
     </div>
 </template>
 
 <script> 
 import myHeader from '../common/my-header';
 import myMenu from '../common/my-menu';
-// import playBar from '../common/play-bar';
-// import playingList from '../common/playing-list';
 import hotSongMenu from '../find/hot-song-menu';
 import { getBanner } from '../../api/find';
 import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
@@ -51,15 +47,13 @@ export default {
     components: {
         myHeader,
         hotSongMenu,
-        myMenu,
-        // playBar,
-        // playingList
+        myMenu
     },
     data() {
         return {
             bannerImgs: [],
             menuShow: false,
-            playingListShow: false,
+            // playingListShow: false,
             slide: null, //轮播图
             curIndex: 0, //轮播图当前索引
             bannerTimer: null, //轮播图滚动定时器
@@ -80,12 +74,13 @@ export default {
         this.$nextTick(() => {
             this.initNavBtnsSlider();
         })
-        document.addEventListener('click', (e) => {
-            let className = e.target.className;
-            if(this.playingListShow == true && className != 'playing-list') {
-                this.playingListShow = false;
-            }
-        })
+        // document.addEventListener('click', (e) => {
+        //     let className = e.target.className;
+        //     //播放列表
+        //     if(this.playingListShow == true && className != 'playing-list') {
+        //         this.playingListShow = false;
+        //     }
+        // })
     },
     computed: {
         getDate() {
@@ -185,7 +180,7 @@ export default {
             left: -330px;
             top: 0;
             transition: .5s;
-            &.menuShowing {
+            &.menu-showing {
                 left: 0;
                 transition: .5s;
             }

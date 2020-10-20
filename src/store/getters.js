@@ -62,8 +62,10 @@ const currentTime = state => state.currentTime
 const lyrics = state => state.lyrics
 const isPlaying = state => state.isPlaying
 const duration = state => state.duration
+const searchingWord = state => state.searchingWord
 
 export default {
+    searchingWord,
     duration,
     isPlaying,
     lyrics,

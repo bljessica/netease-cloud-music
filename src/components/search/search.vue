@@ -16,7 +16,7 @@
                 </span>
             </div>
             <ul class="wrapper">
-                <li v-for="(item, index) in hotRankShow" :key="index" :class="{top: index < 3? true: false}"  @click="$router.push({name: 'searchTo', params: {word: item.searchWord}})">
+                <li v-for="(item, index) in hotRankShow" :key="index" :class="{top: index < 3? true: false}"  @click="searchTheWord(item.searchWord)">
                     <span class="num">{{ index + 1 }}</span>
                     <span class="name">{{ item.searchWord }}</span>
                     <span class="hot">HOT</span>
@@ -50,9 +50,9 @@ export default {
         this.hotSearchRank();
     },
     methods: {
-        //切歌
-        changeSong() {
-            this.$refs.bar.refresh();
+        searchTheWord(word) {
+            this.$store.commit('SET_SEARCHING_WORD', word);
+            this.$router.push({name: 'searchResult'});
         },
         //展开全部热搜
         detailHotRank() {

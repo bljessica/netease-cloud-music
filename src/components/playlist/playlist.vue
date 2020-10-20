@@ -53,8 +53,6 @@
                 </li>
             </ul>
         </div>
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-if="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
@@ -72,7 +70,6 @@ export default {
             songs: [],
             playlistActions: PLAYLIST_ACTIONS,
             actionsShow: true,
-            playingListShow: false,
             bgColor: '',
             bgColorBottom: '',
             headerZIndex: 1000,
@@ -194,6 +191,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    @import '../../common/styles/playlist';
+</style>
 
 <style lang="scss" scoped>
     .playlist-container {
@@ -333,85 +334,14 @@ export default {
             }
         }
         .playlist {
-            padding: 15px;
-            padding-bottom: 0;
-            border-radius: 20px 20px 0 0;
-            position: relative;
-            top: -20px;
-            z-index: 1003;
-            background: white;
             .title {
-                display: flex;
                 justify-content: flex-start;
-                align-items: center;
-                height: 40px;
-                i {
-                    font-size: 24px;
-                }
                 span:first-of-type {
                     margin-left: 15px;
                 }
                 span:last-of-type {
-                    color: rgb(158, 156, 156);                    font-size: 14px;
-                }
-            }
-            .songs {
-                list-style-type: none;
-                // margin-top: 5px;
-                li {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    height: 60px;
-                    .no {
-                        color: rgb(150, 146, 146);
-                        // display: inline-block;
-                        width: 20px;
-                        text-align: center;
-                    }
-                    .song {
-                        padding-left: 15px;
-                        text-align: left;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        align-items: flex-start;
-                        width: 75%;
-                        &>span {
-                            width: 100%;
-                            display: inline-block;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            span {
-                                color: rgb(158, 156, 156);
-                            }
-                        }
-                        div {
-                            width: 100%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            font-size: 12px;
-                            color: rgb(158, 156, 156);
-                            margin-top: 5px;
-                            span {
-                                display: inline-block;
-                                color: red;
-                                font-size: 10px;
-                                -webkit-transform:scale(0.8);
-                                border: 1px solid red;
-
-                            }
-                        }
-                    }
-                    &>i {
-                        font-size: 20px;
-                        color: rgb(158, 156, 156);
-                        &:last-of-type {
-                            margin-left: 10px;
-                        }
-                    }
+                    color: rgb(158, 156, 156);                    
+                    font-size: 14px;
                 }
             }
         }

@@ -59,9 +59,9 @@ const router = new Router({
       }
     },
     {
-      path: '/searchTo',
-      name: 'searchTo',
-      component: () => import('@/components/search/searchTo.vue'),
+      path: '/searchResult',
+      name: 'searchResult',
+      component: () => import('@/components/search/searchResult.vue'),
       meta: {
         play: true
       }

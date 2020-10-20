@@ -135,6 +135,9 @@ const mutations = {
     },
     [types.SET_DURATION](state, duration) {
         state.duration = duration;
+    },
+    [types.SET_SEARCHING_WORD](state, searchingWord) {
+        state.searchingWord = searchingWord;
     }
 }
 

@@ -31,7 +31,8 @@ const state = {
     lyrics: [], //当前歌的歌词(如果有翻译则包含翻译)
     currentTime: 0, //当前播放时间 小数
     duration: 0, //歌曲总时长 小数
-    isPlaying: false //当前是否在播放
+    isPlaying: false, //当前是否在播放
+    searchingWord: '', //搜索词
 };
 
 export default state;

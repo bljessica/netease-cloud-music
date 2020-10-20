@@ -2,7 +2,7 @@
     <div class="container">
         <!-- 头部操作导航栏 -->
         <div class="nav">
-            <i class="iconfont icon-zuo" @click="$router.push({name: 'playSong', params: {id: playingSong.id, playingList: playingList}})"></i>
+            <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
             <span class="name">评论（{{ total }}）</span>
             <span class="blank"></span>
             <i class="iconfont icon-fenxiang"></i>
@@ -108,7 +108,7 @@ export default {
         getSongComments() {
             let that = this;
             getSongComments({
-                id: that.$route.params.id
+                id: that.playingSong.id
             }).then(res => {
                 // console.log(res.data);
                 that.comments = res.data.comments;
@@ -242,10 +242,11 @@ export default {
                         position: absolute;
                         bottom: 0;
                         right: 20px;
-                        transition: opacity 2s;
+                        transition: .5s;
                         opacity: 0;
                         &.active {
                             opacity: 1;
+                            transition: .5s;
                         }
                     }
                 }

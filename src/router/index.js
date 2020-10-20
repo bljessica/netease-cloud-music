@@ -90,6 +90,14 @@ const router = new Router({
         play: true
       }
     },
+    {
+      path: '/songComment',
+      name: 'songComment',
+      component: () => import('@/components/comment/songComment.vue'),
+      meta: {
+        play: true
+      }
+    }
   ]
 });
 

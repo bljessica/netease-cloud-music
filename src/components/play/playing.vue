@@ -48,7 +48,7 @@
                 <i class="iconfont" :class="{'icon-icon-test': true, 'icon-aixin': false}"></i>
                 <i class="iconfont icon-xiazai"></i>
                 <i class="iconfont icon-luyin"></i>
-                <i class="iconfont icon-jianyi"></i>
+                <i class="iconfont icon-jianyi" @click.stop="$router.push('/songComment')"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
             <!-- 播放进度 -->

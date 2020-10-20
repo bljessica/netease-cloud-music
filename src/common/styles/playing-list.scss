@@ -1,0 +1,91 @@
+.playinglist-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 5000;
+    .playinglist-container {
+        background: white;
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border-radius: 20px;
+        z-index: 5001;
+        text-align: left;
+        color: black;
+        padding: 15px 10px 0 15px;
+        .blank {
+            flex-grow: 1;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            height: 30px;
+            line-height: 30px;
+            span {
+                color: gray;
+                font-size: 14px;
+            }
+        }
+        .playinglist-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 30px;
+            margin-bottom: 10px;;
+            font-size: 14px;
+            .collect {
+                padding-right: 15px;
+            }
+            i {
+                color: rgba(128, 128, 128, 0.76);
+            }
+            &>i:first-of-type, .collect i {
+                padding-right: 5px;
+            }
+            &>i:last-of-type {
+                padding-left: 15px;
+                display: inline-block;
+                border-left: 1px solid gainsboro;
+            }
+        }
+        .slider-wrapper {
+            height: 320px;
+            overflow: hidden;
+            .songs {
+                list-style-type: none;
+                transition: .5s;
+                li {
+                    height: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    &.active {
+                        color: red;
+                    }
+                    i {
+                        font-size: 18px;
+                        padding: 0 5px;
+                        &.icon-cuo {
+                            font-size: 20px;
+                            color: rgba(128, 128, 128, 0.76);
+                        }
+                    }
+                    .name {
+                        width: 200px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        .artist {
+                            color: rgba(128, 128, 128, 0.76);
+                            font-size: 12px;;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

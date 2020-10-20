@@ -1,7 +1,7 @@
 <template>
     <div class="header-container">
         <div class="nav"> 
-            <i class="iconfont icon-zuo" @click="goBack"></i>
+            <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
             <div class="name">
                 <span>{{ playingSong.name }}</span>
                 <div>{{ getArtists }}<i class="iconfont icon-you"></i></div>
@@ -20,9 +20,6 @@ export default {
     computed: {
         ...mapGetters([
             'playingSong',
-            // 'playingList',
-            // 'playingTimer',
-            // 'player'
         ]),
         getArtists() {
             let res = '';
@@ -36,16 +33,8 @@ export default {
     },
     methods: {
         goBack() {
-            // console.log(this.playingList, this.playingSong)
-            // clearInterval(this.playingTimer);
-            // console.log('leave')
-            // this.setPlayingTimer(null);
-            this.$router.push({name: 'playlist'})
-        },
-        ...mapMutations({
-            // setPlayingTimer: 'SET_PLAYING_TIMER',
-            // setPlayer: 'SET_PLAYER',
-        }),
+            this.$router.go(-1);
+        }
     }
 }
 </script>

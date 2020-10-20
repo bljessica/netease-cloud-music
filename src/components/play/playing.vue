@@ -51,7 +51,6 @@
                 <i class="iconfont icon-jianyi"></i>
                 <i class="iconfont icon-gengduo1"></i>
             </div>
-            <!-- <play-actions ref="actions" :key="songKey" @changeSong="changeSong" @playingListShow="showPlayingList" @changePlaying="changePlaying" @findPrev="findPrev" @angleChange="angleChange"></play-actions> -->
             <!-- 播放进度 -->
             <div class="playing-progress">
                 <span class="now">{{ secondsToStr(Math.floor(currentTime)) }}</span>
@@ -66,9 +65,35 @@
                 <i class="iconfont icon-047caozuo_shangyishou" @click="prevSong"></i>
                 <i class="iconfont" @click="changePlay" :class="{'icon-zanting_huaban': isPlaying == true, 'icon-bofang2': isPlaying === false}"></i>
                 <i class="iconfont icon-048caozuo_xiayishou" @click="nextSong"></i>
-                <i class="iconfont icon-bofangliebiao"></i>
+                <i class="iconfont icon-bofangliebiao" @click.stop="showList"></i>
             </div>
-
+        </div>
+        <!-- 播放列表 -->
+        <div class="playinglist-wrapper" ref="playinglist" v-show="playingListShow">
+            <div class="playinglist-container">
+                <div class="title">当前播放<span>（{{ songs? songs.length: 0 }}）</span></div>
+                <div class="playinglist-actions">
+                    <i class="iconfont" @click="setPlayingType" :class="{'icon-xunhuan': playingType == 0, 'icon-icon--': playingType == 1, 'icon-danquxunhuan': playingType == 2}"></i>
+                    <span>{{ typeName }}</span>
+                    <span class="blank"></span>
+                    <span class="collect"><i class="iconfont icon-xing"></i>收藏全部</span>
+                    <i class="iconfont icon-zuo"></i>
+                </div>
+                <div class="slider-wrapper" ref="wrapper">
+                    <ul class="songs" id="songs" :style="{transform: 'translateY(' + originY + 'px)'}">
+                        <li v-for="(item, index) in songs" :key="index" @click.stop="changeSong(index)"
+                            :class="{active: (item.name) == (playingSong.name)? true: false}">
+                            <i class="iconfont icon-icon-test1 active-icon" v-if="item.name == playingSong.name"></i>
+                            <span class="name">
+                                {{ item.name }}
+                                <span class="artist">- {{ getArtists(item.ar) }}</span>
+                            </span>
+                            <span class="blank"></span>
+                            <i class="iconfont icon-cuo"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -96,26 +121,36 @@ export default {
             prevTime: '00:00', //要高亮的歌词的时间XX:XX
             select: -1, //手动滑歌词选中的歌词
             timer: null,
-            slider: null
+            rotateTimer: null,
+            slider: null,
+            playingListShow: false, //是否显示播放列表
+            songs: [], //播放列表
+            originY: 0, //初始播放列表滑块位置
+            listSlider: null,
         }
     },
     mounted() {
-        // this.$emit('unShowPlayer');
         let that = this;
+        this.songs = this.playingList.tracks;
         setTimeout(() => {
             that.getBgColor();
         }, 20);
-        this.startTimer();
-        this.initSlider();
+        that.startTimer();
+        that.initListSlider(); //播放列表
+        that.initRotateTimer();
+        this.$nextTick(() => {
+            that.initSlider(); //歌词
+        })
+        document.addEventListener('click', (e) => {
+            let className = e.target.className;
+            if(this.playingListShow === true && className !== 'playinglist-container') {
+                this.playingListShow = false;
+            }
+        })
     },
     beforeDestroy() {
         clearInterval(this.timer);
-    },
-    updated () {
-        //重新计算高度
-        this.slider.refresh();
-        //当数据加载完毕以后通知better-scroll
-        // this.slider.finishPullUp();
+        clearInterval(this.rotateTimer);
     },
     computed: {
         ...mapGetters([
@@ -124,18 +159,94 @@ export default {
             'currentTime',
             'playingType',
             'duration',
-            // 'playingList',
+            'playingList',
             'player',
             'lyricNow',
             'lyrics',
             // 'playingTimer'
-        ])
+        ]),
+        typeName() {
+            if(this.playingType == 0) {
+                return '列表循环';
+            }
+            else if(this.playingType == 1) {
+                return '随机播放';
+            }
+            else {
+                return '单曲循环';
+            }
+        }
     },
     methods: {
+        //播放列表自由切歌
+        changeSong(index) {
+            this.$emit('changeSong', index);
+            this.calcOriginY();
+        },
+        //初始化播放列表滑块
+        initListSlider() {
+            if(!this.listSlider) {
+                this.listSlider = new BScroll(this.$refs.wrapper, {
+                    click: true,
+                    bounce: false
+                });
+            }
+        },
+        //拼接歌手字符串
+        getArtists(arArr) {
+            let res = '';
+            arArr.forEach(item => {
+                res += item.name + '/';
+            })
+            return res.substring(0, res.length - 1);
+        },
+        //显示播放列表
+        showList() {
+            console.log(999)
+            this.playingListShow = true;
+            this.calcOriginY();
+        },
+        //计算播放歌曲在歌单中的位置，设置滑块初始位移
+        calcOriginY() {
+            let index = 0;
+            for(let i = 0; i < (this.songs).length; i++) {
+                if(this.songs[i].name == this.playingSong.name) {
+                    index = i;
+                    
+                    break;
+                }
+            }
+            console.log(this.playingSong.name, index)
+            let maxIndex = this.songs.length - 1;
+            if(index < 4) {
+                this.originY = 0;
+                return;
+            }
+            let list = document.getElementById("songs");
+            let height = list.offsetHeight;
+            if(index >= maxIndex - 4) {
+                this.originY = 4 * 80 - height;
+            }
+            else {
+                this.originY = -(index - 3) * 40;
+            }
+        },
         //显示歌词页
         showLyrics() {
             this.onShow = 2;
             this.findPrevTime();
+        },
+        //专辑图片转动，刷新滑块
+        initRotateTimer() {
+            let that = this;
+            this.rotateTimer = setInterval(() => {
+                that.slider.refresh();
+                that.listSlider.refresh();
+                that.angle += 0.2;
+                if(that.angle > 360) {
+                    that.angle %= 360;
+                }
+            }, 15)
         },
         //歌词和进度小圆点自动滚动
         startTimer() {
@@ -148,7 +259,7 @@ export default {
                 this.dotLeft = width * (this.player.currentTime / this.player.duration);
                 //找到应该高亮歌词的XX:XX时间，高亮歌词
                 this.findPrevTime();
-            }, 1000);
+            }, 100);
             
         },
         //点击进度条跳转歌曲进度
@@ -158,7 +269,6 @@ export default {
             this.dotLeft = e.offsetX;
             this.player.currentTime = this.player.duration * this.dotLeft / width;
             this.setCurrentTime(this.player.currentTime);
-            // this.$emit('findPrev');
         },
         //找到应该高亮歌词的XX:XX时间并定位歌词到屏幕中间
         findPrevTime() {
@@ -180,6 +290,13 @@ export default {
                     }
                 }
             }
+            //到歌词的最后了
+            this.prevTime = this.lyrics[this.lyrics.length - 1].time;
+            let node = document.getElementById(this.prevTime);
+            if( this.autoSlide && node) {
+                this.topNow = 180 - node.offsetTop;
+                return;
+            }
         },
         //当前时间是否对应歌词
         currentTimeInLyrics() {
@@ -195,12 +312,13 @@ export default {
         //初始化歌词手动滑动滑块
         initSlider() {
             let that = this;
-            this.slider = new BScroll(that.$refs.lyricWrapper, {
-                click:true,
-                pullUpLoad:true,
-                bounce: false,
-                probeType: 3 // 默认不会调用scroll回调，3不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
-            });
+            if(!this.slider) {
+                this.slider = new BScroll(that.$refs.lyricWrapper, {
+                    click:true,
+                    bounce: false,
+                    probeType: 3 // 默认不会调用scroll回调，3不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
+                });
+            }
             this.slider.on('scroll', () => {
                 that.autoSlide = false;
                 let y = that.slider.y;
@@ -251,9 +369,11 @@ export default {
         //播放/暂停
         changePlay() {
             if(this.isPlaying) {
+                clearInterval(this.rotateTimer);
                 this.$emit('stop');
             }
             else {
+                this.initRotateTimer();
                 this.$emit('play');
             }
         },
@@ -275,8 +395,8 @@ export default {
                 this.bgColor = 'linear-gradient(to bottom, ';
                 let color = 'rgba('
                 for(let i of result) {
-                    if(i > 70) {
-                        i -= 70;
+                    if(i > 90) {
+                        i -= 90;
                     }
                     color += parseInt(i) +',';
                 }
@@ -286,22 +406,19 @@ export default {
         },
         ...mapMutations({
             setPlayingType: 'SET_PLAYING_TYPE',
-            // setPlayingSong: 'SET_PLAYING_SONG',
-            // setPlayingList: 'SET_PLAYING_LIST',
             setLyricNow: 'SET_LYRIC_NOW',
             setCurrentTime: 'SET_CURRENT_TIME',
-            // setLyrics: 'SET_LYRICS',
-            // setCurrentTime: 'SET_CURRENT_TIME',
-            // setPlayingTimer: 'SET_PLAYING_TIMER',
-            // setPlayer: 'SET_PLAYER'
         }),
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    @import '../../common/styles/playing-list';
+</style>
+
+<style lang="scss" scoped>
     .container {
-        // background: black;
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8),  rgba(0, 0, 0, 0.3));
         color: gainsboro;
         padding: 0 20px;
@@ -401,7 +518,6 @@ export default {
                 position: absolute;
                 left: 0;
                 right: 0;
-                // width: 100%;
                 top: 30px;
                 bottom: 0;
                 overflow: hidden;

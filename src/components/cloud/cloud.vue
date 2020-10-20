@@ -102,10 +102,12 @@ export default {
         },
         //获取关注的人
         getFollows() {
+            this.$emit('beforeLoad');
             let that = this;
             getFollows({
                 uid: that.$store.getters.userID
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.follows = res.data.follow;
                 that.initSlider();

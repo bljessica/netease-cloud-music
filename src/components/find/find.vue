@@ -141,8 +141,10 @@ export default {
         },
         //获取轮播图数据
         getBanner() {
+            this.$emit('beforeLoad');
             let that = this;
             getBanner().then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.bannerImgs = res.data.banners;
             }).catch(err => {

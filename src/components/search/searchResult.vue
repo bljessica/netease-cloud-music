@@ -30,7 +30,6 @@
                             <i class="iconfont icon-ziyuan1"></i>
                             <i class="iconfont icon-gengduo1"></i>
                         </li>
-                        <li></li>
                     </ul>
                     <div class="list-moretext">{{ song.moreText }}<i class="iconfont icon-you"></i></div>
                 </div>
@@ -56,7 +55,6 @@
                             <i class="iconfont icon-ziyuan1"></i>
                             <i class="iconfont icon-gengduo1"></i>
                         </li>
-                        <li></li>
                     </ul>
                 </div>
             </div>
@@ -195,11 +193,13 @@ export default {
         },
         //搜索(综合),替换关键词颜色
         search(type=1018) {
+            this.$emit('beforeLoad');
             let that = this;
             search({
                 keywords: that.searchingWord,
                 type: type
             }).then(res => {
+                that.$emit('onLoad');
                 console.log(type, res.data);
                 switch(type) {
                     case 1018: {
@@ -280,6 +280,7 @@ export default {
             height: 40px;
             left: 0;
             right: 0;
+            z-index: -1;
             .search-bar-container {
                 overflow: hidden;
                 position: absolute;
@@ -310,6 +311,7 @@ export default {
             right: 0;
             bottom: 61px;
             overflow: hidden;
+            z-index: -1;
             .playlist {
                 top: 1px;
                 .song-title {

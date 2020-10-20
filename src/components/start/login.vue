@@ -72,11 +72,13 @@ export default {
                 });
                 return;
             }
+            this.$emit('beforeLoad');
             let that = this;
             phoneLogin({
                 phone: that.phone,
                 password: that.password
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data)
                 if(res.data.code !== 200) {
                     that.Message({
@@ -117,12 +119,14 @@ export default {
                 });
                 return;
             }
+            this.$emit('beforeLoad');
             let that = this;
             emailLogin({
                 email: that.email,
                 password: that.password
             }).then(res => {
-                console.log(res.data)
+                that.$emit('onLoad');
+                // console.log(res.data)
                 if(res.data.code !== 200) {
                     that.Message({
                         message: res.data.msg,

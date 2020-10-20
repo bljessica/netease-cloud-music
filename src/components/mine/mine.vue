@@ -177,9 +177,11 @@ export default {
         //获取歌单
         getPlayLists() {
             let that = this;
+            this.$emit('beforeLoad');
             getPlayLists({
                 uid: that.$store.getters.userID
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.setPlaylist(res.data.playlist);
                 that.setCollectedMenus(res.data.playlist.filter(item => {
@@ -211,10 +213,12 @@ export default {
         }),
         //获取喜欢的音乐列表
         getLikeList() {
+            this.$emit('beforeLoad');
             let that = this;
             getLikeList({
                 uid: that.$store.getters.userID
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.setLikelist(res.data.ids)
             }).catch(err => {
@@ -227,10 +231,12 @@ export default {
         },
         //获取用户信息
         getUserInfo() {
+            this.$emit('beforeLoad');
             let that = this;
             getUserInfo({
                 uid: that.$store.getters.userID
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data)
                 that.setLevel(res.data.level);
                 that.setListenSongs(res.data.listenSongs);

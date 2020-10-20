@@ -106,10 +106,12 @@ export default {
             }
         },
         getSongComments() {
+            this.$emit('beforeLoad');
             let that = this;
             getSongComments({
                 id: that.playingSong.id
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.comments = res.data.comments;
                 that.hotComments = res.data.hotComments;

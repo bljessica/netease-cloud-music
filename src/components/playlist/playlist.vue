@@ -173,6 +173,7 @@ export default {
             getPlaylistDetail({
                 id: that.$route.params.id
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.playlist = res.data.playlist;
                 that.songs = res.data.playlist.tracks;

@@ -60,8 +60,10 @@ export default {
         },
         //获取热搜榜
         hotSearchRank() {
+            this.$emit('beforeLoad');
             let that = this;
             detailHotRank().then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.hotRank = res.data.data;
                 that.hotRankShow = that.hotRank.slice(0, 10);
@@ -87,7 +89,7 @@ export default {
         }
         .rank {
             position: absolute;
-            top: 50px;
+            top: 70px;
             // z-index: -1;
             .title {
                 height: 40px;

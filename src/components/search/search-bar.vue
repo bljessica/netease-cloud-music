@@ -52,8 +52,10 @@ export default {
         },
         //获取搜索建议
         getDefault() {
+            this.$emit('beforeLoad');
             let that = this;
             getDefault().then(res => {
+                that.$emit('onLoad');
                 console.log(res.data);
                 that.suggestWord = res.data.data.showKeyword;
             }).catch(err => {
@@ -71,11 +73,13 @@ export default {
                 return;
             }
             this.listShow = true;
+            this.$emit('beforeLoad');
             let that = this;
             search({
                 keywords: that.searchWord
             }).then(res => {
-                console.log(res.data);
+                that.$emit('onLoad');
+                // console.log(res.data);
                 that.resSongs = new Set();
                 res.data.result.songs.forEach(item => {
                     that.resSongs.add(item.name);
@@ -102,6 +106,7 @@ export default {
 .search-container {
     padding: 0;
     background: white;
+    padding: 10px 0;
     height: 50px;
     position: fixed;
     top: 0;
@@ -145,6 +150,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 2000;
         li {
             height: 40px;
             width: 100%;
@@ -152,6 +158,8 @@ export default {
             border-top: 1px solid gainsboro;
             display: flex;
             align-items: center;
+            z-index: 2000;
+            background: white;
             i {
                 padding: 0 10px 0 15px;
             }

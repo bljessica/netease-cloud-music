@@ -3,20 +3,37 @@
     <div v-show="$route.meta.play">
       <player ref="player" v-show="$route.name !== 'playing'"></player>
     </div>
+    <loading v-show="loading"></loading>
     <router-view @play="play" @stop="stop" @nextSong="nextSong" 
-      @prevSong="prevSong" @selectSong="selectSong" @changeSong="changeSong"></router-view>
+      @prevSong="prevSong" @selectSong="selectSong" @changeSong="changeSong"
+      @beforeLoad="beforeLoad" @onLoad="onLoad"></router-view>
   </div>
 </template>
 
 <script>
 import player from './components/player/player';
+import loading from './components/loading/loading';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      loading: false
+    }
+  },
   components: {
     player,
+    loading
   },
   methods: {
+    //未加载好
+    beforeLoad() {
+      this.loading = true;
+    }, 
+    //加载好
+    onLoad() {
+      this.loading = false;
+    },
     //播放音乐
     play() {
       this.$refs.player.startMusic();

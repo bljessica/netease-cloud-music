@@ -107,13 +107,15 @@ export default {
             else {
                 t = 1;//点赞
             }
-            console.log(t)
+            // console.log(t)
+            this.$emit('beforeLoad');
             likeComment({
                 id: that.hotWall[that.curIndex].simpleResourceInfo.songId,
                 cid: that.hotWall[that.curIndex].id,
                 t: t,
                 type: 0 //歌曲
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 if(res.data.code === 200) {
                     that.likes[that.curIndex] = !that.likes[that.curIndex];
@@ -144,8 +146,10 @@ export default {
         },
         //获取热评墙数据
         getHotWall() {
+            this.$emit('beforeLoad');
             let that = this;
             getHotWall().then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 that.hotWall = res.data.data;
                 that.total = that.hotWall.length;

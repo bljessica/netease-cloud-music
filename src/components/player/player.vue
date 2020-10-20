@@ -1,7 +1,7 @@
 <template>
-    <div class="player-container" v-if="playingSong.id">
-        <!-- 下方小的播放器 -->
-        <div class="play-bar-container" @click="$router.push({name: 'playing'})">
+    <div class="player-container">
+        <!-- 下方小的播放器 --> 
+        <div class="play-bar-container" v-if="playingSong.id" @click="$router.push({name: 'playing'})">
             <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="">
             <div class="song">
                 <div>{{ playingSong.name }}</div>
@@ -10,6 +10,20 @@
             <div class="action">
                 <span class="play-btn">
                     <i class="iconfont" @click.stop="changePlay" :class="{'icon-zanting_huaban': isPlaying === true, 'icon-bofang2': isPlaying === false}"></i>
+                </span>
+                <i class="iconfont icon-bofangliebiao" @click.stop="showList"></i>
+            </div>
+        </div> 
+        <!-- 未选择歌曲的情况 -->
+        <div class="play-bar-container" v-else @click="$router.push({name: 'find'})">
+            <img src="../../assets/icon.png" alt="">
+            <div class="song">
+                <div>暂未选择歌曲</div>
+                <div class="lyric">暂无歌词</div>
+            </div>
+            <div class="action">
+                <span class="play-btn">
+                    <i class="iconfont" :class="{'icon-zanting_huaban': isPlaying === true, 'icon-bofang2': isPlaying === false}"></i>
                 </span>
                 <i class="iconfont icon-bofangliebiao" @click.stop="showList"></i>
             </div>
@@ -42,7 +56,7 @@
             </div>
         </div>
         <!-- 音乐播放器 -->
-        <audio ref="myPlayer" :key="audioKey" v-if="playingSong" :src="playingSong.musicUrl" autoplay="" loop>
+        <audio ref="myPlayer" :key="audioKey" v-if="playingSong.id" :src="playingSong.musicUrl" autoplay="" loop>
             您的浏览器不支持 audio 标签
         </audio>
     </div>  
@@ -149,9 +163,11 @@ export default {
         //获取要播放的歌曲的url，调整播放列表显示，(->获取歌词)
         getMusicUrl(go=false) {
             let that = this;
+            this.$emit('beforeLoad');
             getPlaySongUrl({
                 id: that.playingSong.id
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 if(!res.data.data[0].url) {
                     that.Message({
@@ -186,6 +202,7 @@ export default {
             getLyrics({
                 id: that.playingSong.id
             }).then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data);
                 if(res.data.nolyric) {
                     that.setLyricNow('暂无歌词');

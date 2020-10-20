@@ -60,8 +60,10 @@ export default {
             }
         },
         getMenu() {
+            this.$emit('beforeLoad');
             let that = this;
             getSuggestHotMenu().then(res => {
+                that.$emit('onLoad');
                 // console.log(res.data.result);
                 that.menu = res.data.result;
             }).catch(err => {

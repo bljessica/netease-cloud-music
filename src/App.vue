@@ -34,8 +34,8 @@ export default {
       this.$refs.player.prevSong();
     },
     //歌单中选择歌曲
-    selectSong(index) {
-      this.$refs.player.selectSong(index);
+    selectSong() {
+      this.$refs.player.selectSong();
     },
     //播放列表中切换歌曲
     changeSong(index) {

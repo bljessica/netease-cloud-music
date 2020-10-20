@@ -28,7 +28,7 @@
                 <div class="slider-wrapper" ref="wrapper">
                     <ul class="songs" id="songs" :style="{transform: 'translateY(' + originY + 'px)'}">
                         <li v-for="(item, index) in songs" :key="index" @click.stop="changeSong(index)"
-                            :class="{active: (item.name) == (playingSong.name)? true: false}">
+                            :class="{active: (item.id) == (playingSong.id)? true: false}">
                             <i class="iconfont icon-icon-test1 active-icon" v-if="item.name == playingSong.name"></i>
                             <span class="name">
                                 {{ item.name }}
@@ -89,7 +89,7 @@ export default {
     },
     mounted() {
         let that = this;
-        this.songs = this.playingList.tracks;
+        // this.songs = this.playingList.tracks;
         document.addEventListener('click', (e) => {
             let className = e.target.className;
             if(this.playingListShow === true && className !== 'playinglist-container') {
@@ -97,7 +97,7 @@ export default {
             }
         })
     },
-    methods: {
+    methods: { 
         //显示播放列表
         showList() {
             this.playingListShow = true;
@@ -109,7 +109,7 @@ export default {
             this.getMusicUrl();
         },
         //从歌单选择歌曲(歌单可能变化)
-        selectSong(index) {
+        selectSong() {
             //获取音乐url，歌词，启动播放
             this.getMusicUrl(true);
         },
@@ -166,6 +166,7 @@ export default {
                 })
                 that.setPlayingSong(obj);
                 that.songs = that.playingList.tracks;
+                console.log('songs', that.playingList)
                 that.calcOriginY();
                 that.getLyrics();
                 if(go) {
@@ -257,7 +258,7 @@ export default {
         //计算播放歌曲在歌单中的位置，设置滑块初始位移
         calcOriginY() {
             let index = 0;
-            for(let i = 0; i < this.songs.length; i++) {
+            for(let i = 0; i < (this.songs).length; i++) {
                 if(this.songs[i].name == this.playingSong.name) {
                     index = i;
                     
@@ -270,10 +271,9 @@ export default {
                 this.originY = 0;
                 return;
             }
-            let list = document.getElementById("songs");
-            let height = list.offsetHeight;
+            let height = 40 * this.songs.length;
             if(index >= maxIndex - 4) {
-                this.originY = 4 * 80 - height;
+                this.originY = 40 * 8 - height;
             }
             else {
                 this.originY = -(index - 3) * 40;

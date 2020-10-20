@@ -1,11 +1,11 @@
 <template>
-    <div class="search-container">
+    <div class="search-container" @keyup.enter="getSearchResult">
         <!-- 搜索框 -->
         <div class="search-box">
-            <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
+            <i class="iconfont icon-zuo" @click.stop="$router.go(-1)"></i>
             <input type="text" :placeholder="suggestWord" v-model="searchWord" @input="showResults">
             <!-- <input type="text" v-else :placeholder="suggestWord" v-model="searchWord" @input="showResults"> -->
-            <i class="iconfont reset icon-jia" @click="searchWord = ''"></i>
+            <i class="iconfont reset icon-jia" @click.stop="searchWord = ''"></i>
         </div>
         <!-- 搜索结果 -->
         <ul class="results" v-if="listShow">
@@ -45,6 +45,12 @@ export default {
         }
     },
     methods: {
+        //跳转到搜索结果页面
+        getSearchResult() {
+            this.$store.commit('SET_SEARCHING_WORD', this.searchWord);
+            this.$router.push('/searchResult');
+        },
+        //获取搜索建议
         getDefault() {
             let that = this;
             getDefault().then(res => {
@@ -58,6 +64,7 @@ export default {
                 });
             })
         },
+        //显示搜索建议列表
         showResults() {
             if(this.searchWord.length == 0) {
                 this.listShow = false;
@@ -94,7 +101,12 @@ export default {
 <style lang="scss" scoped>
 .search-container {
     padding: 0;
-    background: transparent;
+    background: white;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     .search-box {
         background: white;
         height: 50px;

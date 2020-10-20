@@ -69,7 +69,7 @@
             </div>
         </div>
         <!-- 播放列表 -->
-        <div class="playinglist-wrapper" ref="playinglist" v-show="playingListShow">
+        <div class="playinglist-wrapper" ref="playinglist" v-show="playingListShow" :key="listKey">
             <div class="playinglist-container">
                 <div class="title">当前播放<span>（{{ songs? songs.length: 0 }}）</span></div>
                 <div class="playinglist-actions">
@@ -82,14 +82,14 @@
                 <div class="slider-wrapper" ref="wrapper">
                     <ul class="songs" id="songs" :style="{transform: 'translateY(' + originY + 'px)'}">
                         <li v-for="(item, index) in songs" :key="index" @click.stop="changeSong(index)"
-                            :class="{active: (item.name) == (playingSong.name)? true: false}">
+                            :class="{active: (item.id) == (playingSong.id)? true: false}">
                             <i class="iconfont icon-icon-test1 active-icon" v-if="item.name == playingSong.name"></i>
                             <span class="name">
                                 {{ item.name }}
                                 <span class="artist">- {{ getArtists(item.ar) }}</span>
                             </span>
                             <span class="blank"></span>
-                            <i class="iconfont icon-cuo"></i>
+                            <i class="iconfont icon-cuo" @click.stop="deleteFromPlayingList(item.id)"></i>
                         </li>
                     </ul>
                 </div>
@@ -127,6 +127,7 @@ export default {
             songs: [], //播放列表
             originY: 0, //初始播放列表滑块位置
             listSlider: null,
+            listKey: 0
         }
     },
     mounted() {
@@ -178,6 +179,28 @@ export default {
         }
     },
     methods: {
+        //删除播放列表中的歌
+        deleteFromPlayingList(id) {
+            // let newList = this.playingList.tracks, index = 0;
+            // for(let i = 0; i < newList.length; i++) {
+            //     if(newList[i].id === id) {
+            //         index = i;
+            //         break;
+            //     }
+            // }
+            // // newList[index] = null;
+            // newList.pop(index);
+            // console.log(index)
+            // this.setPlayingList({
+            //     name: '临时歌单',
+            //     tracks: newList
+            // });
+            // this.songs = newList;
+            // this.listKey++;
+            // this.$nextTick(() => {
+            //     this.listSlider.refresh();
+            // })
+        },
         //播放列表自由切歌
         changeSong(index) {
             this.$emit('changeSong', index);
@@ -195,6 +218,9 @@ export default {
         //拼接歌手字符串
         getArtists(arArr) {
             let res = '';
+            if(arArr.length === 0) {
+                return '';
+            }
             arArr.forEach(item => {
                 res += item.name + '/';
             })
@@ -202,7 +228,6 @@ export default {
         },
         //显示播放列表
         showList() {
-            console.log(999)
             this.playingListShow = true;
             this.calcOriginY();
         },
@@ -222,10 +247,9 @@ export default {
                 this.originY = 0;
                 return;
             }
-            let list = document.getElementById("songs");
-            let height = list.offsetHeight;
+            let height = 40 * this.songs.length;
             if(index >= maxIndex - 4) {
-                this.originY = 4 * 80 - height;
+                this.originY = 40 * 8 - height;
             }
             else {
                 this.originY = -(index - 3) * 40;
@@ -271,7 +295,7 @@ export default {
             this.setCurrentTime(this.player.currentTime);
         },
         //找到应该高亮歌词的XX:XX时间并定位歌词到屏幕中间
-        findPrevTime() {
+        findPrevTime() { 
             let time = '00:00';
             //在歌词最前面
             if(secondsToStr(Math.floor(this.player.currentTime)) < this.lyrics[0].time) {
@@ -417,6 +441,7 @@ export default {
             setPlayingType: 'SET_PLAYING_TYPE',
             setLyricNow: 'SET_LYRIC_NOW',
             setCurrentTime: 'SET_CURRENT_TIME',
+            setPlayingList: 'SET_PLAYING_LIST',
         }),
     }
 }

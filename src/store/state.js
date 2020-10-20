@@ -23,7 +23,7 @@ const state = {
     listenSongs: '',
     createTime: '',//用户创建时间
     playingSong: {},//正播放的歌曲
-    playingList: {},//正播放的歌单
+    playingList: null,//正播放的歌单
     playingTimer: null,  
     playingType: 2, //0列表循环，1随机播放，2单曲循环,
     player: '',  //音乐播放器,(好像不需要)

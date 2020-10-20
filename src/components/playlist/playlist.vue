@@ -91,7 +91,7 @@ export default {
         }
         else {
             this.playlist = this.playingList;
-            this.songs = this.playingList.tracks;
+            this.songs = this.playlist.tracks;
             this.getBgColor();
         }
         //歌单导航栏吸顶
@@ -123,16 +123,14 @@ export default {
             setPlayingList: 'SET_PLAYING_LIST',
             setLyricNow: 'SET_LYRIC_NOW',
             setLyrics: 'SET_LYRICS',
-            setCurrentTime: 'SET_CURRENT_TIME',
-            // setPlayingTimer: 'SET_PLAYING_TIMER',
-            // setPlayer: 'SET_PLAYER'
+            setCurrentTime: 'SET_CURRENT_TIME'
         }),
         //选择一首歌播放
-        selectSong(index) { 
+        selectSong(index) {  
             this.setPlayingSong(this.songs[index]);
             this.setPlayingList(this.playlist);
             console.log("select", this.playingList.name)
-            this.$emit('selectSong', index);
+            this.$emit('selectSong');
         },
         //背景取色
         getBgColor() {

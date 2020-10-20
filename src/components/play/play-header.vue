@@ -29,6 +29,12 @@ export default {
                 })
                 return res.substring(0, res.length - 1);
             }
+            if(this.playingSong.artists) {
+                this.playingSong.artists.forEach(item => {
+                    res += item.name + '/';
+                })
+                return res.substring(0, res.length - 1);
+            }
         }
     },
     methods: {

@@ -14,14 +14,14 @@
         <!-- 搜索结果 -->
         <div class="result-box" id="result-box">
             <!-- 综合 -->
-            <div class="all-list" v-if="activeIndex === 0"  ref="allWrapper">
-                <div class="playlist list">
+            <div class="all-list" ref="allWrapper">
+                <div class="playlist list" v-if="activeIndex === 0">
                     <div class="song-title list-title">
                         <span>单曲</span>
                         <span><i class="iconfont icon-bofang2"></i>播放全部</span>
                     </div>
                     <ul class="songs" v-if="song">
-                        <li v-for="(item, index) in song.songs" class="item" :key="index" @click="selectSong(item)" :style="{height: item.alia? (item.alia.length > 0 ? '80px': '60px'): '60px'}">
+                        <li v-for="(item, index) in song.songs" class="item" :key="index" @click.stop="selectSong(item)" :style="{height: item.alia? (item.alia.length > 0 ? '80px': '60px'): '60px'}">
                             <div class="song" v-if="item.alia">
                                 <span>{{ item.name }}<span v-if="item.alia.length > 0">({{ item.alia[0] }})</span></span>
                                 <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.ar[0].name }} - {{ item.al.name}}</div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <!-- 某类型 -->
-            <div class="type-list" ref="typeWrapper">
+            <div class="type-list" ref="typeWrapper" v-show="activeIndex === 1">
                 <!-- 单曲 -->
                 <div class="songs-list playlist list" v-if="activeIndex === 1">
                     <div class="title">
@@ -46,7 +46,7 @@
                         <span class="right">多选</span>
                     </div>
                     <ul class="songs" v-if="song">
-                        <li v-for="(item, index) in song.songs" class="item" :key="index" @click="selectSong(item)" :style="{height: item.alias? (item.alias.length > 0 ? '80px': '60px'): '60px'}">
+                        <li v-for="(item, index) in song.songs" class="item" :key="index" @click.stop="selectSong(item)" :style="{height: item.alias? (item.alias.length > 0 ? '80px': '60px'): '60px'}">
                             <div class="song" v-if="item.alias">
                                 <span>{{ item.name }}<span v-if="item.alias.length > 0">({{ item.alias[0] }})</span></span>
                                 <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.artists[0].name }} - {{ item.album.name}}</div>
@@ -76,6 +76,7 @@ import { SEARCH_KINDS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 import { search } from '../../api/search';
 import { mapGetters, mapMutations } from 'vuex';
+import { getPlaySongDetail } from '../../api/play';
 
 export default {
     data() {
@@ -129,22 +130,34 @@ export default {
         }),
         //选择一首歌，播放，插入当前歌单
         selectSong(song) {
-            this.setPlayingSong(song);
-            let newList = [];
-            if(this.playingList) {
-                newList = this.playingList.tracks;
-                if(!this.selectSongInPlayingList(song)) {
+            console.log(9999)
+            this.$emit('beforeLoad');
+            let that = this;
+            //获取专辑封面url
+            getPlaySongDetail({
+                ids: song.id
+            }).then(res => {
+                that.$emit('onLoad');
+                // console.log(res.data);
+                song.al = {};
+                song.al.picUrl = res.data.songs[0].al.picUrl;
+                that.setPlayingSong(song);
+                let newList = [];
+                if(that.playingList) {
+                    newList = that.playingList.tracks;
+                    if(!that.selectSongInPlayingList(song)) {
+                        newList.push(song);
+                    }
+                }
+                else {
                     newList.push(song);
                 }
-            }
-            else {
-                newList.push(song);
-            }
-            this.setPlayingList({
-                name: '临时歌单',
-                tracks: newList
-            });
-            this.$emit('selectSong');
+                that.setPlayingList({
+                    name: '临时歌单',
+                    tracks: newList
+                });
+                that.$emit('selectSong');
+            })
         },
         //当前歌单是否有这首歌
         selectSongInPlayingList(song) {
@@ -223,6 +236,7 @@ export default {
                     that.changeSearchingWordColor();
                     that.$nextTick(() => {
                         if(type === 1018) {
+                            console.log(666)
                             that.initAllSlider()
                         }
                         else {
@@ -263,7 +277,7 @@ export default {
                 }
             }
             .list-moretext {
-                margin-top: 10px;
+                padding: 10px 0 20px 0;
                 font-size: 12px;
                 color: rgb(158, 156, 156);
                 i {

@@ -86,7 +86,7 @@
                             <i class="iconfont icon-icon-test1 active-icon" v-if="item.name == playingSong.name"></i>
                             <span class="name">
                                 {{ item.name }}
-                                <span class="artist">- {{ getArtists(item.ar) }}</span>
+                                <span class="artist">- {{ item.ar? getArtists(item.ar): (item.artists? getArtists(item.artists): '') }}</span>
                             </span>
                             <span class="blank"></span>
                             <i class="iconfont icon-cuo" @click.stop="deleteFromPlayingList(item.id)"></i>
@@ -219,7 +219,7 @@ export default {
         getArtists(arArr) {
             let res = '';
             if(arArr.length === 0) {
-                return '';
+                return '未知';
             }
             arArr.forEach(item => {
                 res += item.name + '/';

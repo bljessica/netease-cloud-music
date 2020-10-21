@@ -37,119 +37,140 @@
             <!-- 某类型，下拉刷新 -->
             <div class="type-list" ref="typeWrapper" v-show="activeIndex !== 0">
                 <!-- 单曲 -->
-                <div class="songs-list playlist list" v-show="activeIndex === 1" :style="{transform: 'translateY(' + typeTop + 'px)'}">
-                    <div class="title">
-                        <i class="iconfont icon-bofang2 left"></i>
-                        <span class="left">播放全部</span>
-                        <span class="blank"></span>
-                        <i class="iconfont icon-bofangliebiao right"></i>
-                        <span class="right">多选</span>
+                <div ref="songsWrapper" class="songs-wrapper" v-show="activeIndex === 1">
+                    <div class="songs-list playlist list" v-show="activeIndex === 1" :style="{transform: 'translateY(' + typeTop + 'px)'}">
+                        <div class="title">
+                            <i class="iconfont icon-bofang2 left"></i>
+                            <span class="left">播放全部</span>
+                            <span class="blank"></span>
+                            <i class="iconfont icon-bofangliebiao right"></i>
+                            <span class="right">多选</span>
+                        </div>
+                        <ul class="songs" v-if="song">
+                            <li v-for="(item, index) in song.songs" class="item" :key="index" @click.stop="selectSong(item)" :style="{height: item.alias? (item.alias.length > 0 ? '80px': '60px'): '60px'}">
+                                <div class="song" v-if="item.alias">
+                                    <span>{{ item.name }}<span v-if="item.alias.length > 0">({{ item.alias[0] }})</span></span>
+                                    <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.artists[0].name }} - {{ item.album.name}}</div>
+                                    <div class="alia" v-if="item.alias.length > 0">{{ item.alias[0] }}</div>
+                                </div>
+                                <i class="iconfont icon-ziyuan1"></i>
+                                <i class="iconfont icon-gengduo1"></i>
+                            </li>
+                        </ul>
+                        <!-- <div class="refresh">下拉刷新</div> -->
                     </div>
-                    <ul class="songs" v-if="song">
-                        <li v-for="(item, index) in song.songs" class="item" :key="index" @click.stop="selectSong(item)" :style="{height: item.alias? (item.alias.length > 0 ? '80px': '60px'): '60px'}">
-                            <div class="song" v-if="item.alias">
-                                <span>{{ item.name }}<span v-if="item.alias.length > 0">({{ item.alias[0] }})</span></span>
-                                <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.artists[0].name }} - {{ item.album.name}}</div>
-                                <div class="alia" v-if="item.alias.length > 0">{{ item.alias[0] }}</div>
-                            </div>
-                            <i class="iconfont icon-ziyuan1"></i>
-                            <i class="iconfont icon-gengduo1"></i>
-                        </li>
-                    </ul>
-                    <!-- <div class="refresh">下拉刷新</div> -->
                 </div>
-                 <!-- 云村 -->
+                <!-- 云村mlog -->
+                <div ref="mlogsWrapper" class="mlogs-wrapper" v-show="activeIndex === 1">
+                    <div class="cloud-list list" v-show="activeIndex === 2">
+                        <!-- <div class="title">Mlog</div>
+                        <ul class="mlogs">
+                            <li v-for="(item, index) in cloud.mlogs" :key="index">
+
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
                 <!-- 视频 -->
-                <div class="videos-list list" v-show="activeIndex === 3">
-                    <ul class="videos" v-if="video">
-                        <li v-for="(item, index) in video.videos" :key="index">
-                            <div class="cover" :style="{backgroundImage: 'url(' + item.coverUrl + ')'}">
-                                <span><i class="iconfont icon-bofangsanjiaoxing"></i>{{ getPlayNum(item.playTime) }}</span>
-                            </div>
-                            <div class="info">
-                                <div class="title">{{ item.title }}</div>
-                                <div>{{ durationToTimeStr(item.durationms) }} by {{ getCreator(item.creator)}}</div>
-                            </div>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="videosWrapper" class="videos-wrapper" v-show="activeIndex === 3">
+                    <div class="videos-list list" v-show="activeIndex === 3">
+                        <ul class="videos" v-if="video">
+                            <li v-for="(item, index) in video.videos" :key="index">
+                                <div class="cover" :style="{backgroundImage: 'url(' + item.coverUrl + ')'}">
+                                    <span><i class="iconfont icon-bofangsanjiaoxing"></i>{{ getPlayNum(item.playTime) }}</span>
+                                </div>
+                                <div class="info">
+                                    <div class="title">{{ item.title }}</div>
+                                    <div>{{ durationToTimeStr(item.durationms) }} by {{ getCreator(item.creator)}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- 歌手 -->
-                <div class="artists-list list" v-show="activeIndex === 4">
-                    <ul class="artists" v-if="artist">
-                        <li v-for="(item, index) in artist.artists" :key="index">
-                            <img v-if="item.picUrl" :src="item.picUrl" alt="">
-                            <img v-else src="../../assets/person.png" alt="">
-                            <span class="name">{{ item.name }}</span>
-                            <span><i class="iconfont icon-tianchongxing-"></i>已入驻</span>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="artistsWrapper" class="artists-wrapper" v-show="activeIndex === 4">
+                    <div class="artists-list list" v-show="activeIndex === 4">
+                        <ul class="artists" v-if="artist">
+                            <li v-for="(item, index) in artist.artists" :key="index">
+                                <img v-if="item.picUrl" :src="item.picUrl" alt="">
+                                <img v-else src="../../assets/person.png" alt="">
+                                <span class="name">{{ item.name }}</span>
+                                <span><i class="iconfont icon-tianchongxing-"></i>已入驻</span>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- 专辑 -->
-                <div class="albums-list list" v-show="activeIndex === 5">
-                    <ul class="albums" v-if="album">
-                        <li v-for="(item, index) in album.albums" :key="index">
-                            <div class="img">
-                                <img src="../../assets/record.png" alt="">
-                                <img :src="item.blurPicUrl" alt="">
-                            </div>
-                            <div class="info">
-                                <span class="name">{{ item.name }}</span>
-                                <div>{{ getArtist(item.artists) }} {{ getDate(item.publishTime) }}</div>
-                            </div>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="albumsWrapper" class="albums-wrapper" v-show="activeIndex === 5">
+                    <div class="albums-list list" v-show="activeIndex === 5">
+                        <ul class="albums" v-if="album">
+                            <li v-for="(item, index) in album.albums" :key="index">
+                                <div class="img">
+                                    <img src="../../assets/record.png" alt="">
+                                    <img :src="item.blurPicUrl" alt="">
+                                </div>
+                                <div class="info">
+                                    <span class="name">{{ item.name }}</span>
+                                    <div>{{ getArtist(item.artists) }} {{ getDate(item.publishTime) }}</div>
+                                </div>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- 歌单 -->
-                <div class="playlists-list list" v-show="activeIndex === 6">
-                    <ul class="playlists" v-if="playlist">
-                        <li v-for="(item, index) in playlist.playlists" :key="index">
-                            <div class="img">
-                                <img :src="item.coverImgUrl" alt="">
-                            </div>
-                            <div class="info">
-                                <span class="name">{{ item.name }}</span>
-                                <div>{{ item.trackCount }}首 by {{ item.creator.nickname }}，播放{{ item.playCount }}次</div>
-                            </div>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="playlistsWrapper" class="playlists-wrapper" v-show="activeIndex === 6">
+                    <div class="playlists-list list" v-show="activeIndex === 6">
+                        <ul class="playlists" v-if="playlist">
+                            <li v-for="(item, index) in playlist.playlists" :key="index">
+                                <div class="img">
+                                    <img :src="item.coverImgUrl" alt="">
+                                </div>
+                                <div class="info">
+                                    <span class="name">{{ item.name }}</span>
+                                    <div>{{ item.trackCount }}首 by {{ item.creator.nickname }}，播放{{ item.playCount }}次</div>
+                                </div>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- 主播电台 -->
-                <div class="djRadios-list list" v-show="activeIndex === 7">
-                    <ul class="djRadios" v-if="djRadio">
-                        <li v-for="(item, index) in djRadio.djRadios" :key="index">
-                            <div class="img">
-                                <img :src="item.picUrl" alt="">
-                            </div>
-                            <div class="info">
-                                <span class="name">{{ item.name }}</span>
-                                <div>{{ item.rcmdText }}</div>
-                            </div>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="djRadiosWrapper" class="djRadios-wrapper" v-show="activeIndex === 7">
+                    <div class="djRadios-list list" v-show="activeIndex === 7">
+                        <ul class="djRadios" v-if="djRadio">
+                            <li v-for="(item, index) in djRadio.djRadios" :key="index">
+                                <div class="img">
+                                    <img :src="item.picUrl" alt="">
+                                </div>
+                                <div class="info">
+                                    <span class="name">{{ item.name }}</span>
+                                    <div>{{ item.rcmdText }}</div>
+                                </div>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- 用户 -->
-                <div class="users-list list" v-show="activeIndex === 8">
-                    <ul class="users" v-if="user">
-                        <li v-for="(item, index) in user.userprofiles" :key="index">
-                            <img v-if="item.avatarUrl" :src="item.avatarUrl" alt="">
-                            <img v-else src="../../assets/person.png" alt="">
-                            <div class="info">
-                                <span class="name">{{ item.nickname }}</span>
-                                <div>{{ item.signature }}</div>
-                            </div>
-                            <span><i class="iconfont icon-jia"></i>关注</span>
-                        </li>
-                        <li></li>
-                    </ul>
+                <div ref="usersWrapper" class="users-wrapper" v-show="activeIndex === 8">
+                    <div class="users-list list" v-show="activeIndex === 8">
+                        <ul class="users" v-if="user">
+                            <li v-for="(item, index) in user.userprofiles" :key="index">
+                                <img v-if="item.avatarUrl" :src="item.avatarUrl" alt="">
+                                <img v-else src="../../assets/person.png" alt="">
+                                <div class="info">
+                                    <span class="name">{{ item.nickname }}</span>
+                                    <div>{{ item.signature }}</div>
+                                </div>
+                                <span><i class="iconfont icon-jia"></i>关注</span>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            
-           
         </div>
     </div>
 </template>
@@ -180,7 +201,7 @@ export default {
             djRadio: [], //主播电台
             user: [], //用户
             key: 0,
-            typeSlider: null, //分类内容滑块
+            typeSlider: new Array(9), //分类内容滑块
             resultKey: 0, //刷新结果
             offsets: new Array(9).fill(0), //查询偏移值（索引0-8）
             typeTop: 0, //分类内容滑块translateY
@@ -211,7 +232,7 @@ export default {
                     break;
                 }
                 case 2: {
-                    this.search(100); //mlog
+                    this.search(); //mlog
                     break;
                 }
                 case 3: {
@@ -343,19 +364,108 @@ export default {
         },
         //初始化分类获取的内容滑块
         initTypeSlider() {
-            if(!this.typeSlider) {
-                this.typeSlider = new BScroll(this.$refs.typeWrapper, {
+            if(this.activeIndex === 1) {
+                let slider1 = new BScroll(this.$refs.songsWrapper, {
                     scrollX: false,
                     scrollY: true,
                     click: true,
+                    mouseWheel: true,//开启鼠标滚轮
                     pullUpLoad: {
                         threshold: 300
                     }
                 });
             }
-            else {
-                this.typeSlider.refresh();
+            // else if(this.activeIndex === 2) {
+            //     let slider2 = new BScroll(this.$refs.videosWrapper, {
+            //         scrollX: false,
+            //         scrollY: true,
+            //         click: true,
+            //         mouseWheel: true,//开启鼠标滚轮
+            //         pullUpLoad: {
+            //             threshold: 300
+            //         }
+            //     });
+            // }
+            else if(this.activeIndex === 3) {
+                let slider3 = new BScroll(this.$refs.videosWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
             }
+            else if(this.activeIndex === 4) {
+                let slider4 = new BScroll(this.$refs.artistsWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
+            }
+            else if(this.activeIndex === 5) {
+                let slider5 = new BScroll(this.$refs.albumsWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
+            }
+            else if(this.activeIndex === 6) {
+                let slider6 = new BScroll(this.$refs.playlistsWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
+            }
+            else if(this.activeIndex === 7) {
+                let slider7 = new BScroll(this.$refs.djRadiosWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
+            }
+            else if(this.activeIndex === 8) {
+                let slider8 = new BScroll(this.$refs.usersWrapper, {
+                    scrollX: false,
+                    scrollY: true,
+                    click: true,
+                    mouseWheel: true,//开启鼠标滚轮
+                    pullUpLoad: {
+                        threshold: 300
+                    }
+                });
+            }
+            // if(!this.typeSlider[this.activeIndex]) {
+            //     this.typeSlider[this.activeIndex] = new BScroll(this.$refs.typeWrapper, {
+            //         scrollX: false,
+            //         scrollY: true,
+            //         click: true,
+            //         mouseWheel: true,//开启鼠标滚轮
+            //         pullUpLoad: {
+            //             threshold: 300
+            //         }
+            //     });
+            // }
+            // else {
+            //     this.typeSlider[this.activeIndex].refresh();
+            // }
             // typeSlider.on('pullingUp', () => {
             //     switch(this.activeIndex) {
             //         case 1: {
@@ -405,19 +515,7 @@ export default {
                         break;
                     }
                     case 1: {
-                        //定位不对
-                        // if(offset > 0) {
-                        //     that.song.hasMore = res.data.result.hasMore;
-                        //     that.song.songs = that.song.songs.concat(res.data.result.songs)
-                        //     let box = document.getElementsByClassName('type-list')[0];
-                        //     let ul = document.getElementsByClassName('songs-list')[0];
-                        //     let height = ul.offsetHeight - box.offsetHeight;
-                        //     that.typeTop = -height;
-                        //     console.log('up', this.offsets[1], this.song.songs.length, -height)
-                        // }
-                        // else {
-                            that.song = res.data.result; //单曲
-                        // }
+                        that.song = res.data.result; //单曲
                         break;
                     }
                     case 1014: {
@@ -530,7 +628,7 @@ export default {
                 }
             }
         }
-        .all-list, .type-list {
+        .all-list, .songs-wrapper, .videos-wrapper, .artists-wrapper, .albums-wrapper, .playlists-wrapper, .djRadios-wrapper, .users-wrapper {
             position: absolute;
             top: 91px;
             left: 0;

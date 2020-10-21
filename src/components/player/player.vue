@@ -203,11 +203,11 @@ export default {
                 id: that.playingSong.id
             }).then(res => {
                 that.$emit('onLoad');
-                // console.log(res.data);
+                console.log(res.data);
                 if(res.data.nolyric) {
-                    that.setLyricNow('暂无歌词');
+                    that.setLyricNow('纯音乐，请欣赏');
                     that.setLyrics([{
-                        content: '暂无歌词',
+                        content: '纯音乐，请欣赏',
                         time: ''
                     }]);
                 }
@@ -274,8 +274,12 @@ export default {
         },
         //计算播放歌曲在歌单中的位置，设置滑块初始位移
         calcOriginY() {
+            if(this.songs.length < 8) {
+                this.originY = 0;
+                return;
+            }
             let index = 0;
-            for(let i = 0; i < (this.songs).length; i++) {
+            for(let i = 0; i < this.songs.length; i++) {
                 if(this.songs[i].name == this.playingSong.name) {
                     index = i;
                     

@@ -10,7 +10,7 @@
         <!-- 搜索结果 -->
         <ul class="results" v-if="listShow">
             <div class="title">搜索“{{ searchWord }}”</div>
-            <li v-for="(item, index) in resSongs" :key="index">
+            <li v-for="(item, index) in resSongs" :key="index" @click.stop="chooseSearchWord">
                 <i class="iconfont icon-sousuo"></i>
                 <span class="name">{{ item }}</span>
             </li>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getDefault, search } from '../../api/search';
+import { getDefault, search, searchMultimatch } from '../../api/search';
 
 export default {
     props: { 
@@ -50,6 +50,19 @@ export default {
             this.$store.commit('SET_SEARCHING_WORD', this.searchWord);
             this.$router.push('/searchResult');
         },
+        //选择搜索关联词进行搜索
+        chooseSearchWord(e) {
+            let target = e.target;
+            this.searchWord = target.innerText;
+            this.$store.commit('SET_SEARCHING_WORD', this.searchWord);
+            this.listShow = false;
+            if(this.$route.name === 'search') {
+                this.$router.push('/searchResult');
+            }
+            else if(this.$route.name === 'searchResult') {
+                this.$emit('wordChange');
+            }
+        },
         //获取搜索建议
         getDefault() {
             this.$emit('beforeLoad');
@@ -66,8 +79,9 @@ export default {
                 });
             })
         },
-        //显示搜索建议列表
+        //显示搜索关联结果
         showResults() {
+            console.log('result')
             if(this.searchWord.length == 0) {
                 this.listShow = false;
                 return;
@@ -76,10 +90,14 @@ export default {
             this.$emit('beforeLoad');
             let that = this;
             search({
-                keywords: that.searchWord
+                keywords: that.searchWord,
             }).then(res => {
                 that.$emit('onLoad');
-                // console.log(res.data);
+                console.log(res.data, res.data.result === {});
+                if(!res.data.result.songs) {
+                    that.listShow = false;
+                    return;
+                }
                 that.resSongs = new Set();
                 res.data.result.songs.forEach(item => {
                     that.resSongs.add(item.name);

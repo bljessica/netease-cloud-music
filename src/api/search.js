@@ -19,8 +19,17 @@ function search(data) {
 
 //搜索：搜索建议
 // function searchSuggest(data) {
+    // return request({
+    //     url: '/search/suggest',
+    //     method: 'get',
+    //     data: data
+    // })
+// }
+
+//搜索：搜索多重匹配
+// function searchMultimatch(data) {
 //     return request({
-//         url: '/search/suggest',
+//         url: '/search/multimatch',
 //         method: 'get',
 //         data: data
 //     })
@@ -39,5 +48,6 @@ export {
     getDefault,
     search,
     detailHotRank,
-    searchSuggest
+    // searchSuggest,
+    // searchMultimatch
 }

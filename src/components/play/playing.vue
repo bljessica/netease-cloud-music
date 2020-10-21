@@ -233,6 +233,10 @@ export default {
         },
         //计算播放歌曲在歌单中的位置，设置滑块初始位移
         calcOriginY() {
+            if(this.songs.length < 8) {
+                this.originY = 0;
+                return;
+            }
             let index = 0;
             for(let i = 0; i < (this.songs).length; i++) {
                 if(this.songs[i].name == this.playingSong.name) {
@@ -296,6 +300,10 @@ export default {
         },
         //找到应该高亮歌词的XX:XX时间并定位歌词到屏幕中间
         findPrevTime() { 
+            //纯音乐
+            if(this.lyrics.length == 1 && this.lyrics[0].content === '纯音乐，请欣赏') {
+                this.topNow = 0;
+            }
             let time = '00:00';
             //在歌词最前面
             if(secondsToStr(Math.floor(this.player.currentTime)) < this.lyrics[0].time) {
@@ -426,9 +434,15 @@ export default {
             domImg.addEventListener('load', () => {
                 let result = colorthief.getColor(domImg);
                 this.bgColor = 'linear-gradient(to bottom, ';
-                let color = 'rgba('
+                let color = 'rgba(';
+                let flag = true;//是否r,g,b都大于70
                 for(let i of result) {
-                    if(i > 90) {
+                    if(i < 90) {
+                        flag = false;
+                    }
+                }
+                for(let i of result) {
+                    if(flag) {
                         i -= 90;
                     }
                     color += parseInt(i) +',';

@@ -23,7 +23,7 @@ function secondsToStr(current) {
         return '00:' + current;
     }
 }
-
+ 
 //获取歌词的时间
 function getLyricTime(time) {
     let times = time.split(':');
@@ -37,8 +37,22 @@ function strToSeconds(time) {
     return minutes * 60 + seconds;
 }
 
+//歌曲播放量
+function getPlayNum(playCount) {
+    if(playCount >= 100000000) {
+        return (playCount / 100000000).toFixed(1) + '亿';
+    }
+    else if(playCount >= 10000) {
+        return Math.round(playCount / 10000) + '万';
+    }
+    else {
+        return playCount;
+    }
+}
+
 export {
     secondsToStr,
     getLyricTime,
-    strToSeconds
+    strToSeconds,
+    getPlayNum
 }

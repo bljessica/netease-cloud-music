@@ -3,7 +3,7 @@
         <div class="up-wrapper" :style="{background: 'linear-gradient(to bottom, '+ bgColor + ',1), ' + bgColorBottom+',1))', zIndex: headerZIndex}">
             <!-- 头部操作导航栏 -->
             <div class="nav">
-                <i class="iconfont icon-zuo" @click="$router.push('/find')"></i>
+                <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
                 <span>歌单<i>&reg;</i></span>
                 <span class="blank"></span>
                 <i class="iconfont icon-sousuo"></i>
@@ -51,6 +51,7 @@
                     <i class="iconfont icon-ziyuan1"></i>
                     <i class="iconfont icon-gengduo1"></i>
                 </li>
+                <li></li>
             </ul>
         </div>
     </div>
@@ -62,6 +63,7 @@ import BScroll from '@better-scroll/core';
 import { PLAYLIST_ACTIONS } from '../../consts/const';
 import ColorThief from 'colorthief';
 import { mapGetters, mapMutations } from 'vuex';
+import { getPlayNum } from '../../common/js/processData';
 
 export default {
     data() {
@@ -99,9 +101,11 @@ export default {
             let that = this;
             //浏览器兼容
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            if(scrollTop >= 250) {
-                that.headerZIndex = 2000;
+            if(scrollTop >= 150) {
                 that.actionsShow = false;
+                if(scrollTop >= 250) {
+                    that.headerZIndex = 2000;
+                }
             }
             else {
                 that.headerZIndex = 1000;
@@ -142,9 +146,15 @@ export default {
                 let result = colorthief.getColor(domImg);
                 that.bgColor = 'linear-gradient(to bottom, ';
                 let color = 'rgba(', colorBottom = 'rgba(';
+                let flag = true;//是否r,g,b都大于70
                 for(let i of result) {
-                    if(i > 90) {
-                        i -= 90;
+                    if(i < 70) {
+                        flag = false;
+                    }
+                }
+                for(let i of result) {
+                    if(flag) {
+                        i -= 70;
                     }
                     color += i +',';
                     colorBottom += (i + 70) + ','
@@ -156,17 +166,7 @@ export default {
             })
         },
         //歌曲播放量
-        getPlayNum(playCount) {
-            if(playCount >= 100000000) {
-                return (playCount / 100000000).toFixed(1) + '亿';
-            }
-            else if(playCount >= 10000) {
-                return Math.round(playCount / 10000) + '万';
-            }
-            else {
-                return playCount;
-            }
-        },
+        getPlayNum: getPlayNum,
         //获取歌单详情，背景取色
         getPlaylistDetail() {
             let that = this;
@@ -216,7 +216,6 @@ export default {
             top: -250px;
             .nav {
                 position: fixed;
-                background: transparent;
                 z-index: 2000;
                 top: 0;
                 left: 0;

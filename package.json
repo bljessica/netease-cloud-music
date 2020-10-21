@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.0.4",
+    "@better-scroll/pull-up": "^2.0.5",
     "@better-scroll/slide": "^2.0.4",
     "animate.css": "^4.1.1",
     "axios": "^0.20.0",

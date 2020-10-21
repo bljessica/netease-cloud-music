@@ -184,9 +184,11 @@ export default {
                 that.songs = that.playingList.tracks;
                 console.log('songs', that.playingList)
                 that.calcOriginY();
-                that.getLyrics();
                 if(go) {
-                    that.$router.push('/playing');
+                    that.getLyrics(true);
+                }
+                else {
+                    that.getLyrics();
                 }
             }).catch(err => {
                 that.Message({
@@ -197,7 +199,7 @@ export default {
             })
         },
         //获取歌词(处理为数组),设置currentTime,播放
-        getLyrics() {
+        getLyrics(go=false) {
             let that = this;
             getLyrics({
                 id: that.playingSong.id
@@ -223,6 +225,9 @@ export default {
                 that.$nextTick(() => {
                     that.initSlider();
                 });
+                if(go) {
+                    that.$router.push('/playing');
+                }
                 that.startMusic();
             }).catch(err => {
                 that.Message({

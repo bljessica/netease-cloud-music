@@ -133,12 +133,20 @@ export default {
     mounted() {
         let that = this;
         this.songs = this.playingList.tracks;
+        console.log(this.isPlaying)
+        if(this.isPlaying) {
+            clearInterval(this.rotateTimer);
+            this.initRotateTimer();
+        }
+        else {
+            clearInterval(this.rotateTimer);
+        }
         setTimeout(() => {
             that.getBgColor();
         }, 20);
         that.startTimer();
         that.initListSlider(); //播放列表
-        that.initRotateTimer();
+        // that.initRotateTimer();
         this.$nextTick(() => {
             that.initSlider(); //歌词
         })

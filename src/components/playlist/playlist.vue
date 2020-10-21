@@ -300,7 +300,7 @@ export default {
                         span {
                             padding: 0 5px 0 10px;
                         }
-                        i {
+                        i { 
                             font-size: 12px;
                             position: relative;
                             top: 1px;
@@ -308,6 +308,9 @@ export default {
                     }
                     .edit {
                         font-size: 12px;
+                        i {
+                            font-size: 12px;
+                        }
                     }
                 }
             }

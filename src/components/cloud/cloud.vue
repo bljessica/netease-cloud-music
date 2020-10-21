@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import myHeader from '../common/my-header';
+import myHeader from '../header/my-header';
 import { getFollows } from '../../api/cloud';
 import BScroll from '@better-scroll/core';
 

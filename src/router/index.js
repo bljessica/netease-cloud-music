@@ -97,6 +97,14 @@ const router = new Router({
       meta: {
         play: true
       }
+    },
+    {
+      path: '/dailyPlaylist',
+      name: 'dailyPlaylist',
+      component: () => import('@/components/playlist/dailyPlaylist.vue'),
+      meta: {
+        play: true
+      }
     }
   ]
 });

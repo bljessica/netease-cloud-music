@@ -16,7 +16,16 @@ function getSuggestHotMenu() {
     })
 }
 
+//发现：每日推荐歌曲
+function getDailySuggestPlaylist() {
+    return request({
+        url: '/recommend/songs',
+        method: 'get'
+    })
+}
+
 export {
     getBanner,
-    getSuggestHotMenu
+    getSuggestHotMenu,
+    getDailySuggestPlaylist
 }

@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import playHeader from '../play/play-header';
+import playHeader from '../header/play-header';
 import { secondsToStr, strToSeconds } from '../../common/js/processData';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';

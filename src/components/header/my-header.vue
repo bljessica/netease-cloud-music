@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import myMenuItems from '../common/my-menu-items';
+import myMenuItems from './my-menu-items';
 import { SERVICE_ITEMS, OTHER_ITEMS, MINE_SETTING_ITEMS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 

@@ -13,10 +13,9 @@
             </div>
         </div>
         <!-- 导航按钮栏 -->
-        <!-- <nav-btns></nav-btns> -->
         <div class="nav-btns-container" ref="wrapper">
             <ul class="btns" ref="content">
-                <li v-for="item in navBtns" :key="item.id">
+                <li v-for="item in navBtns" :key="item.id" @click.stop="navTo(item.navTo)">
                     <span class="icon-wrapper">
                         <i class="iconfont" :class="item.icon"></i>
                         <span class="copy" v-if="item.name == '歌单'">&reg;</span>
@@ -28,12 +27,11 @@
         </div>
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
-        <!-- <my-menu :class="{'menu-showing': menuShow == true}" class="my-menu"></my-menu> -->
     </div>
 </template>
 
 <script> 
-import myHeader from '../common/my-header';
+import myHeader from '../header/my-header';
 import hotSongMenu from '../find/hot-song-menu';
 import { getBanner } from '../../api/find';
 import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
@@ -78,11 +76,16 @@ export default {
         }
     },
     methods: {
+        //点击导航栏跳转
+        navTo(path) {
+            this.$router.push(path);
+        },
         //初始化导航按钮滑块
         initNavBtnsSlider() {
             const slideBtns = new BScroll(this.$refs.wrapper, {
                 scrollX: true,
-                scrollY: false
+                scrollY: false,
+                click: true
             })
         },
         //初始化轮播图

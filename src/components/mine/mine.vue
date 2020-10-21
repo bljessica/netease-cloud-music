@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import myHeader from '../common/my-header';
+import myHeader from '../header/my-header';
 import { getUserInfo, getLikeList, getPlayLists } from '../../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
 import { MINE_PAGE_NAV_BTNS } from '../../consts/const';

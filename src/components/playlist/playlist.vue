@@ -43,7 +43,8 @@
             </div>
             <ul class="songs">
                 <li v-for="(item, index) in songs" :key="index" @click="selectSong(index)">
-                    <span class="no">{{ index + 1 }}</span>
+                    <span class="no" v-if="playingSong.id !== item.id">{{ index + 1 }}</span>
+                    <span class="no" v-else><i class="iconfont icon-yinyue"></i></span>
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>
                         <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.ar[0].name }} - {{ item.al.name}}</div>
@@ -58,7 +59,7 @@
 </template>
 
 <script>
-import { getPlaylistDetail, getLyrics, getPlaySongUrl } from '../../api/play';
+import { getPlaylistDetail, getLyrics, getPlaySongUrl, getPlaySongDetail } from '../../api/play';
 import BScroll from '@better-scroll/core';
 import { PLAYLIST_ACTIONS } from '../../consts/const';
 import ColorThief from 'colorthief';
@@ -89,7 +90,7 @@ export default {
     },
     mounted() {
         if(this.$route.params.id) {
-            this.getPlaylistDetail();
+            this.getPlaylistDetail();  
         }
         else {
             this.playlist = this.playingList;
@@ -169,6 +170,7 @@ export default {
         getPlayNum: getPlayNum,
         //获取歌单详情，背景取色
         getPlaylistDetail() {
+            this.$emit('beforeLoad');
             let that = this;
             getPlaylistDetail({
                 id: that.$route.params.id
@@ -253,6 +255,7 @@ export default {
                 align-items: center;
                 padding: 0 20px;
                 .picture {
+                    flex: 0 0 130px;
                     width: 130px;
                     height: 130px;
                     background-size: cover;
@@ -277,6 +280,7 @@ export default {
                     color: rgb(231, 230, 230);
                     padding-left: 20px;
                     .title {
+                        text-align: left;
                         color: white;
                         font-size: 18px;
                         font-weight: bold;

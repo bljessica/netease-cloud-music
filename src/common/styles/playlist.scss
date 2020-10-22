@@ -24,10 +24,14 @@
             height: 60px;
             .no {
                 color: rgb(150, 146, 146);
-                // display: inline-block;
+                display: inline-block;
                 width: 20px;
                 text-align: center;
                 padding-right: 15px;
+                i {
+                    font-size: 18px;
+                    color: red;
+                }
             }
             .song {
                 text-align: left;

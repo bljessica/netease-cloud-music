@@ -24,7 +24,7 @@
             </ul>
         </div>
         <!-- 我喜欢的音乐 -->
-        <div class="love-song-container">
+        <div class="love-song-container" @click.stop="toLoveSongList">
             <div class="wrapper">
                 <div class="pic">
                     <i class="iconfont icon-aixin"></i>
@@ -104,9 +104,6 @@
             </div>
             <!-- 歌单助手 -->
         </div>
-        <!-- <my-menu :class="{'menuShowing': menuShow == true}" class="my-menu"></my-menu> -->
-        <!-- <play-bar ref="bar" v-if="$store.getters.playingSong.id" @playingListShow="playingListShow = true" ></play-bar>
-        <playing-list class="playing-list" v-show="playingListShow" @changeSong="changeSong"></playing-list> -->
     </div>
 </template>
 
@@ -124,7 +121,7 @@ export default {
         return {
             navBtns: MINE_PAGE_NAV_BTNS,
             downLoadNum: 0, //我喜欢的歌曲中已下载的数量,
-            activeTab: 1
+            activeTab: 1,
         }
     },
     computed: {
@@ -137,7 +134,7 @@ export default {
             'collectedMenus'
         ]),
         total() {
-            return this.likelist.length;
+            return this.likelist.trackCount;
         }
     },
     mounted() {
@@ -159,15 +156,18 @@ export default {
         })
     },
     methods: {
+        //转到喜欢的音乐歌单
+        toLoveSongList() {
+            // console.log(this.likelist);
+            this.$router.push({name: 'playlist', params: {id: this.likelist.id}});
+        },
         //切歌
         changeSong() {
             this.$refs.bar.refresh();
         },
         //跳转到“歌单”
         toPlaylist(item) {
-            // if(!this.menuShow) { 
-                this.$router.push({name: 'playlist', params: {id: item.id}})
-            // }
+            this.$router.push({name: 'playlist', params: {id: item.id}})
         },
         ...mapMutations({
             setPlaylist: 'SET_PLATLIST',
@@ -182,11 +182,15 @@ export default {
                 uid: that.$store.getters.userID
             }).then(res => {
                 that.$emit('onLoad');
-                // console.log(res.data);
+                console.log(res.data);
                 that.setPlaylist(res.data.playlist);
                 that.setCollectedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === true;
                 }));
+                //喜欢的列表
+                that.setLikelist(res.data.playlist.filter(item => {
+                    return item.subscribed === false;
+                })[0]);
                 that.setCreatedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === false;
                 }).slice(1));
@@ -220,7 +224,7 @@ export default {
             }).then(res => {
                 that.$emit('onLoad');
                 // console.log(res.data);
-                that.setLikelist(res.data.ids)
+                // that.total = res.data.ids.length;
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -258,6 +262,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.container {
+    background: #faf6f6;
+}
     .userinfo {
         padding: 20px 10px;
         height: 60px;

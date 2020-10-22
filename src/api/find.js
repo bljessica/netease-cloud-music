@@ -16,7 +16,7 @@ function getSuggestHotMenu() {
     })
 }
 
-//发现：每日推荐歌曲
+//发现：每日推荐歌单
 function getDailySuggestPlaylist() {
     return request({
         url: '/recommend/songs',
@@ -24,8 +24,17 @@ function getDailySuggestPlaylist() {
     })
 }
 
+//发现：音乐日历
+function getCalendar() {
+    return request({
+        url: '/calendar',
+        method: 'get'
+    })
+}
+
 export {
     getBanner,
     getSuggestHotMenu,
-    getDailySuggestPlaylist
+    getDailySuggestPlaylist,
+    getCalendar
 }

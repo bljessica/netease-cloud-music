@@ -30,6 +30,7 @@
                                     {{ item.user.nickname }}
                                     <span class="time"><br>{{ getTime(item.time) }}</span>
                                 </span>
+                                <span class="blank"></span>
                                 <span class="num">{{ getPlayNum(item.likedCount) }} <i class="iconfont icon-zan1"></i></span>
                             </div>
                             <p class="content">{{ item.content }}</p>
@@ -137,6 +138,10 @@ export default {
             flex-grow: 1;
         }
         .nav {
+            z-index: 1;
+            width: calc(100% - 40px);
+            background: white;
+            position: fixed;
             height: 70px;
             display: flex;
             justify-content: space-between;
@@ -172,6 +177,7 @@ export default {
             }
         }
         .comments-wrapper {
+            padding-top: 70px;
             .title {
                 display: flex;
                 justify-content: space-between;
@@ -190,6 +196,7 @@ export default {
                     }
                     &:last-of-type {
                         border: none;
+                        padding-right: 0;
                     }
                 }
             }
@@ -208,11 +215,13 @@ export default {
                         }
                     }
                     .info {
+                        width: calc(100% - 10px);
                         padding-left: 10px;
                         border-bottom: 1px solid gainsboro;
                         padding-bottom: 10px;
                         text-align: left;
                         .user-info {
+                            width: 100%;
                             height: 46px;
                             font-size: 12px;
                             display: flex;

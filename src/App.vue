@@ -69,7 +69,7 @@ export default {
 }
 
 #app {
-  background: #faf6f6;
+  background:white;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

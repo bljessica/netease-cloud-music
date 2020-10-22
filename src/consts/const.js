@@ -54,7 +54,9 @@ const PLAYLIST_ACTIONS = [
     {icon: 'icon-fenxiang', name: '分享'},
     {icon: 'icon-xiazai-tianchong', name: '下载'},
     {icon: 'icon-check', name: '多选'}
-]
+];
+
+const PLAYLIST_GROUND_TYPES = ['推荐', '官方']
 
 export {
     FIND_PAGE_NAV_BTNS,

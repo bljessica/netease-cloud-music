@@ -105,6 +105,14 @@ const router = new Router({
       meta: {
         play: true
       }
+    },
+    {
+      path: '/ground',
+      name: 'ground',
+      component: () => import('@/components/playlist/ground.vue'),
+      meta: {
+        play: true
+      }
     }
   ]
 });

@@ -331,6 +331,12 @@ export default {
                     tracks: newList
                 });
                 that.$emit('selectSong');
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
             })
         },
         //当前歌单是否有这首歌

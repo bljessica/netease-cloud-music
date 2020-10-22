@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="header-wrapper">
+        <div class="header-wrapper" :style="{backgroundImage: 'url(' + bgPicture + ')'}">
             <!-- 头部 -->
             <div class="header">
                 <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
@@ -13,12 +13,14 @@
                     <span class="month">{{ getMonth }}</span>
                 </div>
                 <div class="info">
-                    <span>历史日推<i class="iconfont icon-VIP"></i></span>
+                    <div class="history">历史日推
+                        <i class="iconfont icon-VIP"></i>
+                    </div>
                     <span class="blank"></span>
-                    <ul class="avatars">
+                    <!-- <ul class="avatars">
                         <li></li>
                         <i class="iconfont icon-you"></i>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>
@@ -33,7 +35,7 @@
             </div>
             <ul class="songs">
                 <li v-for="(item, index) in playlist.dailySongs" :key="index" @click="selectSong(index)">
-                    <img :src="item.al.picUrl" alt="">
+                    <img class="cover" :src="item.al.picUrl" alt="">
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>
                         <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.ar[0].name }} - {{ item.al.name}}</div>
@@ -50,11 +52,14 @@
 <script>
 import { getDailySuggestPlaylist } from '../../api/find';
 import { mapGetters, mapMutations } from 'vuex';
+import ColorThief from 'colorthief';
 
 export default {
     data() {
         return {
-            playlist: ''
+            playlist: '',
+            bgColor: '',
+            bgPicture: ''
         }
     },
     mounted() {
@@ -73,6 +78,39 @@ export default {
         }
     },
     methods: {
+        getBgPicture() {
+            let songs = this.playlist.dailySongs;
+            let index = Math.floor(Math.random() * songs.length);
+            this.bgPicture = songs[index].al.picUrl;
+        },
+        //背景取色(没用到)
+        getBgColor() {
+            let imgs = document.getElementsByClassName('cover');
+            //随机选一张封面
+            let domImg = imgs[Math.floor(Math.random() * imgs.length)];
+            domImg.crossOrigin = '';
+            let colorthief = new ColorThief();
+            domImg.addEventListener('load', () => {
+                let result = colorthief.getColor(domImg);
+                this.bgColor = 'linear-gradient(to bottom, ';
+                let color = 'rgba(';
+                let flag = true;//是否r,g,b都大于70
+                for(let i of result) {
+                    if(i < 90) {
+                        flag = false;
+                    }
+                }
+                for(let i of result) {
+                    if(flag) {
+                        i -= 90;
+                    }
+                    color += parseInt(i) +',';
+                }
+                color = color.slice(0, color.length - 1);
+                this.bgColor += color + ',1), ' + color + ',0.7))';
+                console.log(this.bgColor);
+            })
+        },
         ...mapMutations({
             setPlayingSong: 'SET_PLAYING_SONG',
             setPlayingList: 'SET_PLAYING_LIST',
@@ -103,6 +141,9 @@ export default {
                 that.$emit('onLoad');
                 console.log(res.data);
                 that.playlist = res.data.data;
+                that.$nextTick(() => {
+                    that.getBgPicture();
+                })
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -126,7 +167,8 @@ export default {
             flex-grow: 1;
         }
         .header-wrapper {
-            background: rgba(255, 0, 0, 0.774);
+            // background: rgba(255, 0, 0, 0.774);
+            background-size: cover;
             height: 180px;
             position: relative;
             .header {
@@ -143,17 +185,37 @@ export default {
                 .num {
                     position: absolute;
                     left: 15px;
-                    height: 50px;
-                    bottom: 80px;
+                    height: 30px;
+                    bottom: 74px;
+                    color: white;
                     .date {
-                        font-size: 30px;;
+                        font-size: 34px;;
                     }
                     .month {
-                        // font-size: ;
+                        font-size: 18px;
                     }
                 }
                 .info {
-
+                    height: 55px;
+                    position: absolute;
+                    bottom: 20px;
+                    left: 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .history {
+                        height: 20px;
+                        padding: 2px 8px 5px;
+                        background: gainsboro;
+                        border-radius: 15px;
+                        line-height: 20px;
+                        font-size: 12px;
+                        i {
+                            font-size: 20px;
+                            position: relative;
+                            top: 2px;
+                        }
+                    }
                 }
             }
         }

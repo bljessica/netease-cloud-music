@@ -27,13 +27,16 @@
         </div>
         <!-- 人气歌单推荐 -->
         <hot-song-menu></hot-song-menu>
+        <!-- 歌曲推荐 -->
+        <!-- 音乐日历 -->
+        
     </div>
 </template>
 
 <script> 
 import myHeader from '../header/my-header';
 import hotSongMenu from '../find/hot-song-menu';
-import { getBanner } from '../../api/find';
+import { getBanner, getCalendar } from '../../api/find';
 import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
 import BScroll from '@better-scroll/core';
 import Slide from '@better-scroll/slide';
@@ -65,6 +68,7 @@ export default {
     },
     mounted() {
         this.getBanner();
+        // this.getCalendar();
         this.$nextTick(() => {
             this.initNavBtnsSlider();
         })
@@ -76,6 +80,21 @@ export default {
         }
     },
     methods: {
+        //获取音乐日历(没数据)
+        getCalendar() {
+            this.$emit('beforeLoad');
+            let that = this;
+            getCalendar().then(res => {
+                that.$emit('onLoad');
+                console.log(res.data);
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                })
+            })
+        },
         //点击导航栏跳转
         navTo(path) {
             this.$router.push(path);

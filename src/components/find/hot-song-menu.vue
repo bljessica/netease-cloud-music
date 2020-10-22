@@ -2,7 +2,7 @@
     <div class="container" >
         <div class="title-bar">
             <span class="title">人气歌单推荐</span>
-            <span class="more">查看更多</span>
+            <span class="more" @click="$router.push('/ground')">查看更多</span>
         </div>
         <div class="wrapper" ref="wrapper">
             <ul class="menu" ref="slider">
@@ -25,12 +25,6 @@ import { getSuggestHotMenu } from '../../api/find';
 import BScroll from '@better-scroll/core';
 
 export default {
-    // props: {
-    //     menuShow: {
-    //         type: Boolean,
-    //         default: false
-    //     }
-    // },
     data() {
         return {
             menu: []
@@ -44,9 +38,7 @@ export default {
     },
     methods: {
         toPlaylist(item) {
-            // if(!this.menuShow) {
-                this.$router.push({'name': 'playlist', params: {id: item.id}});
-            // }
+            this.$router.push({'name': 'playlist', params: {id: item.id}});
         },
         getPlayNum(item) {
             if(item.playCount >= 100000000) {

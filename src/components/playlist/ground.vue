@@ -222,7 +222,7 @@ export default {
                     top: 15px;
                     opacity: 0.5;
                     box-shadow: 2px 2px 5px gainsboro, -2px 2px 5px gainsboro;
-                    transition-property: left, opacity, z-index;
+                    transition-property: left, right, opacity, z-index;
                     transition-duration: .5s;
                     .img {
                         width: 150px;

@@ -12,8 +12,8 @@
 
 ## 运行
 
-``` bash
-切换到项目目录
+```
+#切换到项目目录
 cd netease-cloud-music
 
 # 安装依赖

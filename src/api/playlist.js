@@ -9,6 +9,16 @@ function getCatlist(data) {
     })
 }
 
+//播放：获取每日推荐歌单
+function getRecommendPlaylists(data) {
+    return request({
+        url: '/recommend/resource',
+        method: 'get',
+        data: data
+    })
+}
+
 export {
-    getCatlist
+    getCatlist,
+    getRecommendPlaylists
 }

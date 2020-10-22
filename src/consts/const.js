@@ -56,7 +56,6 @@ const PLAYLIST_ACTIONS = [
     {icon: 'icon-check', name: '多选'}
 ];
 
-const PLAYLIST_GROUND_TYPES = ['推荐', '官方']
 
 export {
     FIND_PAGE_NAV_BTNS,

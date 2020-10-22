@@ -205,7 +205,7 @@ export default {
                 id: that.playingSong.id
             }).then(res => {
                 that.$emit('onLoad');
-                console.log(res.data);
+                // console.log(res.data);
                 if(res.data.nolyric) {
                     that.setLyricNow('纯音乐，请欣赏');
                     that.setLyrics([{

@@ -1,0 +1,46 @@
+.menu {
+    width: 690px;
+    padding-left: 10px;
+    margin-top: 15px;
+    height: 150px;
+    text-align: left;
+    li {
+        width: 105px;
+        height: 150px;
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 12px;
+        .img {
+            width: 105px;
+            height: 105px;
+            background-size: 100% 100%;
+            border-radius: 10px;
+            position: relative;
+            .play-amount {
+                position: absolute;
+                right: 5px;
+                top: 3px;
+                color: white;
+                i {
+                    font-size: 12px;
+                    position: relative;
+                    top: -2px;
+                    left: 2px;
+                }
+            }
+        }
+        .name {
+            margin-top: 5px;
+            width: 105px;
+            line-height: 18px;
+            height: 36px;
+            //文本超出两行显示省略号
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
+}

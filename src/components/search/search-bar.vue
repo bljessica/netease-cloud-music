@@ -47,6 +47,9 @@ export default {
     methods: {
         //跳转到搜索结果页面
         getSearchResult() {
+            if(this.searchWord.length === 0) {
+                this.searchWord = this.suggestWord;
+            }
             this.$store.commit('SET_SEARCHING_WORD', this.searchWord);
             this.$router.push('/searchResult');
         },

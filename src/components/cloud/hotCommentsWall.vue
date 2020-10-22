@@ -108,14 +108,14 @@ export default {
                 t = 1;//点赞
             }
             // console.log(t)
-            this.$emit('beforeLoad');
+            // this.$emit('beforeLoad');
             likeComment({
                 id: that.hotWall[that.curIndex].simpleResourceInfo.songId,
                 cid: that.hotWall[that.curIndex].id,
                 t: t,
                 type: 0 //歌曲
             }).then(res => {
-                that.$emit('onLoad');
+                // that.$emit('onLoad');
                 // console.log(res.data);
                 if(res.data.code === 200) {
                     that.likes[that.curIndex] = !that.likes[that.curIndex];
@@ -157,7 +157,7 @@ export default {
                 that.hotWall.forEach(item => {
                     that.likes.push(item.liked);
                 })
-                console.log(that.likes)
+                // console.log(that.likes)
             }).catch(err => {
                 that.Message({
                     message: err,

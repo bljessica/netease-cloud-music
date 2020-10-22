@@ -13,6 +13,15 @@
 ## 项目演示
 [项目演示地址](http://49.234.89.20:8081)
 
+## 界面展示
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/find.png" width="200px" height="360px" alt="发现页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/mine.png" width="200px" height="360px" alt="我的页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/search.png" width="200px" height="360px" alt="搜索页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/menu.png" width="200px" height="360px" alt="菜单页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/playlist.png" width="200px" height="360px" alt="歌单页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/cover.png" width="200px" height="360px" alt="播放页">
+<img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/lyrics.png" width="200px" height="360px" alt="歌词页">
+
 ## 运行
 ```
 #切换到项目目录

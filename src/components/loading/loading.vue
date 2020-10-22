@@ -37,8 +37,8 @@ export default {
 <style lang="scss" scoped>
     .loading-container {
         position: absolute;
-        top: 70px;
-        bottom: 61px;
+        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         z-index: 6000;

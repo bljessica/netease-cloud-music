@@ -8,7 +8,10 @@
             </div>
             <!-- 信息 -->
             <div class="name">
-                <div class="num">{{ }} / {{ }}</div>
+                <div class="num">
+                    <span class="date">{{ getDate }}</span> / 
+                    <span class="month">{{ getMonth }}</span>
+                </div>
                 <div class="info">
                     <span>历史日推<i class="iconfont icon-VIP"></i></span>
                     <span class="blank"></span>
@@ -61,7 +64,13 @@ export default {
         ...mapGetters([
             // 'playingSong',
             // 'playingList',
-        ])
+        ]),
+        getDate() {
+            return (new Date()).getDate();
+        },
+        getMonth() {
+            return (new Date()).getMonth() + 1;
+        }
     },
     methods: {
         ...mapMutations({
@@ -116,11 +125,36 @@ export default {
         .blank {
             flex-grow: 1;
         }
-        .header-wrappe {
+        .header-wrapper {
+            background: rgba(255, 0, 0, 0.774);
+            height: 180px;
+            position: relative;
             .header {
+                padding: 15px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                i {
+                    font-size: 24px;
+                    color: white;
+                }
+            }
+            .name {
+                .num {
+                    position: absolute;
+                    left: 15px;
+                    height: 50px;
+                    bottom: 80px;
+                    .date {
+                        font-size: 30px;;
+                    }
+                    .month {
+                        // font-size: ;
+                    }
+                }
+                .info {
+
+                }
             }
         }
         .playlist {

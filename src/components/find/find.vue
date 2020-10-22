@@ -169,6 +169,7 @@ export default {
 
 <style lang="scss" scoped>
     .find-container {
+        background: white;
         .my-menu {
             position: absolute;
             left: -330px;

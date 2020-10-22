@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="wrapper">
+        <div class="header-wrapper">
             <!-- 头部 -->
             <div class="header">
                 <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+        <!-- 歌单 -->
         <div class="playlist">
             <div class="title">
                 <i class="iconfont icon-bofang2 left"></i>
@@ -114,6 +115,13 @@ export default {
         overflow: hidden;
         .blank {
             flex-grow: 1;
+        }
+        .header-wrappe {
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
         .playlist {
             .title {

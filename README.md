@@ -3,7 +3,7 @@
 > 此项目为网易云音乐app前端界面，后端使用[网易云音乐NodeJS版API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
 
 ## 技术
-+ vue+vuex+vue-router
++ vue+vuex+vue-router+scss+axios+webpack
 + 使用ElementUI的部分组件
 + 使用better-scroll滚动插件
 

@@ -51,7 +51,13 @@ export default {
                 this.searchWord = this.suggestWord;
             }
             this.$store.commit('SET_SEARCHING_WORD', this.searchWord);
-            this.$router.push('/searchResult');
+            this.listShow = false;
+            if(this.$route.name === 'search') {
+                this.$router.push('/searchResult');
+            }
+            else if(this.$route.name === 'searchResult') {
+                this.$emit('wordChange');
+            }
         },
         //选择搜索关联词进行搜索
         chooseSearchWord(e) {

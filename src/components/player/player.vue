@@ -43,7 +43,7 @@
                     <ul class="songs" id="songs" :style="{transform: 'translateY(' + originY + 'px)'}">
                         <li v-for="(item, index) in songs" :key="index" @click.stop="changeSong(index)"
                             :class="{active: (item.id) == (playingSong.id)? true: false}">
-                            <i class="iconfont icon-icon-test1 active-icon" v-if="item.name == playingSong.name"></i>
+                            <i class="iconfont icon-yinliang active-icon" v-if="item.id == playingSong.id"></i>
                             <span class="name">
                                 {{ item.name }}
                                 <span class="artist">- {{ item.ar? getArtists(item.ar): (item.artists? getArtists(item.artists): '') }}</span>

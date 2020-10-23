@@ -6,6 +6,62 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1637081",
+      "name": "皇冠",
+      "font_class": "huangguan",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "2026166",
+      "name": "漏斗",
+      "font_class": "funnel",
+      "unicode": "e6e2",
+      "unicode_decimal": 59106
+    },
+    {
+      "icon_id": "689262",
+      "name": "类目 品类 分类 类别",
+      "font_class": "leimupinleifenleileibie",
+      "unicode": "e7f9",
+      "unicode_decimal": 59385
+    },
+    {
+      "icon_id": "1319970",
+      "name": "人",
+      "font_class": "ren",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "11134481",
+      "name": "多选框",
+      "font_class": "duoxuankuang1",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "512360",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "10292039",
+      "name": "删 除",
+      "font_class": "shanchu",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "807277",
+      "name": "音量",
+      "font_class": "yinliang",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
       "icon_id": "12754056",
       "name": "暂停",
       "font_class": "zanting_huaban",

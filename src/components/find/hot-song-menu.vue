@@ -10,7 +10,7 @@
                     <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                         <span class="play-amount">
                             <i class="iconfont icon-bofangsanjiaoxing"></i>
-                            <span class="num">{{ getPlayNum(item) }}</span>
+                            <span class="num">{{ getPlayNum(item.playCount) }}</span>
                         </span>
                     </div>
                     <p class="name">{{ item.name }}</p>
@@ -22,6 +22,7 @@
 
 <script>
 import { getSuggestHotMenu } from '../../api/find';
+import { getPlayNum } from '../../common/js/processData';
 import BScroll from '@better-scroll/core';
 
 export default {
@@ -42,17 +43,7 @@ export default {
             this.$router.push({'name': 'playlist', params: {id: item.id}});
         },
         //计算播放量显示
-        getPlayNum(item) {
-            if(item.playCount >= 100000000) {
-                return (item.playCount / 100000000).toFixed(1) + '亿';
-            }
-            else if(item.playCount >= 10000) {
-                return Math.round(item.playCount / 10000) + '万';
-            }
-            else {
-                return item.playCount;
-            }
-        },
+        getPlayNum: getPlayNum,
         //获取推荐歌单
         getMenu() {
             this.$emit('beforeLoad');

@@ -29,7 +29,18 @@
         <hot-song-menu></hot-song-menu>
         <!-- 歌曲推荐 -->
         <!-- 音乐日历 -->
-        
+        <div class="calender" v-if="calendarEvents.length > 0">
+            <div class="title">
+                <i class="iconfont icon-rili"></i>音乐日历
+            </div>
+            <div class="content">
+                <div class="left">
+                    <span class="time">{{ getDateOfCalender }}</span>
+                    <p class="name">{{ calendarEvents[eventIndex].title }}</p>
+                </div>
+                <img :src="calendarEvents[eventIndex].imgUrl" alt="" class="pic">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -55,7 +66,10 @@ export default {
             curIndex: 0, //轮播图当前索引
             bannerTimer: null, //轮播图滚动定时器
             navBtns: FIND_PAGE_NAV_BTNS,
-            date: 0 //日期
+            date: 0, //日期
+            calendarEvents: [], //音乐日历
+            calendarTimer: null,
+            eventIndex: 0, //显示的日历事件索引
         }
     },
     watch: {
@@ -68,7 +82,7 @@ export default {
     },
     mounted() {
         this.getBanner();
-        // this.getCalendar();
+        this.getCalendar();
         this.$nextTick(() => {
             this.initNavBtnsSlider();
         })
@@ -77,16 +91,36 @@ export default {
         getDate() {
             let date = new Date();
             return date.getDate();
+        },
+        // 音乐日历日期
+        getDateOfCalender() {
+            let date = new Date(this.calendarEvents[this.eventIndex].onlineTime);
+            let dateNow = new Date();
+            if(date.getMonth() === dateNow.getMonth() && date.getDate() === dateNow.getDate()) {
+                return '今天';
+            }
+            return (date.getMonth() + 1) + '-' + date.getDate();
         }
     },
+    beforeDestroy() {
+        clearInterval(this.calendarTimer);
+    },
     methods: {
-        //获取音乐日历(没数据)
+        //获取音乐日历
         getCalendar() {
             this.$emit('beforeLoad');
             let that = this;
             getCalendar().then(res => {
                 that.$emit('onLoad');
-                console.log(res.data);
+                // console.log(res.data);
+                that.calendarEvents = res.data.data.calendarEvents;
+                clearInterval(that.calendarTimer);
+                that.calendarTimer = setInterval(() => {
+                    that.eventIndex ++;
+                    if(that.eventIndex >= that.calendarEvents.length) {
+                        that.eventIndex -= that.calendarEvents.length;
+                    }
+                }, 5000);
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -189,6 +223,7 @@ export default {
 <style lang="scss" scoped>
     .find-container {
         background: white;
+        padding-bottom: 60px;
         .my-menu {
             position: absolute;
             left: -330px;
@@ -293,6 +328,54 @@ export default {
                         text-align: center;
                         font-size: 10px;
                     }
+                }
+            }
+        }
+        .calender {
+            width: 85%;
+            height: 99px;
+            margin: 10px auto;
+            padding: 10px;
+            box-shadow: 2px 1px 10px gainsboro, -2px 1px 10px gainsboro;
+            text-align: left;
+            font-size: 14px;
+            .title {
+                color: rgba(255, 0, 0, 0.678);
+                font-size: 18px;
+                font-weight: bold;
+                i {
+                    margin-right: 5px;
+                }
+            }
+            .content {
+                height: 65px;
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .left {
+                    line-height: 20px;
+                    .time {
+                        font-weight: bold;
+                        position: relative;
+                        left: 2px;
+                    }
+                    .name {
+                        margin-top: 5px;
+                        color: gray;
+                        text-overflow: -o-ellipsis-lastline;
+                        overflow: hidden;
+                        height: 40px;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+                .pic {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 5px;
                 }
             }
         }

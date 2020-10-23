@@ -35,7 +35,7 @@ export default {
             let that = this;
             getToplist().then(res => {
                 that.$emit('onLoad');
-                console.log(res.data);
+                // console.log(res.data);
                 that.lists = res.data.list;
             }).catch(err => {
                 that.Message({

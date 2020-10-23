@@ -96,13 +96,13 @@ export default {
                 let color = 'rgba(';
                 let flag = true;//是否r,g,b都大于70
                 for(let i of result) {
-                    if(i < 90) {
+                    if(i < 70) {
                         flag = false;
                     }
                 }
                 for(let i of result) {
                     if(flag) {
-                        i -= 90;
+                        i -= 70;
                     }
                     color += parseInt(i) +',';
                 }

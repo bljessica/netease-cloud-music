@@ -208,6 +208,7 @@ export default {
                     position: relative;
                     .user-wrapper {
                         font-size: 10px;
+                        flex: 0 0 46px;
                         img {
                             width: 46px;
                             height: 46px;
@@ -215,7 +216,7 @@ export default {
                         }
                     }
                     .info {
-                        width: calc(100% - 10px);
+                        width: calc(100% - 56px);
                         padding-left: 10px;
                         border-bottom: 1px solid gainsboro;
                         padding-bottom: 10px;

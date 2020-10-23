@@ -286,9 +286,11 @@ export default {
             left: 80px;
         }
         .buyVIP {
-            display: inline-block;
+            display: flex;
             width: 70px;
             height: 20px;
+            justify-content: space-between;
+            align-items: center;
             position: absolute;
             bottom: 24px;
             left: 78px;
@@ -298,20 +300,21 @@ export default {
             i:first-of-type {
                 font-size: 30px;
                 position: relative;
-                top: -7px;
+                top: -1px;
+                left: 2px;
             }
             span {
-                font-size: 6px;
+                font-size: 10px;
+                -webkit-transform: scale(0.8);
                 position: absolute;
                 top: 2px;
-                right: 15px;
+                left: 30px;
             }
             i:last-of-type {
-                // color: white;
-                font-size: 4px;
+                font-size: 10px;
+                -webkit-transform: scale(0.8);
                 position: absolute;
-                top: 3px;
-                right: 2px;
+                left: 52px;
             }
         }
         .level {

@@ -226,7 +226,7 @@ export default {
             text-align: left;
         }
         .content {
-            font-size: 22px;
+            font-size: 18px;
             text-align: left;
         }
         .song {

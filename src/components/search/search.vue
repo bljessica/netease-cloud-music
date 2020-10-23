@@ -101,6 +101,7 @@ export default {
                     font-weight: bold;
                 }
                 span:last-of-type {
+                    margin-right: 20px;
                     border-radius: 15px;
                     border: 1px solid gainsboro;
                     font-size: 14px;

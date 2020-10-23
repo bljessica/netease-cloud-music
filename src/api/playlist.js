@@ -1,6 +1,6 @@
 import request from '../common/js/request';
 
-//播放：获取歌单分类
+//歌单广场：获取歌单分类
 function getCatlist(data) {
     return request({
         url: '/playlist/catlist',
@@ -9,7 +9,7 @@ function getCatlist(data) {
     })
 }
 
-//播放：获取每日推荐歌单
+//歌单广场：获取每日推荐歌单
 function getRecommendPlaylists(data) {
     return request({
         url: '/recommend/resource',
@@ -18,7 +18,17 @@ function getRecommendPlaylists(data) {
     })
 }
 
+//歌单广场：获取精品歌单
+function getHighQualityPlaylists(data) {
+    return request({
+        url: '/top/playlist/highquality',
+        method: 'get',
+        data: data
+    })
+}
+
 export {
     getCatlist,
-    getRecommendPlaylists
+    getRecommendPlaylists,
+    getHighQualityPlaylists
 }

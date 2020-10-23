@@ -3,14 +3,14 @@
         <!-- 头部 -->
         <div class="header-wrapper">
             <div class="header">
-                <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
+                <i class="iconfont icon-zuo" @click.stop="$router.go(-1)"></i>
                 歌单广场
             </div>
             <!-- 分类 -->
             <div class="types-container">
                 <div class="slider-wrapper" ref="wrapper">
                     <ul class="types">
-                        <li v-for="(item, index) in types" :key="index" @click="activeType = index"
+                        <li v-for="(item, index) in types" :key="index" @click.stop="activeType = index"
                             :class="{active: activeType === index}">
                             {{ item }}
                         </li>
@@ -19,17 +19,18 @@
                 <i class="iconfont icon-caidan"></i>
             </div>
         </div>
+        <!-- 推荐 -->
         <!-- 较大的歌单 -->
-        <div class="big-playlists">
+        <div class="big-playlists" v-if="activeType === 0">
             <v-touch v-on:swipeleft="swipeleft" v-on:swiperight="swiperight">
                 <ul class="playlists menu">
                     <li v-for="(item, index) in recommend.slice(0, 3)" :key="index" 
                         :class="{active: activeIndex === index, left: activeIndex === (index + 1) % 3, right: (activeIndex + 1) % 3 === index}"
-                         @click="$router.push({name: 'playlist', params: {id: item.id}})">
+                         @click.stop="$router.push({name: 'playlist', params: {id: item.id}})">
                         <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                             <span class="play-amount">
                                 <i class="iconfont icon-bofangsanjiaoxing"></i>
-                                <span class="num">{{ getPlayNum(item) }}</span>
+                                <span class="num">{{ getPlayNum(item.playcount) }}</span>
                             </span>
                             <i class="iconfont icon-ziyuan1 play"></i>
                         </div>
@@ -39,13 +40,27 @@
             </v-touch>
         </div>
         <!-- 其他歌单 -->
-        <div class="other-playlists">
+        <div class="other-playlists" v-if="activeType === 0">
             <ul class="playlists menu">
-                <li v-for="(item, index) in recommend.slice(3)" :key="index" @click="$router.push({name: 'playlist', params: {id: item.id}})">
+                <li v-for="(item, index) in recommend.slice(3)" :key="index" @click.stop="$router.push({name: 'playlist', params: {id: item.id}})">
                     <div class="img" :style="{backgroundImage: 'url(' + item.picUrl + ')'}">
                         <span class="play-amount">
                             <i class="iconfont icon-bofangsanjiaoxing"></i>
-                            <span class="num">{{ getPlayNum(item) }}</span>
+                            <span class="num">{{ getPlayNum(item.playcount) }}</span>
+                        </span>
+                    </div>
+                    <p class="name">{{ item.name }}</p>
+                </li>
+            </ul>
+        </div>
+        <!-- 其他分类 -->
+        <div class="other-playlists" v-if="activeType !== 0">
+            <ul class="playlists menu">
+                <li v-for="(item, index) in playlists" :key="index" @click.stop="$router.push({name: 'playlist', params: {id: item.id}})">
+                    <div class="img" :style="{backgroundImage: 'url(' + item.coverImgUrl + ')'}">
+                        <span class="play-amount">
+                            <i class="iconfont icon-bofangsanjiaoxing"></i>
+                            <span class="num">{{ getPlayNum(item.playCount) }}</span>
                         </span>
                     </div>
                     <p class="name">{{ item.name }}</p>
@@ -56,27 +71,59 @@
 </template>
 
 <script>
-import { getCatlist, getRecommendPlaylists } from '../../api/playlist';
+import { getCatlist, getRecommendPlaylists, getHighQualityPlaylists } from '../../api/playlist';
 import BScroll from '@better-scroll/core';
 
 export default {
     data() {
         return {
             recommend: '', //推荐歌单
+            playlists: '', //显示的歌单
             activeIndex: 1, //最大的图
             activeType: 0,//选择的类型
-            types: ['推荐', '官方', '精品', '华语', '古风', '流行', '轻音乐', '摇滚']
+            catlist: '',//歌单分类
+            types: ['推荐', '轻音乐', '精品', '华语', '古风', '流行', '影视原声', '摇滚']
         }
     },
     mounted() {
-        // this.getCatlist();
         let that = this;
+        this.getCatlist();
         this.getRecommendPlaylists();
         this.$nextTick(() => {
             that.initTypesSlider();
         })
     },
+    watch: {
+        activeType() {
+            if(this.activeType !== 0) {
+                if(this.activeType === 2) {
+                    this.getHighQualityPlaylists();
+                }
+                else {
+                    this.getHighQualityPlaylists(this.types[this.activeType]);
+                }
+            }
+        }
+    },
     methods: {
+        //获取精品歌单
+        getHighQualityPlaylists(tag='全部') {
+            this.$emit('beforeLoad');
+            let that = this;
+            getHighQualityPlaylists({
+                cat: tag
+            }).then(res => {
+                that.$emit('onLoad');
+                console.log(res.data);
+                that.playlists = res.data.playlists;
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
+            })
+        },
         //左滑切换大歌单
         swipeleft() {
             this.activeIndex++;
@@ -92,29 +139,29 @@ export default {
             }
         },
         //获取歌单分类
-        // getCatlist() {
-        //     this.$emit('beforeLoad');
-        //     let that = this;
-        //     getCatlist().then(res => {
-        //         that.$emit('onLoad');
-        //         console.log(res.data);
-        //     }).catch(err => {
-            //     that.Message({
-            //         message: err,
-            //         type: 'warning',
-            //         duration: 2000
-            //     });
-            // })
-        // },
+        getCatlist() {
+            this.$emit('beforeLoad');
+            let that = this;
+            getCatlist().then(res => {
+                that.$emit('onLoad');
+                // console.log(res.data);
+                that.catlist = res.data.categories.sub;
+            }).catch(err => {
+                that.Message({
+                    message: err,
+                    type: 'warning',
+                    duration: 2000
+                });
+            })
+        },
         // 获取每日推荐歌单
         getRecommendPlaylists() {
             this.$emit('beforeLoad');
             let that = this;
             getRecommendPlaylists().then(res => {
                 that.$emit('onLoad');
-                console.log(res.data);
+                // console.log(res.data);
                 that.recommend = res.data.recommend;
-                console.log(that.recommend)
             }).catch(err => {
                 that.Message({
                     message: err,
@@ -124,15 +171,15 @@ export default {
             })
         },
         //计算播放量显示
-        getPlayNum(item) {
-            if(item.playcount >= 100000000) {
-                return (item.playcount / 100000000).toFixed(1) + '亿';
+        getPlayNum(playcount) {
+            if(playcount >= 100000000) {
+                return (playcount / 100000000).toFixed(1) + '亿';
             }
-            else if(item.playcount >= 10000) {
-                return Math.round(item.playcount / 10000) + '万';
+            else if(playcount >= 10000) {
+                return Math.round(playcount / 10000) + '万';
             }
             else {
-                return item.playcount;
+                return playcount;
             }
         },
         //初始化分类滑块
@@ -140,7 +187,8 @@ export default {
             let slider = new BScroll(this.$refs.wrapper, {
                 scrollX: true,
                 scrollY: false,
-                click: true
+                click: true,
+                bounce: false
             });
         }
     }
@@ -154,9 +202,16 @@ export default {
 <style lang="scss" scoped>
     .container {
         background: #faf6f6;
+        padding-top: 111px;
         .header-wrapper {
+            width: 100%;
             .header {
-                padding: 0 15px;
+                background: #faf6f6;
+                z-index: 100;
+                position: fixed;
+                top: 0;
+                left: 15px;
+                right: 15px;
                 height: 70px;
                 line-height: 70px;
                 text-align: left;
@@ -170,6 +225,12 @@ export default {
                 }
             }
             .types-container {
+                background: #faf6f6;
+                z-index: 100;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
                 height: 40px;
                 border-bottom: 1px solid gainsboro;
                 display: flex;
@@ -199,6 +260,8 @@ export default {
                     }
                 }
                 i {
+                    position: relative;
+                    top: -2px;
                     font-size: 20px;
                     padding: 0 15px;
                 }
@@ -206,7 +269,7 @@ export default {
         }
         .big-playlists {
             .playlists {
-                margin: 20px auto;
+                margin: 20px auto 0;
                 width: 335px;
                 padding: 0;
                 height: 235px;
@@ -273,6 +336,7 @@ export default {
             }
         }
         .other-playlists {
+            margin-top: 20px;
             .playlists {
                 margin: 0 auto;
                 width: 335px;

@@ -1,4 +1,4 @@
-import request from '../common/js/request';
+import request from '../request';
 
 //发现：轮播图
 function getBanner() {

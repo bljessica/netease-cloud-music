@@ -110,9 +110,9 @@
 
 <script>
 import myHeader from '../header/my-header';
-import { getUserInfo, getLikeList, getPlayLists } from '../../api/mine';
+import { getUserInfo, getLikeList, getPlayLists } from '../../common/js/api/mine';
 import { mapGetters, mapMutations } from 'vuex';
-import { MINE_PAGE_NAV_BTNS } from '../../consts/const';
+import { MINE_PAGE_NAV_BTNS } from '../../common/js/const';
 
 export default {
     components: {

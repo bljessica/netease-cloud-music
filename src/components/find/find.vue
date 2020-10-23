@@ -47,8 +47,8 @@
 <script> 
 import myHeader from '../header/my-header';
 import hotSongMenu from '../find/hot-song-menu';
-import { getBanner, getCalendar } from '../../api/find';
-import { FIND_PAGE_NAV_BTNS } from '../../consts/const';
+import { getBanner, getCalendar } from '../../common/js/api/find';
+import { FIND_PAGE_NAV_BTNS } from '../../common/js/const';
 import BScroll from '@better-scroll/core';
 import Slide from '@better-scroll/slide';
 

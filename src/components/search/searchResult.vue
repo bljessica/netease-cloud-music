@@ -177,11 +177,11 @@
 
 <script> 
 import searchBar from '../search/search-bar';
-import { SEARCH_KINDS } from '../../consts/const';
+import { SEARCH_KINDS } from '../../common/js/const';
 import BScroll from '@better-scroll/core';
-import { search } from '../../api/search';
+import { search } from '../../common/js/api/search';
 import { mapGetters, mapMutations } from 'vuex';
-import { getPlaySongDetail } from '../../api/play';
+import { getPlaySongDetail } from '../../common/js/api/play';
 import Pullup from '@better-scroll/pull-up';
 import { secondsToStr, getPlayNum } from '../../common/js/processData';
 

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getDefault, search, searchMultimatch } from '../../api/search';
+import { getDefault, search, searchMultimatch } from '../../common/js/api/search';
 
 export default {
     props: { 

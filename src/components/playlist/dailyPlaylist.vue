@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { getDailySuggestPlaylist } from '../../api/find';
+import { getDailySuggestPlaylist } from '../../common/js/api/find';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';
 

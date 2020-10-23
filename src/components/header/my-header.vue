@@ -107,7 +107,7 @@
 
 <script>
 import myMenuItems from './my-menu-items';
-import { SERVICE_ITEMS, OTHER_ITEMS, MINE_SETTING_ITEMS } from '../../consts/const';
+import { SERVICE_ITEMS, OTHER_ITEMS, MINE_SETTING_ITEMS } from '../../common/js/const';
 import BScroll from '@better-scroll/core';
 
 export default {

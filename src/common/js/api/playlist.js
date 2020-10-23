@@ -1,4 +1,4 @@
-import request from '../common/js/request';
+import request from '../request';
 
 //歌单广场：获取歌单分类
 function getCatlist(data) {

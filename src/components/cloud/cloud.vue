@@ -53,7 +53,7 @@
 
 <script>
 import myHeader from '../header/my-header';
-import { getFollows } from '../../api/cloud';
+import { getFollows } from '../../common/js/api/cloud';
 import BScroll from '@better-scroll/core';
 
 export default {

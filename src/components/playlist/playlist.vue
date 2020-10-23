@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import { getPlaylistDetail, getLyrics, getPlaySongUrl, getPlaySongDetail } from '../../api/play';
+import { getPlaylistDetail, getLyrics, getPlaySongUrl, getPlaySongDetail } from '../../common/js/api/play';
 import BScroll from '@better-scroll/core';
-import { PLAYLIST_ACTIONS } from '../../consts/const';
+import { PLAYLIST_ACTIONS } from '../../common/js/const';
 import ColorThief from 'colorthief';
 import { mapGetters, mapMutations } from 'vuex';
 import { getPlayNum } from '../../common/js/processData';

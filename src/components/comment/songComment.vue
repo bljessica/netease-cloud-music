@@ -46,7 +46,7 @@
 
 <script>
 import { mapGetters, mapMutations} from 'vuex';
-import { getSongComments } from '../../api/play';
+import { getSongComments } from '../../common/js/api/play';
 
 export default {
     data() {

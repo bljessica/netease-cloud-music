@@ -35,7 +35,7 @@
 
 <script>
 import searchBar from '../search/search-bar';
-import { detailHotRank } from '../../api/search';
+import { detailHotRank } from '../../common/js/api/search';
 export default {
     data() {
         return {

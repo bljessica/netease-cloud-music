@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getToplist } from '../../api/find';
+import { getToplist } from '../../common/js/api/find';
 export default {
     data() {
         return {

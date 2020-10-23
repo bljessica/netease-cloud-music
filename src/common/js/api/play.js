@@ -1,4 +1,4 @@
-import request from '../common/js/request';
+import request from '../request';
 
 //播放：获取播放记录
 function getPlayRecord(data) {

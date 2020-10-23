@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getSuggestHotMenu } from '../../api/find';
+import { getSuggestHotMenu } from '../../common/js/api/find';
 import { getPlayNum } from '../../common/js/processData';
 import BScroll from '@better-scroll/core';
 

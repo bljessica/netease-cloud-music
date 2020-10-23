@@ -35,7 +35,7 @@
 <script>
 import '../../common/styles/common.css';
 import { mapMutations } from 'vuex';
-import { phoneLogin, emailLogin } from '../../api/login';
+import { phoneLogin, emailLogin } from '../../common/js/api/login';
 import { verifyEmail, verifyLoginPassword, verifyPhone} from '../../common/js/verifyInput';
 
 export default {

@@ -94,7 +94,7 @@ export default {
             border: 1px solid #E0E0E0;
             border-radius: 15px;
             padding: 5px 10px;
-            font-size: 14px;
+            font-size: 12px;
         }
     }
     .wrapper {

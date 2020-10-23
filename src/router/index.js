@@ -114,21 +114,38 @@ const router = new Router({
         play: true
       }
     }
+    ,
+    {
+      path: '/rank',
+      name: 'rank',
+      component: () => import('@/components/find/rank.vue'),
+      meta: {
+        play: true
+      }
+    },
+    {
+      path: '/video',
+      name: 'video',
+      component: () => import('@/components/video/video.vue'),
+      meta: {
+        play: true
+      }
+    }
   ]
 });
 
 //路由守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
-  if(to.path === '/login' || to.path === '/register' || to.path === '/') {
-      next();
+  if(to.path === '/mine' || to.path === '/hotCommentsWall' || to.path === '/myInfo' || to.path === '/dailyPlaylist') {
+    if(store.getters.token === null || store.getters.token === '') {
+      next('/login');
+    }
+    else {
+        next();
+    }  
   }
   else {
-      if(store.getters.token === null || store.getters.token === '') {
-          next('/login');
-      }
-      else {
-          next();
-      }
+    next();
   }
 });
 

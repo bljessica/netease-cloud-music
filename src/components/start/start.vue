@@ -4,6 +4,7 @@
             <div class="title">音楽的力量</div>
             <router-link class="login" :to="'/login'">登录</router-link>
             <router-link class="register" :to="'/login'">注册</router-link>
+            <router-link class="find" :to="'/find'">随便转转</router-link>
         </main>
         <footer class="footer">
             <span class="logo">
@@ -50,6 +51,14 @@ export default {
                 }
                 &.register {
                     margin-top: 20px;
+                }
+                &.find {
+                    display: block;
+                    padding: 0;
+                    margin-top: 20px;
+                    background: transparent;
+                    color: gainsboro;
+                    text-decoration: underline;
                 }
             }
         }

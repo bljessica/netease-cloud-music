@@ -273,11 +273,12 @@ export default {
                             bottom: -14px;
                         }
                         .date {
-                            // color: rgba(231, 34, 34, 0.507);
-                            color: white;
+                            color: rgba(231, 34, 34, 0.726);
+                            font-weight: bold;
+                            // color: white;
                             position: absolute;
                             left: 0;
-                            top: 0;
+                            top: 2px;
                             display: inline-block;
                             width: 46px;
                             height: 46px;

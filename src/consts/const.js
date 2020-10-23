@@ -1,8 +1,8 @@
 const FIND_PAGE_NAV_BTNS = [
-    {id: 1, icon: 'icon-rili', name: '每日推荐', navTo: '/dailyPlaylist'},
+    {id: 1, icon: 'icon-rili1', name: '每日推荐', navTo: '/dailyPlaylist'},
     {id: 2, icon: 'icon-shouyinji-xian', name: '私人FM', navTo: ''},
-    {id: 3, icon: 'icon-gedan', name: '歌单', navTo: ''},
-    {id: 4, icon: 'icon-biaoqiankuozhan_paihang-128', name: '排行榜', navTo: ''},
+    {id: 3, icon: 'icon-gedan', name: '歌单', navTo: '/ground'},
+    {id: 4, icon: 'icon-biaoqiankuozhan_paihang-128', name: '排行榜', navTo: '/rank'},
     {id: 5, icon: 'icon-zhibo', name: '直播', navTo: ''},
     {id: 6, icon: 'icon-yinle', name: '电台', navTo: ''},
     {id: 7, icon: 'icon-zhuanji-', name: '数字专辑', navTo: ''},

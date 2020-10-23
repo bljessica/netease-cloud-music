@@ -44,7 +44,7 @@
             <ul class="songs">
                 <li v-for="(item, index) in songs" :key="index" @click="selectSong(index)">
                     <span class="no" v-if="playingSong.id !== item.id">{{ index + 1 }}</span>
-                    <span class="no" v-else><i class="iconfont icon-yinyue"></i></span>
+                    <span class="no" v-else><i class="iconfont icon-yinliang"></i></span>
                     <div class="song">
                         <span>{{ item.name }}<span v-if="item.alia.length != 0">({{ item.alia[0] }})</span></span>
                         <div><span class="only">独家</span><span class="SQ">SQ</span>{{ item.ar[0].name }} - {{ item.al.name}}</div>

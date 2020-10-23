@@ -32,9 +32,18 @@ function getCalendar() {
     })
 }
 
+//排行榜：所有榜单
+function getToplist() {
+    return request({
+        url: '/toplist',
+        method: 'get'
+    })
+}
+
 export {
     getBanner,
     getSuggestHotMenu,
     getDailySuggestPlaylist,
-    getCalendar
+    getCalendar,
+    getToplist
 }

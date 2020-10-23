@@ -336,6 +336,7 @@ export default {
             height: 99px;
             margin: 10px auto;
             padding: 10px;
+            border-radius: 10px;
             box-shadow: 2px 1px 10px gainsboro, -2px 1px 10px gainsboro;
             text-align: left;
             font-size: 14px;

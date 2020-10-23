@@ -582,6 +582,7 @@ export default {
                     width: 100%;
                     color: rgba(220, 220, 220, 0.719);
                     transition: .5s;
+                    list-style-type: none;
                     li {
                         margin-bottom: 15px;
                         &.active {

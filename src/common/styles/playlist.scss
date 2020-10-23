@@ -61,10 +61,12 @@
                     span {
                         display: inline-block;
                         color: red;
+                        height: 14px;
+                        line-height: 14px;
                         font-size: 10px;
-                        -webkit-transform:scale(0.8);
+                        transform: scale(0.8);
+                        -webkit-transform: scale(0.8);
                         border: 1px solid red;
-
                     }
                 }
             }

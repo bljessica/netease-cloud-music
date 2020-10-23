@@ -1,6 +1,6 @@
 <template>
     <div class="player-container">
-        <!-- 下方小的播放器 --> 
+        <!-- 下方小的播放器 -->  
         <div class="play-bar-container" v-if="playingSong.id" @click="$router.push({name: 'playing'})">
             <img v-if="playingSong.al" :src="playingSong.al.picUrl" alt="">
             <div class="song">
@@ -191,11 +191,7 @@ export default {
                     that.getLyrics();
                 }
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //获取歌词(处理为数组),设置currentTime,播放
@@ -230,11 +226,7 @@ export default {
                 }
                 that.startMusic();
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //处理歌词为数组(时间格式XX:XX)

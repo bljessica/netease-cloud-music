@@ -182,11 +182,7 @@ export default {
                 //背景取色
                 that.getBgColor();
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         }
     }
@@ -274,6 +270,7 @@ export default {
                 }
                 .name {
                     display: flex;
+                    flex-grow: 1;
                     flex-direction: column;
                     height: 130px;
                     align-items: flex-start;

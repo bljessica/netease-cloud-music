@@ -112,11 +112,7 @@ export default {
                 that.follows = res.data.follow;
                 that.initSlider();
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);
             })
         },
         //初始化关注人滑块

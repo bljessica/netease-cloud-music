@@ -95,9 +95,9 @@
                         <i class="iconfont icon-shezhi"></i>
                         设置
                     </span>
-                    <span class="exit">
+                    <span class="exit" @click="exit">
                         <i class="iconfont icon-guanji"></i>
-                        退出
+                        登出
                     </span>
                 </footer>
             </div>
@@ -147,6 +147,11 @@ export default {
         }
     },
     methods: {
+        // 登出
+        exit() {
+            this.$store.commit('SET_TOKEN', '');
+            this.$router.push('/find');
+        },
         initSlider() {
             this.slider = new BScroll(this.$refs.wrapper, {
                 scrollX: false,

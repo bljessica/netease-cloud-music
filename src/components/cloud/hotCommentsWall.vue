@@ -123,11 +123,7 @@ export default {
                     that.likeKey++;
                 }
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);
             })
         },
         //左滑
@@ -159,11 +155,7 @@ export default {
                 })
                 // console.log(that.likes)
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);
             })
         }
     }
@@ -185,7 +177,7 @@ export default {
         justify-content: space-around;
         align-items: center;
         i {
-            font-size: 18px;
+            font-size: 26px;
             display: inline-block;
             padding: 10px 15px 10px 0;
         }

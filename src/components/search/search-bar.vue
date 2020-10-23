@@ -75,11 +75,7 @@ export default {
                 console.log(res.data);
                 that.suggestWord = res.data.data.showKeyword;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //显示搜索关联结果
@@ -112,11 +108,7 @@ export default {
                     that.resSongs = Array.from(that.resSongs);
                 }
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         }
     }

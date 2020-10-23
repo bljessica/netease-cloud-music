@@ -53,11 +53,7 @@ export default {
                 // console.log(res.data.result);
                 that.menu = res.data.result;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);
             })
         },
         //初始化推荐歌单滑块

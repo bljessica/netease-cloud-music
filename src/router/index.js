@@ -24,7 +24,8 @@ const router = new Router({
       name: 'mine',
       component: () => import('@/components/mine/mine.vue'),
       meta: {
-        play: true
+        play: true,
+        requireAuth: true
       }
     },
     {
@@ -48,7 +49,10 @@ const router = new Router({
     {
       path: '/hotCommentsWall',
       name: 'hotCommentsWall',
-      component: () => import('@/components/cloud/hotCommentsWall.vue')
+      component: () => import('@/components/cloud/hotCommentsWall.vue'),
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/search',
@@ -71,7 +75,8 @@ const router = new Router({
       name: 'myInfo',
       component: () => import('@/components/myInfo/myInfo.vue'),
       meta: {
-        play: true
+        play: true,
+        requireAuth: true
       }
     },
     {
@@ -136,8 +141,8 @@ const router = new Router({
 
 //路由守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
-  if(to.path === '/mine' || to.path === '/hotCommentsWall' || to.path === '/myInfo' || to.path === '/dailyPlaylist') {
-    if(store.getters.token === null || store.getters.token === '') {
+  if(to.meta.requireAuth) {
+    if(store.getters.token === '') {
       next('/login');
     }
     else {

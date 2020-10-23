@@ -79,6 +79,7 @@ export default {
                 password: that.password
             }).then(res => {
                 that.$emit('onLoad');
+                // console.log(that.phone, that.password)
                 // console.log(res.data)
                 if(res.data.code !== 200) {
                     that.Message({
@@ -93,11 +94,7 @@ export default {
                 that.password = '';
                 that.$router.push('/find');
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         emailLogin() {
@@ -140,11 +137,7 @@ export default {
                 that.password = '';
                 that.$router.push('/find');
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         setUserInfos(data) {

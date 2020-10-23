@@ -122,11 +122,7 @@ export default {
                     }
                 }, 5000);
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                })
+                console.log(err);
             })
         },
         //点击导航栏跳转
@@ -204,11 +200,7 @@ export default {
                 // console.log(res.data);
                 that.bannerImgs = res.data.banners;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                })
+                console.log(err);
             })
         }
     }
@@ -355,6 +347,8 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 .left {
+                    flex-grow: 1;
+                    padding-right: 10px;
                     line-height: 20px;
                     .time {
                         font-weight: bold;
@@ -374,6 +368,7 @@ export default {
                     }
                 }
                 .pic {
+                    flex: 0 0 56px;
                     width: 56px;
                     height: 56px;
                     border-radius: 5px;

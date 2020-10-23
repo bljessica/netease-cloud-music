@@ -68,11 +68,7 @@ export default {
                 that.hotRank = res.data.data;
                 that.hotRankShow = that.hotRank.slice(0, 10);
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         }
     }

@@ -118,11 +118,7 @@ export default {
                 that.hotComments = res.data.hotComments;
                 that.total = res.data.total;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);
             })
         }
     }

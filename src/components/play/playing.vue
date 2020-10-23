@@ -54,17 +54,19 @@
             <!-- 播放进度 -->
             <div class="playing-progress">
                 <span class="now">{{ secondsToStr(Math.floor(currentTime)) }}</span>
-                <span class="line" ref="line" @click="jumpToprogress">
-                    <span class="dot" ref="dot" id="dot" :style="{left: dotLeft + 'px'}"></span>
-                    <span class="line-left"  :style="{width: dotLeft + 'px'}"></span>
-                </span>
+                <div class="line-wrapper" @click.stop="jumpToprogress">
+                    <span class="line" ref="line">
+                        <span class="dot" ref="dot" id="dot" :style="{left: dotLeft + 'px'}"></span>
+                        <span class="line-left"  :style="{width: dotLeft + 'px'}"></span>
+                    </span>
+                </div>
                 <span class="total">{{ secondsToStr(Math.floor(duration)) }}</span>
             </div>
             <div class="actions-down">
-                <i class="iconfont" @click="setPlayingType" :class="{'icon-xunhuan': playingType === 0, 'icon-icon--': playingType === 1, 'icon-danquxunhuan': playingType === 2}"></i>
-                <i class="iconfont icon-047caozuo_shangyishou" @click="prevSong"></i>
-                <i class="iconfont" @click="changePlay" :class="{'icon-zanting_huaban': isPlaying == true, 'icon-bofang2': isPlaying === false}"></i>
-                <i class="iconfont icon-048caozuo_xiayishou" @click="nextSong"></i>
+                <i class="iconfont" @click.stop="setPlayingType" :class="{'icon-xunhuan': playingType === 0, 'icon-icon--': playingType === 1, 'icon-danquxunhuan': playingType === 2}"></i>
+                <i class="iconfont icon-047caozuo_shangyishou" @click.stop="prevSong"></i>
+                <i class="iconfont" @click.stop="changePlay" :class="{'icon-zanting_huaban': isPlaying == true, 'icon-bofang2': isPlaying === false}"></i>
+                <i class="iconfont icon-048caozuo_xiayishou" @click.stop="nextSong"></i>
                 <i class="iconfont icon-bofangliebiao" @click.stop="showList"></i>
             </div>
         </div>
@@ -133,7 +135,6 @@ export default {
     mounted() {
         let that = this;
         this.songs = this.playingList.tracks;
-        console.log(this.isPlaying)
         if(this.isPlaying) {
             clearInterval(this.rotateTimer);
             this.initRotateTimer();
@@ -415,7 +416,7 @@ export default {
             }
             return 0;
         },
-        //播放/暂停
+        //播放/暂停 
         changePlay() {
             if(this.isPlaying) {
                 clearInterval(this.rotateTimer);
@@ -445,18 +446,18 @@ export default {
                 let color = 'rgba(';
                 let flag = true;//是否r,g,b都大于70
                 for(let i of result) {
-                    if(i < 70) {
+                    if(i < 90) {
                         flag = false;
                     }
                 }
                 for(let i of result) {
                     if(flag) {
-                        i -= 70;
+                        i -= 90;
                     }
                     color += parseInt(i) +',';
                 }
                 color = color.slice(0, color.length - 1);
-                this.bgColor += color + ',1), ' + color + ',0.7))'
+                this.bgColor += color + ',1), ' + color + ',0.6))'
             })
         },
         ...mapMutations({
@@ -464,6 +465,7 @@ export default {
             setLyricNow: 'SET_LYRIC_NOW',
             setCurrentTime: 'SET_CURRENT_TIME',
             setPlayingList: 'SET_PLAYING_LIST',
+            setLyrics: 'SET_LYRICS'
         }),
     }
 }
@@ -608,6 +610,12 @@ export default {
                 padding: 0 15px;
                 i {
                     font-size: 26px;
+                    &:nth-of-type(2) {
+                        font-size: 24px;
+                    }
+                    &:nth-of-type(4) {
+                        font-size: 30px;
+                    }
                 }
             }
             .playing-progress {
@@ -615,30 +623,39 @@ export default {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                -webkit-transform: scale(0.9);
-                .line {
+                padding: 0 10px;
+                .line-wrapper {
                     flex-grow: 1;
-                    background: gainsboro;
+                    height: 6px;
                     margin: 0 10px;
-                    height: 1px;
-                    // padding: 5px 0;
                     position: relative;
-                    .dot {
-                        position: absolute;
-                        top: -3px;
-                        left: 0;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background: white;
-                    }
-                    .line-left {
-                        position: absolute;
-                        left: 0;
+                    .line {
+                        line-height: 6px;
+                        display: inline-block;
+                        width: 100%;
+                        background: gainsboro;
                         height: 1px;
-                        background: white;
+                        position: absolute;
+                        top: 2px;
+                        left: 0;
+                        .dot {
+                            position: absolute;
+                            top: -3px;
+                            left: 0;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: white;
+                        }
+                        .line-left {
+                            position: absolute;
+                            left: 0;
+                            height: 1px;
+                            background: white;
+                        }
                     }
                 }
+                
             }
             .actions-down {
                 display: flex;

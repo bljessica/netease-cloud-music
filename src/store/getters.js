@@ -24,7 +24,7 @@
 // const playingSong = state => state.playingSong || localStorage.getItem('playingSong');
 // const playingList = state => state.playingList || localStorage.getItem('playingList');
 // const playingTimer = state => state.playingTimer || localStorage.getItem('playingTimer');
-// const playingType = state => state.playingType || localStorage.getItem('playingType');
+// const playingType = state => state.playingType;
 // const player = state => state.player || localStorage.getItem('player');
 // const lyricNow = state => state.lyricNow || localStorage.getItem('lyricNow');
 // const currentTime = state => state.currentTime || localStorage.getItem('currentTime');
@@ -83,6 +83,7 @@ export default {
     collectedMenus,
     playlist,
     phone,
+    email,
     username,
     userID,
     isLogin,

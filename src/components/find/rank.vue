@@ -38,11 +38,7 @@ export default {
                 // console.log(res.data);
                 that.lists = res.data.list;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                })
+                console.log(err);
             })
         }
     }

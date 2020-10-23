@@ -4,7 +4,8 @@
         <my-header :selected="'mine'" class="header" @menuShow="menuShow = true"></my-header>
         <!-- 用户信息 -->
         <div class="userinfo" @click="toMyInfo">
-            <img :src="avatarUrl" alt="头像" class="avatar">
+            <img v-if="avatarUrl" :src="avatarUrl" alt="头像" class="avatar">
+            <img v-else src="../../assets/person.png" alt="头像" class="avatar">
             <span class="nickname">{{ nickname }}</span>
             <div class="buyVIP">
                 <i class="iconfont icon-VIP"></i>
@@ -62,7 +63,7 @@
                     <i class="iconfont icon-jia"></i>
                     <i class="iconfont icon-gengduo1"></i>
                 </div>
-                <ul class="created-menus">
+                <ul class="created-menus" v-if="createdMenus">
                     <li v-for="(item, index) in createdMenus" :key="index" @click="toPlaylist(item)">
                         <img :src="item.coverImgUrl" alt="" class="img">
                         <div class="info">
@@ -91,7 +92,7 @@
                     <i class="iconfont icon-jia" style="opacity: 0; visibility: hidden;"></i>
                     <i class="iconfont icon-gengduo1"></i>
                 </div>
-                <ul class="collected-menus">
+                <ul class="collected-menus" v-if="collectedMenus">
                     <li v-for="(item, index) in collectedMenus" :key="index" @click="toPlaylist(item)">
                         <img :src="item.coverImgUrl" alt="" class="img">
                         <div class="info">
@@ -122,6 +123,14 @@ export default {
             navBtns: MINE_PAGE_NAV_BTNS,
             downLoadNum: 0, //我喜欢的歌曲中已下载的数量,
             activeTab: 1,
+            //
+            // nickname: '',
+            // avatarUrl: '',
+            // level: 0,
+            // likelist: [],
+            // createdMenus: [],
+            // collectedMenus: [],
+            // userID: ''
         }
     },
     computed: {
@@ -131,34 +140,27 @@ export default {
             'level',
             'likelist',
             'createdMenus',
-            'collectedMenus'
+            'collectedMenus',
+            'userID'
         ]),
         total() {
-            return this.likelist.trackCount;
+            return this.likelist? this.likelist.trackCount: 0;
         }
     },
     mounted() {
-        //没有获取过信息则获取
-        if(this.$store.getters.level.length == 0) {
-            this.getUserInfo();
-        }
-        if(this.$store.getters.likelist.length == 0) {
-            this.getLikeList();
-        }
-        if(this.$store.getters.playlist.length == 0) {
-            this.getPlayLists();
-        }
-        document.addEventListener('click', (e) => {
-            let className = e.target.className;
-            if(this.playingListShow == true && className != 'playing-list') {
-                this.playingListShow = false;
-            }
-        })
+        this.getUserInfo();
+        this.getLikeList();
+        this.getPlayLists();
+        // document.addEventListener('click', (e) => {
+        //     let className = e.target.className;
+        //     if(this.playingListShow == true && className != 'playing-list') {
+        //         this.playingListShow = false;
+        //     }
+        // })
     },
     methods: {
         //转到喜欢的音乐歌单
         toLoveSongList() {
-            // console.log(this.likelist);
             this.$router.push({name: 'playlist', params: {id: this.likelist.id}});
         },
         //切歌
@@ -169,20 +171,26 @@ export default {
         toPlaylist(item) {
             this.$router.push({name: 'playlist', params: {id: item.id}})
         },
-        ...mapMutations({
-            setPlaylist: 'SET_PLATLIST',
-            setCollectedMenus: 'SET_COLLECTED_MENUS',
-            setCreatedMenus: 'SET_CREATED_MENUS'
-        }),
         //获取歌单
         getPlayLists() {
             let that = this;
             this.$emit('beforeLoad');
             getPlayLists({
-                uid: that.$store.getters.userID
+                uid: that.userID
             }).then(res => {
                 that.$emit('onLoad');
-                console.log(res.data);
+                // console.log(res.data);
+                // 
+                // taht.playlist = res.data.playlist;
+                // that.collectedMenus = res.data.playlist.filter(item => {
+                //     return item.subscribed === true;
+                // });
+                // that.likelist = res.data.playlist.filter(item => {
+                //     return item.subscribed === false;
+                // })[0];
+                // that.createdMenus = res.data.playlist.filter(item => {
+                //     return item.subscribed === false;
+                // }).slice(1);
                 that.setPlaylist(res.data.playlist);
                 that.setCollectedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === true;
@@ -195,42 +203,36 @@ export default {
                     return item.subscribed === false;
                 }).slice(1));
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //跳转到“个人信息”页面
         toMyInfo() {
-            console.log(1)
-            // if(!this.menuShow) { 
-            // console.log(2)
-                this.$router.push({name: 'myInfo'});
-            // }
+            this.$router.push({name: 'myInfo'});
         },
         ...mapMutations({
+            setPlaylist: 'SET_PLATLIST',
+            setCollectedMenus: 'SET_COLLECTED_MENUS',
+            setCreatedMenus: 'SET_CREATED_MENUS',
             setLevel: 'SET_LEVEL',
             setListenSongs: 'SET_LISTEN_SONGS',
-            setLikelist: 'SET_LIKELIST'
+            setLikelist: 'SET_LIKELIST',
+            setCreateTime: 'SET_CREATE_TIME',
+            setBirthday: 'SET_BIRTHDAY',
+            // setProvince
         }),
         //获取喜欢的音乐列表
         getLikeList() {
             this.$emit('beforeLoad');
             let that = this;
             getLikeList({
-                uid: that.$store.getters.userID
+                uid: that.userID
             }).then(res => {
                 that.$emit('onLoad');
                 // console.log(res.data);
                 // that.total = res.data.ids.length;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                })
+                console.log(err);
             })
         },
         //获取用户信息
@@ -238,12 +240,19 @@ export default {
             this.$emit('beforeLoad');
             let that = this;
             getUserInfo({
-                uid: that.$store.getters.userID
+                uid: that.userID
             }).then(res => {
                 that.$emit('onLoad');
-                // console.log(res.data)
+                console.log(res.data)
+                // 
+                // that.level = res.data.level;
+                // that.listenSongs = res.data.listenSongs;
+                // that.createTime = res.data.profile.createTime;
+                // that.birthday = res.data.profile.birthday;
                 that.setLevel(res.data.level);
                 that.setListenSongs(res.data.listenSongs);
+                that.setCreateTime(res.data.profile.createTime);
+                that.setBirthday(res.data.profile.birthday);
             }).catch(err => {
                 that.Message({
                     message: err,

@@ -161,11 +161,7 @@ export default {
                 console.log(res.data);
                 that.highCatlist = res.data.tags;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         // 分类获取歌单
@@ -179,11 +175,7 @@ export default {
                 console.log(res.data);
                 that.playlists = res.data.playlists;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //获取精品歌单
@@ -197,11 +189,7 @@ export default {
                 console.log(res.data);
                 that.playlists = res.data.playlists;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //左滑切换大歌单
@@ -227,11 +215,7 @@ export default {
                 // console.log(res.data);
                 that.catlist = res.data.categories.sub;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         // 获取每日推荐歌单
@@ -243,11 +227,7 @@ export default {
                 // console.log(res.data);
                 that.recommend = res.data.recommend;
             }).catch(err => {
-                that.Message({
-                    message: err,
-                    type: 'warning',
-                    duration: 2000
-                });
+                console.log(err);;
             })
         },
         //计算播放量显示

@@ -7,7 +7,8 @@
                     <i class="iconfont icon-zuo" @click="$router.go(-1)"></i>
                     <i class="iconfont icon-fenxiang"></i>
                 </div>
-                <img :src="avatarUrl" alt="" class="avatar">
+                <img v-if="avatarUrl" :src="avatarUrl" alt="" class="avatar">
+                <img v-else src="../../assets/person.png" alt="头像" class="avatar">
                 <div class="info">
                     <div class="nickname">{{ nickname }}</div>
                     <div class="follow-info">

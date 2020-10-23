@@ -95,7 +95,7 @@ const mutations = {
     },
     [types.SET_PLAYING_SONG](state, playingSong) {
         state.playingSong = playingSong;
-        localStorage.playingSong = playingSong;
+        localStorage.playingSong = JSON.stringify(playingSong);
     },
     [types.SET_PLAYING_LIST](state, playingList) {
         state.playingList = playingList;
@@ -112,7 +112,7 @@ const mutations = {
     [types.SET_PLAYING_TYPE](state) {
         state.playingType += 1;
         state.playingType %= 3;
-        // localStorage.playingType = playingType;
+        localStorage.playingType = playingType;
     },
     [types.SET_PLAYER](state, player) {
         state.player = player;
@@ -132,12 +132,15 @@ const mutations = {
     },
     [types.SET_IS_PLAYING](state, isPlaying) {
         state.isPlaying = isPlaying;
+        localStorage.isPlaying = isPlaying;
     },
     [types.SET_DURATION](state, duration) {
         state.duration = duration;
+        localStorage.duration = duration;
     },
     [types.SET_SEARCHING_WORD](state, searchingWord) {
         state.searchingWord = searchingWord;
+        localStorage.searchingWord = searchingWord;
     }
 }
 

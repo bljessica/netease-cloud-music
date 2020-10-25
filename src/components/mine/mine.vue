@@ -123,14 +123,6 @@ export default {
             navBtns: MINE_PAGE_NAV_BTNS,
             downLoadNum: 0, //我喜欢的歌曲中已下载的数量,
             activeTab: 1,
-            //
-            // nickname: '',
-            // avatarUrl: '',
-            // level: 0,
-            // likelist: [],
-            // createdMenus: [],
-            // collectedMenus: [],
-            // userID: ''
         }
     },
     computed: {
@@ -149,14 +141,8 @@ export default {
     },
     mounted() {
         this.getUserInfo();
-        this.getLikeList();
+        // this.getLikeList();
         this.getPlayLists();
-        // document.addEventListener('click', (e) => {
-        //     let className = e.target.className;
-        //     if(this.playingListShow == true && className != 'playing-list') {
-        //         this.playingListShow = false;
-        //     }
-        // })
     },
     methods: {
         //转到喜欢的音乐歌单
@@ -169,6 +155,7 @@ export default {
         },
         //跳转到“歌单”
         toPlaylist(item) {
+            console.log('to:'+item.id)
             this.$router.push({name: 'playlist', params: {id: item.id}})
         },
         //获取歌单
@@ -180,17 +167,6 @@ export default {
             }).then(res => {
                 that.$emit('onLoad');
                 // console.log(res.data);
-                // 
-                // taht.playlist = res.data.playlist;
-                // that.collectedMenus = res.data.playlist.filter(item => {
-                //     return item.subscribed === true;
-                // });
-                // that.likelist = res.data.playlist.filter(item => {
-                //     return item.subscribed === false;
-                // })[0];
-                // that.createdMenus = res.data.playlist.filter(item => {
-                //     return item.subscribed === false;
-                // }).slice(1);
                 that.setPlaylist(res.data.playlist);
                 that.setCollectedMenus(res.data.playlist.filter(item => {
                     return item.subscribed === true;
@@ -243,12 +219,7 @@ export default {
                 uid: that.userID
             }).then(res => {
                 that.$emit('onLoad');
-                console.log(res.data)
-                // 
-                // that.level = res.data.level;
-                // that.listenSongs = res.data.listenSongs;
-                // that.createTime = res.data.profile.createTime;
-                // that.birthday = res.data.profile.birthday;
+                // console.log(res.data)
                 that.setLevel(res.data.level);
                 that.setListenSongs(res.data.listenSongs);
                 that.setCreateTime(res.data.profile.createTime);

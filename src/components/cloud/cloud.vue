@@ -5,13 +5,13 @@
         <!-- tabs -->
         <div class="tabs-container"> 
             <div class="nav-tab">
-                <span class="ground" :class="{active: activeTab === 1}" @click="activeTab = 1">广场</span>
-                <span class="follow" :class="{active: activeTab === 2}" @click="activeTab = 2">关注</span>
+                <span class="ground" :class="{active: activeTab === 1}" @click.stop="activeTab = 1">广场</span>
+                <span class="follow" :class="{active: activeTab === 2}" @click.stop="seeFollows">关注</span>
             </div>
             <!-- 广场 -->
             <div class="ground-wrapper" v-if="activeTab === 1">
                 <!-- 云村热评墙 -->
-                <div class="hot-comment-wall" @click="$router.push('/hotCommentsWall')">
+                <div class="hot-comment-wall" @click.stop="$router.push('/hotCommentsWall')">
                     <div class="nav">
                         <div class="navToWall">
                             云村热评墙
@@ -96,6 +96,13 @@ export default {
         })
     },
     methods: {
+        // 查看关注的人的动态
+        seeFollows() {
+            if(!this.$store.getters.userID) {
+                this.$router.push('/login');
+            }
+            this.activeTab = 2;
+        },
         //切歌
         changeSong() {
             this.$refs.bar.refresh();

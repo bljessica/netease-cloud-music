@@ -1,7 +1,7 @@
 <template>
     <div class="loading-container">
         <div>
-            <img src="../../assets/circle.png" alt="" :style="{transform: 'rotate(' + angle + 'deg)'}">
+            <img src="../../assets/loading.gif" alt="">
             loading...
         </div>
     </div>
@@ -9,28 +9,7 @@
 
 <script>
 export default {
-    data() {
-        return {
-            timer: null,
-            angle: 0
-        }
-    },
-    mounted() {
-        this.init();
-    },
-    beforeDestroy() {
-        clearInterval(this.timer);
-    },
-    methods: {
-        init() {
-            this.timer = setInterval(() => {
-                this.angle += 6;
-                if(this.angle >= 360) {
-                    this.angle %= 360;
-                }
-            }, 20);
-        }
-    }
+    
 }
 </script>
 
@@ -45,7 +24,7 @@ export default {
         background: rgba(250, 246, 246, 0.6);
         div {
             position: absolute;
-            top: 200px;
+            top: 220px;
             width: 100%;
             height: 20px;
             line-height: 20px;

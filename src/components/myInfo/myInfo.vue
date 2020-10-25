@@ -119,12 +119,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import { getUserInfo, getLikeList, getPlayLists } from '../../common/js/api/mine';
 
 export default {
     data() {
         return {
-            activeTab: 1
+            activeTab: 1,
         }
     },
     computed: {
@@ -181,7 +181,7 @@ export default {
         //切歌
         changeSong() {
             this.$refs.bar.refresh();
-        },
+        }
     }
 }
 </script>

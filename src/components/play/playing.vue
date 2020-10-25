@@ -22,30 +22,30 @@
             <div class="lyric-wrapper" ref="lyricWrapper">
                 <ul class="lyric-content" :style="{'transform': 'translateY(' + topNow + 'px)'}" id="lyrics">
                     <!-- <br><br><br><br> -->
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
                     <li v-for="(item, index) in lyrics" :id="item.time" :key="index" 
                         :class="{'active': (prevTime == item.time)? true: false, 'select': select == index, 'lyric-line': true}">
                         <span class="lyric">{{ item.content }}</span>
                         <div class="tlyric" v-if="item.tcontent">{{ item.tcontent }}</div>
                     </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
+                    <li style="height: 20px;"></li>
                 </ul>
             </div>
         </div>
         <!-- 操作栏 --> 
         <div class="actions">
             <div class="actions-up">
-                <i class="iconfont" :class="{'icon-icon-test': true, 'icon-aixin': false}"></i>
+                <i class="iconfont" :class="{'icon-icon-test': likeThis == false, 'icon-aixin': likeThis == true}"></i>
                 <i class="iconfont icon-xiazai"></i>
                 <i class="iconfont icon-luyin"></i>
                 <i class="iconfont icon-jianyi" @click.stop="$router.push('/songComment')"></i>
@@ -102,6 +102,7 @@
 
 <script>
 import playHeader from '../header/play-header';
+import { getLikeList } from '../../common/js/api/mine';
 import { secondsToStr, strToSeconds } from '../../common/js/processData';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';
@@ -129,12 +130,18 @@ export default {
             songs: [], //播放列表
             originY: 0, //初始播放列表滑块位置
             listSlider: null,
-            listKey: 0
+            listKey: 0,
+            likes: [],//喜欢的音乐的id
+            likeThis: false, //是否喜欢这首歌
         }
     },
     mounted() {
+        // console.log(this.playingSong)
         let that = this;
         this.songs = this.playingList.tracks;
+        if(this.isLogin) {
+            this.getLikeList();
+        }
         if(this.isPlaying) {
             clearInterval(this.rotateTimer);
             this.initRotateTimer();
@@ -164,6 +171,7 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'userID',
             'isPlaying',
             'playingSong',
             'currentTime',
@@ -173,6 +181,7 @@ export default {
             'player',
             'lyricNow',
             'lyrics',
+            'isLogin'
             // 'playingTimer'
         ]),
         typeName() {
@@ -188,6 +197,23 @@ export default {
         }
     },
     methods: {
+        //获取喜欢的音乐列表
+        getLikeList() {
+            this.$emit('beforeLoad');
+            let that = this;
+            getLikeList({
+                uid: that.userID
+            }).then(res => {
+                that.$emit('onLoad');
+                // console.log(res.data);
+                that.likes = res.data.ids;
+                if(that.likes.includes(that.playingSong.id)) {
+                    that.likeThis = true;
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        },
         //删除播放列表中的歌
         deleteFromPlayingList(id) {
             // let newList = this.playingList.tracks, index = 0;
@@ -610,6 +636,9 @@ export default {
                 padding: 0 15px;
                 i {
                     font-size: 26px;
+                    &.icon-aixin {
+                        color: rgb(255, 97, 97);
+                    }
                     &:nth-of-type(2) {
                         font-size: 24px;
                     }
@@ -633,7 +662,7 @@ export default {
                         line-height: 6px;
                         display: inline-block;
                         width: 100%;
-                        background: gainsboro;
+                        background: rgb(189, 188, 188);
                         height: 1px;
                         position: absolute;
                         top: 2px;

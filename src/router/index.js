@@ -49,10 +49,7 @@ const router = new Router({
     {
       path: '/hotCommentsWall',
       name: 'hotCommentsWall',
-      component: () => import('@/components/cloud/hotCommentsWall.vue'),
-      meta: {
-        requireAuth: true
-      }
+      component: () => import('@/components/cloud/hotCommentsWall.vue')
     },
     {
       path: '/search',
@@ -142,7 +139,7 @@ const router = new Router({
 //路由守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
   if(to.meta.requireAuth) {
-    if(store.getters.token === '') {
+    if(store.getters.isLogin === false) {
       next('/login');
     }
     else {

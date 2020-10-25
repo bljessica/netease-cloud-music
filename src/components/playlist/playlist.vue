@@ -89,6 +89,7 @@ export default {
         ])
     },
     mounted() {
+        console.log('playlist:'+this.$route.params.id)
         if(this.$route.params.id) {
             this.getPlaylistDetail();  
         }
@@ -131,7 +132,7 @@ export default {
             setCurrentTime: 'SET_CURRENT_TIME'
         }),
         //选择一首歌播放
-        selectSong(index) {   
+        selectSong(index) {    
             this.setPlayingSong(this.songs[index]);
             this.setPlayingList(this.playlist);
             console.log("select", this.playingList.name)

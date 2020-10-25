@@ -99,6 +99,9 @@ export default {
         },
         //点赞或取消点赞
         likeThis() {
+            if(!this.$store.getters.userID) {
+                this.$router.push('/login');
+            }
             let that = this;
             let t = 0;
             if(this.likes[this.curIndex]) {

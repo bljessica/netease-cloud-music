@@ -6,7 +6,8 @@
     <loading v-show="loading"></loading>
     <router-view @play="play" @stop="stop" @nextSong="nextSong" 
       @prevSong="prevSong" @selectSong="selectSong" @changeSong="changeSong"
-      @beforeLoad="beforeLoad" @onLoad="onLoad"></router-view>
+      @beforeLoad="beforeLoad" @onLoad="onLoad">
+    </router-view>
   </div>
 </template>
 

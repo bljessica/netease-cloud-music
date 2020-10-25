@@ -155,7 +155,6 @@ export default {
                 this.setGender(data.profile.gender);
                 this.setNickname(data.profile.nickname);
                 this.setBackgroundUrl(data.profile.backgroundUrl);
-            //     this.setPlayListCount(data.profile.playListCount);
                 this.setProvince(data.profile.province);
             }
         },

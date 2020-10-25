@@ -173,7 +173,7 @@ export default {
                     that.Message({
                         message: '暂无资源',
                         type: 'warning',
-                        duration: 2000
+                        duration: 1000
                     });
                     return;
                 }

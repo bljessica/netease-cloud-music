@@ -66,7 +66,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 import { secondsToStr } from '../../common/js/processData';
 import BScroll from '@better-scroll/core';
-import { getLyrics, getPlaySongUrl } from '../../common/js/api/play';
+import { getLyrics, getPlaySongUrl } from '../../api/play';
 
 export default {
     data() {

@@ -101,9 +101,9 @@
 </template>
 
 <script>
-import playHeader from '../header/play-header';
-import { getLikeList } from '../../common/js/api/mine';
-import { secondsToStr, strToSeconds } from '../../common/js/processData';
+import playHeader from '../components/header/play-header';
+import { getLikeList } from '../api/mine';
+import { secondsToStr, strToSeconds } from '../common/js/processData';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';
 import BScroll from '@better-scroll/core';
@@ -498,7 +498,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playing-list';
+    @import '../common/styles/playing-list';
 </style>
 
 <style lang="scss" scoped>
@@ -512,7 +512,7 @@ export default {
         left: 0;
         right: 0;
         .stick {
-            background: url('../../assets/stick.png');
+            background: url('../assets/stick.png');
             // background-size: 100% 100%;
             height: 100px;
             width: 135px;
@@ -534,7 +534,7 @@ export default {
             top: 70px;
             bottom: 165px;
             .wrapper {
-                background: url('../../assets/record.png');
+                background: url('../assets/record.png');
                 background-size: 100% 100%;
                 height: 250px;
                 width: 250px;

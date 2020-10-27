@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import { getCatlist, getHignQualityCatlist, getRecommendPlaylists, getHighQualityPlaylists, getPlaylists } from '../../common/js/api/playlist';
-import { getPlayNum } from '../../common/js/processData';
+import { getCatlist, getHignQualityCatlist, getRecommendPlaylists, getHighQualityPlaylists, getPlaylists } from '../api/playlist';
+import { getPlayNum } from '../common/js/processData';
 import BScroll from '@better-scroll/core';
 
 export default {
@@ -246,7 +246,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playlists';
+    @import '../common/styles/playlists';
 </style>
 
 <style lang="scss" scoped>

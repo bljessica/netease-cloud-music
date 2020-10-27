@@ -59,12 +59,12 @@
 </template>
 
 <script>
-import { getPlaylistDetail, getLyrics, getPlaySongUrl, getPlaySongDetail } from '../../common/js/api/play';
+import { getPlaylistDetail, getLyrics, getPlaySongUrl, getPlaySongDetail } from '../api/play';
 import BScroll from '@better-scroll/core';
-import { PLAYLIST_ACTIONS } from '../../common/js/const';
+import { PLAYLIST_ACTIONS } from '../common/js/const';
 import ColorThief from 'colorthief';
 import { mapGetters, mapMutations } from 'vuex';
-import { getPlayNum } from '../../common/js/processData';
+import { getPlayNum } from '../common/js/processData';
 
 export default {
     data() {
@@ -89,7 +89,6 @@ export default {
         ])
     },
     mounted() {
-        console.log('playlist:'+this.$route.params.id)
         if(this.$route.params.id) {
             this.getPlaylistDetail();  
         }
@@ -191,7 +190,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playlist';
+    @import '../common/styles/playlist';
 </style>
 
 <style lang="scss" scoped>

@@ -93,7 +93,7 @@
                         <ul class="artists" v-if="artist">
                             <li v-for="(item, index) in artist.artists" :key="index">
                                 <img v-if="item.picUrl" :src="item.picUrl" alt="">
-                                <img v-else src="../../assets/person.png" alt="">
+                                <img v-else src="../assets/person.png" alt="">
                                 <span class="name">{{ item.name }}</span>
                                 <span><i class="iconfont icon-tianchongxing-"></i>已入驻</span>
                             </li>
@@ -107,7 +107,7 @@
                         <ul class="albums" v-if="album">
                             <li v-for="(item, index) in album.albums" :key="index">
                                 <div class="img">
-                                    <img src="../../assets/record.png" alt="">
+                                    <img src="../assets/record.png" alt="">
                                     <img :src="item.blurPicUrl" alt="">
                                 </div>
                                 <div class="info">
@@ -159,7 +159,7 @@
                         <ul class="users" v-if="user">
                             <li v-for="(item, index) in user.userprofiles" :key="index">
                                 <img v-if="item.avatarUrl" :src="item.avatarUrl" alt="">
-                                <img v-else src="../../assets/person.png" alt="">
+                                <img v-else src="../assets/person.png" alt="">
                                 <div class="info">
                                     <span class="name">{{ item.nickname }}</span>
                                     <div>{{ item.signature }}</div>
@@ -176,14 +176,14 @@
 </template>
 
 <script> 
-import searchBar from '../search/search-bar';
-import { SEARCH_KINDS } from '../../common/js/const';
+import searchBar from '../components/search/search-bar';
+import { SEARCH_KINDS } from '../common/js/const';
 import BScroll from '@better-scroll/core';
-import { search } from '../../common/js/api/search';
+import { search } from '../api/search';
 import { mapGetters, mapMutations } from 'vuex';
-import { getPlaySongDetail } from '../../common/js/api/play';
+import { getPlaySongDetail } from '../api/play';
 import Pullup from '@better-scroll/pull-up';
-import { secondsToStr, getPlayNum } from '../../common/js/processData';
+import { secondsToStr, getPlayNum } from '../common/js/processData';
 
 BScroll.use(Pullup);
 
@@ -565,7 +565,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playlist';
+    @import '../common/styles/playlist';
 </style>
 
 <style lang="scss" scoped>

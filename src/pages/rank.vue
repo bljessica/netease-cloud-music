@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getToplist } from '../../common/js/api/find';
+import { getToplist } from '../api/find';
 export default {
     data() {
         return {
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playlists';
+    @import '../common/styles/playlists';
 </style>
 
 <style lang="scss" scoped>

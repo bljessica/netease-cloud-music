@@ -1,4 +1,4 @@
-import request from '../request';
+import request from '../common/js/request';
 
 //我的：头像、昵称、等级
 function getUserInfo(data) {

@@ -8,7 +8,7 @@
                     <i class="iconfont icon-fenxiang"></i>
                 </div>
                 <img v-if="avatarUrl" :src="avatarUrl" alt="" class="avatar">
-                <img v-else src="../../assets/person.png" alt="头像" class="avatar">
+                <img v-else src="../assets/person.png" alt="头像" class="avatar">
                 <div class="info">
                     <div class="nickname">{{ nickname }}</div>
                     <div class="follow-info">
@@ -119,7 +119,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { getUserInfo, getLikeList, getPlayLists } from '../../common/js/api/mine';
+import { getUserInfo, getLikeList, getPlayLists } from '../api/mine';
 
 export default {
     data() {
@@ -187,7 +187,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    @import '../../common/styles/collect-and-create-menu-list';
+    @import '../common/styles/collect-and-create-menu-list';
 </style>
 
 <style lang="scss" scoped>

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import myHeader from '../header/my-header';
-import { getFollows } from '../../common/js/api/cloud';
+import myHeader from '../components/header/my-header';
+import { getFollows } from '../api/cloud';
 import BScroll from '@better-scroll/core';
 
 export default {
@@ -135,7 +135,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/my-menu';
+    @import '../common/styles/my-menu';
 </style>
 
 <style lang="scss" scoped>

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { getHotWall, likeComment } from '../../common/js/api/cloud';
+import { getHotWall, likeComment } from '../api/cloud';
 
 export default {
     data() {

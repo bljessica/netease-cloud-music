@@ -37,7 +37,7 @@
                             <div class="replyNum">{{ }}条回复</div>
                         </v-touch>
                     </div>
-                    <img :key="key" class="hug" :class="{'active': hugsShow[index]}" src="../../assets/hug.gif" alt="">
+                    <img :key="key" class="hug" :class="{'active': hugsShow[index]}" src="../assets/hug.gif" alt="">
                 </li>
             </ul>
         </div>
@@ -46,7 +46,7 @@
 
 <script>
 import { mapGetters, mapMutations} from 'vuex';
-import { getSongComments } from '../../common/js/api/play';
+import { getSongComments } from '../api/play';
 
 export default {
     data() {

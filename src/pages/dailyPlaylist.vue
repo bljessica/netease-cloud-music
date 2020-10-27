@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { getDailySuggestPlaylist } from '../../common/js/api/find';
+import { getDailySuggestPlaylist } from '../api/find';
 import { mapGetters, mapMutations } from 'vuex';
 import ColorThief from 'colorthief';
 
@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/playlist';
+    @import '../common/styles/playlist';
 </style>
 
 <style lang="scss" scoped>

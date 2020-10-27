@@ -9,12 +9,12 @@ const router = new Router({
     {
       path: '/',
       name: 'start',
-      component: () => import('@/components/start/start.vue')
+      component: () => import('@/pages/start.vue')
     },
     {
       path: '/find',
       name: 'find',
-      component: () => import('@/components/find/find.vue'),
+      component: () => import('@/pages/find.vue'),
       meta: {
         play: true
       }
@@ -22,7 +22,7 @@ const router = new Router({
     {
       path: '/mine',
       name: 'mine',
-      component: () => import('@/components/mine/mine.vue'),
+      component: () => import('@/pages/mine.vue'),
       meta: {
         play: true,
         requireAuth: true
@@ -31,17 +31,17 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/components/start/login.vue')
+      component: () => import('@/pages/login.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('@/components/start/register.vue')
+      component: () => import('@/pages/register.vue')
     },
     {
       path: '/cloud',
       name: 'cloud',
-      component: () => import('@/components/cloud/cloud.vue'),
+      component: () => import('@/pages/cloud.vue'),
       meta: {
         play: true
       }
@@ -49,12 +49,12 @@ const router = new Router({
     {
       path: '/hotCommentsWall',
       name: 'hotCommentsWall',
-      component: () => import('@/components/cloud/hotCommentsWall.vue')
+      component: () => import('@/pages/hotCommentsWall.vue')
     },
     {
       path: '/search',
       name: 'search',
-      component: () => import('@/components/search/search.vue'),
+      component: () => import('@/pages/search.vue'),
       meta: {
         play: true
       }
@@ -62,7 +62,7 @@ const router = new Router({
     {
       path: '/searchResult',
       name: 'searchResult',
-      component: () => import('@/components/search/searchResult.vue'),
+      component: () => import('@/pages/searchResult.vue'),
       meta: {
         play: true
       }
@@ -70,7 +70,7 @@ const router = new Router({
     {
       path: '/myInfo',
       name: 'myInfo',
-      component: () => import('@/components/myInfo/myInfo.vue'),
+      component: () => import('@/pages/myInfo.vue'),
       meta: {
         play: true,
         requireAuth: true
@@ -79,7 +79,7 @@ const router = new Router({
     {
       path: '/playlist',
       name: 'playlist',
-      component: () => import('@/components/playlist/playlist.vue'),
+      component: () => import('@/pages/playlist.vue'),
       meta: {
         play: true
       }
@@ -87,7 +87,7 @@ const router = new Router({
     {
       path: '/playing',
       name: 'playing',
-      component: () => import('@/components/play/playing.vue'),
+      component: () => import('@/pages/playing.vue'),
       meta: {
         play: true
       }
@@ -95,7 +95,7 @@ const router = new Router({
     {
       path: '/songComment',
       name: 'songComment',
-      component: () => import('@/components/comment/songComment.vue'),
+      component: () => import('@/pages/songComment.vue'),
       meta: {
         play: true
       }
@@ -103,7 +103,7 @@ const router = new Router({
     {
       path: '/dailyPlaylist',
       name: 'dailyPlaylist',
-      component: () => import('@/components/playlist/dailyPlaylist.vue'),
+      component: () => import('@/pages/dailyPlaylist.vue'),
       meta: {
         play: true
       }
@@ -111,7 +111,7 @@ const router = new Router({
     {
       path: '/ground',
       name: 'ground',
-      component: () => import('@/components/playlist/ground.vue'),
+      component: () => import('@/pages/playlistGround.vue'),
       meta: {
         play: true
       }
@@ -120,7 +120,7 @@ const router = new Router({
     {
       path: '/rank',
       name: 'rank',
-      component: () => import('@/components/find/rank.vue'),
+      component: () => import('@/pages/rank.vue'),
       meta: {
         play: true
       }
@@ -128,7 +128,7 @@ const router = new Router({
     {
       path: '/video',
       name: 'video',
-      component: () => import('@/components/video/video.vue'),
+      component: () => import('@/pages/video.vue'),
       meta: {
         play: true
       }

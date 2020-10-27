@@ -5,7 +5,7 @@
         <!-- 用户信息 -->
         <div class="userinfo" @click="toMyInfo">
             <img v-if="avatarUrl" :src="avatarUrl" alt="头像" class="avatar">
-            <img v-else src="../../assets/person.png" alt="头像" class="avatar">
+            <img v-else src="../assets/person.png" alt="头像" class="avatar">
             <span class="nickname">{{ nickname }}</span>
             <div class="buyVIP">
                 <i class="iconfont icon-VIP"></i>
@@ -109,10 +109,10 @@
 </template>
 
 <script>
-import myHeader from '../header/my-header';
-import { getUserInfo, getLikeList, getPlayLists } from '../../common/js/api/mine';
+import myHeader from '../components/header/my-header';
+import { getUserInfo, getLikeList, getPlayLists } from '../api/mine';
 import { mapGetters, mapMutations } from 'vuex';
-import { MINE_PAGE_NAV_BTNS } from '../../common/js/const';
+import { MINE_PAGE_NAV_BTNS } from '../common/js/const';
 
 export default {
     components: {
@@ -155,7 +155,6 @@ export default {
         },
         //跳转到“歌单”
         toPlaylist(item) {
-            console.log('to:'+item.id)
             this.$router.push({name: 'playlist', params: {id: item.id}})
         },
         //获取歌单
@@ -237,8 +236,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/styles/my-menu';
-    @import '../../common/styles/collect-and-create-menu-list';
+    @import '../common/styles/my-menu';
+    @import '../common/styles/collect-and-create-menu-list';
 </style>
 
 <style lang="scss" scoped>

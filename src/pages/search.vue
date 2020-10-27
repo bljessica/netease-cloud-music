@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import searchBar from '../search/search-bar';
-import { detailHotRank } from '../../common/js/api/search';
+import searchBar from '../components/search/search-bar';
+import { detailHotRank } from '../api/search';
 export default {
     data() {
         return {

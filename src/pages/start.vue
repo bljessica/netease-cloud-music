@@ -9,7 +9,7 @@
         <footer class="footer">
             <span class="logo">
                 <!-- <i></i> -->
-                <img src="../../assets/index-icon.png" alt="logo">
+                <img src="../assets/index-icon.png" alt="logo">
             </span>
             <span>网易云音乐</span>
         </footer>

@@ -1,11 +1,20 @@
 # netease-cloud-music
 
-> 此项目为网易云音乐app前端界面，后端使用[网易云音乐NodeJS版API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
+基于Vue(2.9) + vuex + vue-router + scss + axios + webpack仿网易云音乐app前端界面  
+后端使用[网易云音乐NodeJS版API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
 
-## 技术
-+ vue+vuex+vue-router+scss+axios+webpack
-+ 使用ElementUI的部分组件
-+ 使用better-scroll滚动插件
+## 技术栈
++ `vue`：用于构建用户界面的MVVM框架
++ `vuex`：Vue集中状态管理，用于多组件之间共享状态
++ `vue-router`：路由系统
++ `scss`：CSS预处理器
++ `axios`：用于发送ajax请求
+## 其他工具
++ `vue-cli`：脚手架工具，用于快速初始化项目
++ `webpack`：模块打包工具
++ `iconfont`：阿里巴巴矢量图标库字体图标
++ ElementUI的部分组件
++ better-scroll滚动插件
 
 ## 功能
 + 登录（使用自己的网易云账号密码登录即可）
@@ -26,6 +35,8 @@ PC端按F12切换到移动设备模式查看即可
 <img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/find.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="发现"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/mine.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="我的"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/search.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="搜索"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/menu.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="菜单"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/playlist.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌单"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/cover.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="播放"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/lyrics.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌词"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/ground.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌单广场"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/highType.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="精品歌单标签分类"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/rank.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="排行榜">
 
 ## 运行
+后台代码运行详见[网易云音乐NodeJS版API](https://github.com/Binaryify/NeteaseCloudMusicApi)
+
 ```
 #切换到项目目录
 cd netease-cloud-music

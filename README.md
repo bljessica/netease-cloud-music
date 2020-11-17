@@ -9,7 +9,6 @@
 + `vue-router`：为单页面应用提供的路由系统
 + `scss`：CSS预处理器
 + `axios`：用于发送ajax请求
-## 其他工具
 + `vue-cli`：脚手架工具，用于快速初始化项目
 + `webpack`：模块打包工具
 + `iconfont`：阿里巴巴矢量图标库字体图标
@@ -33,6 +32,12 @@ PC端按F12切换到移动设备模式查看即可
 
 ## 界面展示
 <img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/find.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="发现"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/mine.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="我的"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/search.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="搜索"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/menu.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="菜单"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/playlist.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌单"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/cover.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="播放"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/lyrics.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌词"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/ground.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="歌单广场"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/highType.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="精品歌单标签分类"><img src="https://github.com/bljessica/netease-cloud-music/blob/master/static/rank.png" style="display: inline-block; margin-left: 20px;" width="200px" height="360px" alt="排行榜">
+
+## TODO
++ 优化图片加载速度，图片懒加载
++ 添加下拉搜索更多功能，完善搜索页面
++ 添加MV、电台、设置等功能
++ to be continued...
 
 ## 运行
 后台代码运行详见[网易云音乐NodeJS版API](https://github.com/Binaryify/NeteaseCloudMusicApi)

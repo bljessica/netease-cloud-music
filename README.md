@@ -6,15 +6,15 @@
 ## 技术栈
 + `vue`：用于构建用户界面的MVVM框架
 + `vuex`：Vue集中状态管理，用于多组件之间共享状态
-+ `vue-router`：路由系统
++ `vue-router`：为单页面应用提供的路由系统
 + `scss`：CSS预处理器
 + `axios`：用于发送ajax请求
 ## 其他工具
 + `vue-cli`：脚手架工具，用于快速初始化项目
 + `webpack`：模块打包工具
 + `iconfont`：阿里巴巴矢量图标库字体图标
-+ ElementUI的部分组件
-+ better-scroll滚动插件
++ `ElementUI`的部分组件
++ `better-scroll`：一款移动端滚动插件
 
 ## 功能
 + 登录（使用自己的网易云账号密码登录即可）

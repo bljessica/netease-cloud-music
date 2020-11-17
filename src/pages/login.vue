@@ -35,7 +35,7 @@
 <script>
 import '../common/styles/common.css';
 import { mapMutations } from 'vuex';
-import { phoneLogin, emailLogin } from '../api/login';
+import { phoneLogin, emailLogin, refreshLoginState } from '../api/login';
 import { verifyEmail, verifyLoginPassword, verifyPhone} from '../common/js/verifyInput';
 
 export default {
@@ -74,27 +74,29 @@ export default {
             }
             this.$emit('beforeLoad');
             let that = this;
-            phoneLogin({
-                phone: that.phone,
-                password: that.password
-            }).then(res => {
-                that.$emit('onLoad');
-                // console.log(that.phone, that.password)
-                // console.log(res.data)
-                if(res.data.code !== 200) {
-                    that.Message({
-                        message: res.data.msg,
-                        type: 'warning',
-                        duration: 1000
-                    });
-                    return;
-                }
-                that.setUserInfos(res.data);
-                that.phone = '';
-                that.password = '';
-                that.$router.push('/find');
-            }).catch(err => {
-                console.log(err);;
+            refreshLoginState().then(() => {
+                phoneLogin({
+                    phone: that.phone,
+                    password: that.password
+                }).then(res => {
+                    that.$emit('onLoad');
+                    // console.log(that.phone, that.password)
+                    // console.log(res.data)
+                    if(res.data.code !== 200) {
+                        that.Message({
+                            message: res.data.msg,
+                            type: 'warning',
+                            duration: 1000
+                        });
+                        return;
+                    }
+                    that.setUserInfos(res.data);
+                    that.phone = '';
+                    that.password = '';
+                    that.$router.push('/find');
+                }).catch(err => {
+                    console.log(err);;
+                })
             })
         },
         emailLogin() {
@@ -118,26 +120,28 @@ export default {
             }
             this.$emit('beforeLoad');
             let that = this;
-            emailLogin({
-                email: that.email,
-                password: that.password
-            }).then(res => {
-                that.$emit('onLoad');
-                // console.log(res.data)
-                if(res.data.code !== 200) {
-                    that.Message({
-                        message: res.data.msg,
-                        type: 'warning',
-                        duration: 1000
-                    });
-                    return;
-                }
-                that.setUserInfos(res.data);
-                that.email = '';
-                that.password = '';
-                that.$router.push('/find');
-            }).catch(err => {
-                console.log(err);;
+            refreshLoginState().then(() => {
+                emailLogin({
+                    email: that.email,
+                    password: that.password
+                }).then(res => {
+                    that.$emit('onLoad');
+                    // console.log(res.data)
+                    if(res.data.code !== 200) {
+                        that.Message({
+                            message: res.data.msg,
+                            type: 'warning',
+                            duration: 1000
+                        });
+                        return;
+                    }
+                    that.setUserInfos(res.data);
+                    that.email = '';
+                    that.password = '';
+                    that.$router.push('/find');
+                }).catch(err => {
+                    console.log(err);;
+                })  
             })
         },
         setUserInfos(data) {

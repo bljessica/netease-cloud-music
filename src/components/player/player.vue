@@ -340,7 +340,7 @@ export default {
                     //刚开启
                     if(!flag) {
                         player.currentTime = that.currentTime;
-                        console.log('set:' + player.currentTime)
+                        // console.log('set:' + player.currentTime)
                         flag = true;
                         that.setPlayer(player);
                     }
@@ -355,7 +355,7 @@ export default {
                     }
                     //这首歌放完了
                     if(Math.floor(current) === Math.floor(duration) - 1) {
-                        console.log('end',that.playingType);
+                        // console.log('end',that.playingType);
                         //列表循环
                         if(that.playingType === 0) {
                             clearInterval(that.playingTimer);
@@ -366,7 +366,7 @@ export default {
                         //随机播放
                         else if (that.playingType === 1) {
                             clearInterval(that.playingTimer);
-                            console.log('random')
+                            // console.log('random')
                             that.randomNextSong();
                             return;
                         }
@@ -390,7 +390,7 @@ export default {
             let player = this.$refs.myPlayer;
             player.pause();
             clearInterval(this.playingTimer);
-            console.log('stop', this.currentTime)
+            // console.log('stop', this.currentTime)
             this.setIsPlaying(false);
         },
         //找到现在的时间对应的歌词

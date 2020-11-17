@@ -9,14 +9,6 @@ function phoneLogin(data) {
     })
 }
 
-//手机号登录
-function refreshLoginState(data) {
-    return request({
-        url: '/login/refresh',
-        method: 'get',
-        data: data
-    })
-}
 
 //邮箱登录
 function emailLogin(data) {
@@ -29,6 +21,5 @@ function emailLogin(data) {
 
 export {
     phoneLogin,
-    emailLogin,
-    refreshLoginState
+    emailLogin
 }

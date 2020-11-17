@@ -139,6 +139,7 @@ const router = new Router({
 //路由守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
   if(to.meta.requireAuth) {
+    console.log(store.getters.isLogin)
     if(store.getters.isLogin === false) {
       next('/login');
     }

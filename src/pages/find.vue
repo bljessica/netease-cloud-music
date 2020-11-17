@@ -82,7 +82,10 @@ export default {
     },
     mounted() {
         this.getBanner();
-        this.getCalendar();
+        let that = this;
+        if(this.$store.getters.isLogin) {
+            that.getCalendar();
+        }
         this.$nextTick(() => {
             this.initNavBtnsSlider();
         })
